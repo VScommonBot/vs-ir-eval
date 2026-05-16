@@ -72,10 +72,12 @@ Strictly output the following Markdown structure. Replace `{S1}` to `{S5}` with 
 - **⚙️ 기술적 관점**: (Tech barriers)
 - **🚀 마케팅/GTM 관점**: (Go-to-market strategy)
 
-## 7. 🔥 벤처스퀘어 압박 질문 3가지
+## 7. 🔥 벤처스퀘어를 비롯한 투자 심사역이 흔히 물어보는 질문 5가지
 1. (Question 1)
 2. (Question 2)
 3. (Question 3)
+4. (Question 4)
+5. (Question 5)
 
 ## 8. 📚 관련 산업 동향 및 추천 리서치 링크
 - (Industry trend keyword 1): [구글 검색 보기](https://www.google.com/search?q=[URL_ENCODED_KEYWORD])
