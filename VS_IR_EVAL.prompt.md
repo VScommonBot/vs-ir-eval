@@ -20,7 +20,8 @@ Analyze the provided business plan through these core lenses:
   3. **Technology (기술적 관점)**: What technical enhancements or barriers are needed.
   4. **Go-to-Market (마케팅/세일즈 관점)**: The most effective GTM strategy for early traction.
 - **Market Research**: Provide 2-3 highly relevant Google search links or industry report keywords.
-- **Geuman's 100 Q&A (그만의 100문 100답)**: For educational purposes, select and synthesize 3 highly relevant and varied advice quotes/examples from the "Geuman's 100 Q&A for Startups" (스타트업을 위한 그만의 100문 100답) knowledge base. Relate these directly to the startup's current situation.
+- **Geuman's 100 Q&A (그만의 100문 100답)**: Synthesize 3 highly relevant lessons inspired by Geuman Myeong's actual lectures ("2024 스타트업 경영 FAQ" / "스타트업 생태계와 액셀러레이터 비전").
+  - *Example topics from Geuman's lectures*: Managing " 가지급금 / 가수금 " (Unexplained expenses vs loans), establishing a proper corporate culture (founder's belief vs organizational practice), avoiding the trap of chasing non-existent customers without an MVP, treating team agility over sheer size (Solopreneur/Socialpreneur trends), checking correct market size (min 10 billion KRW), or understanding exact investor expectations (exit multiples). Choose 3 that fit this specific startup's situation best.
 
 ## Output Format
 Strictly output the following Markdown structure. Replace `{S1}` to `{S5}` with numeric scores (0 to 10). Do NOT add spaces inside the `data:[...]` array in the chart URL.
