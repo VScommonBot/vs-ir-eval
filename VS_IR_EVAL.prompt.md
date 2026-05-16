@@ -26,7 +26,8 @@ Analyze the provided business plan through these core lenses:
 Strictly output the following Markdown structure. Replace `{S1}` to `{S5}` with numeric scores (0 to 10). Do NOT add spaces inside the `data:[...]` array in the chart URL.
 
 ```markdown
-# 📊 VS IR Evaluation Report: [Startup/Project Name]
+# 📊 VS IR Evaluation AI Report
+## 사업 아이템 : [Startup/Project Name]
 
 > **"시장 크기보다 팀의 집요함이, 화려한 기술보다 진짜 고객을 만나는 발품이 중요합니다."**
 
