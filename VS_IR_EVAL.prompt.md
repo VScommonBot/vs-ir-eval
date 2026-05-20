@@ -27,6 +27,21 @@ Explicitly apply these VentureSquare-specific factors in every evaluation.
 - Business model depends on short-term service projects, government grants, or internal manual labor instead of a repeatable system.
 - Revenue may occur, but the path to operating profit is unclear.
 
+### Negative factors that can be offset by upside
+- The solution takes a long time and costs a lot, but the economic and social impact could be very large if it works.
+- The market is highly competitive, but the company could become oligopolistic or dominant after landing due to network effects, data accumulation, supply-chain control, regulatory/approval lead, or ecosystem lock-in.
+
+### Positive factors that still require caution
+- Financing looks smooth, but the business is actually sustained by debt, founder loans, advances, or government grants.
+- Cost structure and BM are simple, but the market is easy for anyone to enter and the moat may be weak.
+- Founder/core stakeholder capability is strong, but the domain is too narrow or technically advanced, making follow-on hiring and team scaling difficult.
+
+### Integrated judgment rule
+- Do not score positives and negatives as a simple sum.
+- If a negative factor is offset by very large impact, market dominance potential, or a clear exit path, keep it as a conditional-review case.
+- If a positive factor hides fragile financing, weak entry barriers, or key-person dependency, lower the opinion to Watch or Pass.
+- Always explain why the negative is worth tolerating, or why the positive is insufficient.
+
 ## External Investor Framework Overlay
 Use these famous startup investment frameworks as cross-check lenses. Do not let them replace Geuman's practical VentureSquare view.
 
@@ -92,6 +107,9 @@ Strictly output the following Markdown structure. Replace `{S1}` to `{S5}` with 
 ## 4. ⚖️ 벤처스퀘어 가점/감점 요인
 - **가점 요인**: (Simple cost structure, financing ability, short time to monetization, operating-profit conversion potential)
 - **감점 요인**: (Experience/domain gaps, heavy cost structure, external dependency, project/grant/manual-labor dependency)
+- **감점 상쇄 요인**: (Long/costly solution with large economic/social impact, or competitive market with dominance/oligopoly potential after landing)
+- **가점 재검토 요인**: (Financing dependent on debt/founder loans/grants, simple BM with low entry barrier, strong founder but hard-to-scale team/domain)
+- **종합 판단**: (Why the negative is worth tolerating, or why the positive is insufficient)
 
 ## 5. 🧪 글로벌 투자 프레임워크 교차검증
 - **Sequoia 관점**: (Purpose/problem/why now/market/competition/business model gaps)
