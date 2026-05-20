@@ -1,8 +1,10 @@
 # VS IR Evaluation Skill (vs-ir-eval)
 
-벤처스퀘어 명승은 대표의 초기 스타트업 투자 및 멘토링 철학을 바탕으로 사업계획서(IR)를 평가하는 전문 프레임워크 스킬입니다. 
+벤처스퀘어 명승은 대표의 초기 스타트업 투자 및 멘토링 철학을 바탕으로 사업계획서(IR)를 평가하는 전문 프레임워크 스킬입니다.
 
 기존의 단순 요약 봇을 넘어, **'진짜 고객을 만나는가?', '우리 말고는 하기 어려운가?', '역량 없는 리더가 완성되지 않은 기술에 집착하는 것은 아닌가?'** 등 초기 투자 심사역의 날카로운 관점으로 사업을 해체하고 압박 질문을 도출합니다.
+
+2026-05 업데이트로 Sequoia, Y Combinator, a16z, Bessemer의 공개 투자/피치/지표 프레임워크를 보조 렌즈로 접목했습니다. 단, 최종 판단 기준은 벤처스퀘어/그만님 투자 철학을 우선합니다.
 
 ## 사용법 (Usage)
 
@@ -15,10 +17,29 @@ OpenClaw 에이전트(또는 호환되는 프롬프트 환경)에 사업계획�
 
 1. **🎯 총평 (Executive Summary)**: 한 줄 평가, 투자의견(적극검토/관찰요망/투자보류), 핵심 명분
 2. **🕸️ VS 역량 레이더 (Score: 1~10)**: 팀/역량, 시장 매력도, 기술 해자, 확장성, 전략적 명분 점수화
-3. **🔍 상세 분석 (Deep Dive)**: 
+3. **🏛️ TIPS / LIPS 연계 적합성 진단**: 기술창업/R&D 과제화 가능성, 추천 과제명, 보완 증빙
+4. **🧪 글로벌 투자 프레임워크 교차검증**: Sequoia, YC, a16z/Bessemer, marketplace/SaaS 관점 검토
+5. **🔍 상세 분석 (Deep Dive)**:
    - 👍 흥할 수도 있는 조건 (Strengths)
    - 👎 망할 수도 있는 상황 (Red Flags & Weaknesses)
-4. **💡 벤처스퀘어 관점의 멘토링 (Geuman's Advice)**: 창업자에게 던질 압박 질문 3가지, 넥스트 스텝 조언
+6. **📊 투자심사 체크리스트**: 바로 확인할 숫자, 문서, 통과 조건
+7. **💡 벤처스퀘어 관점의 멘토링 (Geuman's Advice)**: 창업자에게 던질 압박 질문 3가지, 넥스트 스텝 조언
+
+## 접목한 외부 프레임워크
+
+- **Sequoia Capital**: 목적, 문제, 솔루션, 왜 지금인가, 시장, 경쟁, 제품, 비즈니스 모델, 팀, 재무/마일스톤 구조
+- **Y Combinator**: 사람들이 원하는 것을 만들고 있는지, 초기 사용자 사랑, 출시와 사용자 대화, "확장되지 않는 일"의 실행
+- **a16z**: 매출 품질, CAC/LTV, gross margin, churn, retention, burn, engagement 등 지표 중심 검증
+- **a16z Marketplace**: GMV, take rate, liquidity, fill/match rate, repeat usage, disintermediation 위험
+- **Bessemer**: SaaS/cloud의 ARR/MRR 품질, CAC payback, net revenue retention, gross margin, burn multiple
+
+참고 출처:
+- https://sequoiacap.com/article/writing-a-business-plan/
+- https://www.ycombinator.com/blog/ycs-essential-startup-advice/
+- https://www.ycombinator.com/blog/how-not-to-fail/
+- https://a16z.com/16-startup-metrics/
+- https://a16z.com/the-marketplace-glossary/
+- https://www.bvp.com/atlas/10-laws-of-cloud
 
 ## 설치 (Installation)
 
@@ -28,8 +49,8 @@ OpenClaw 에이전트(또는 호환되는 프롬프트 환경)에 사업계획�
 # 스킬 디렉토리로 이동
 cd ~/.openclaw/workspace/skills
 
-# 저장소 클론 (예정)
-# git clone https://github.com/venturesquare/vs-ir-eval.git
+# 저장소 클론
+git clone https://github.com/mse-lang/vs-ir-eval.git
 ```
 
 ## 철학 (Philosophy)
