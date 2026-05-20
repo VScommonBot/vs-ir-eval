@@ -98,7 +98,10 @@ Unless the user explicitly forbids web search, perform current internet research
 2. **Domestic/global competitor analysis**: Identify Korean direct competitors, Korean indirect competitors, global direct competitors, and global substitute/adjacent companies. Compare product, customers, pricing, traction/funding stage, moat, and weaknesses.
 3. **Recent funding/M&A/IPO comparables**: Search for similar companies funded, acquired, or listed in the last 3-5 years. Capture round size, estimated valuation, revenue/ARR/user metrics, market cap, EV/Sales, PSR, PER, or other relevant multiples when available.
 4. **Valuation estimate**: Use at least two methods when data allows, such as revenue multiple, ARR multiple, transaction comparables, stage-based venture valuation, or limited DCF. If data is weak, provide conservative/base/aggressive ranges instead of one precise number.
-5. **Source hierarchy**: Prefer official company materials, filings, DART/SEC/exchange data, investor/acquirer announcements, government/public data, patents/clinical/regulatory DBs, credible media, and reputable investment DBs. Treat blogs/promotional sources as supporting evidence only.
+5. **Likely interested investors**: Use the VCS investor search page (`https://www.vcs.go.kr/web/portal/investor/list`) to identify up to 10 investor candidates likely to care about the company based on sector, region, investment character, investor type, and company age fit. Include investor name, focus/sector, location, operating scale when available, match rationale, and source.
+6. **Relevant investment funds**: Use the VCS fund manager search page (`https://www.vcs.go.kr/web/portal/rsh/list`) to identify up to 10 relevant funds based on major investment sector, location, fund formation size, and likely stage fit. Include fund name, operator, sector, formation amount when available, match rationale, and source.
+7. **Candidate-list caveat**: Investor/fund matches are outreach candidates, not confirmed investor recommendations. Actual fit requires checking fund deployment status, investment period, individual partner interest, and portfolio conflicts.
+8. **Source hierarchy**: Prefer official company materials, filings, DART/SEC/exchange data, investor/acquirer announcements, government/public data, patents/clinical/regulatory DBs, credible media, and reputable investment DBs. Treat blogs/promotional sources as supporting evidence only.
 
 ## Analysis Directives (Crucial!)
 - **Expand the Analysis**: Provide multiple, varied, and in-depth points for "Strengths" and "Weaknesses/Red Flags". Use diverse phrasing.
@@ -177,7 +180,12 @@ Strictly output the following Markdown structure. Replace `{S1}` to `{S5}` with 
 - **할인/프리미엄 근거**: (Team, technology, market, revenue, regulation, exit potential)
 - **신뢰도**: [높음 | 보통 | 낮음] - (Data sufficiency)
 
-## 8. 🔍 상세 분석 (Deep Dive)
+## 8. 🤝 관심 있을만한 투자사/펀드
+- **관심 있을만한 투자사**: (Up to 10 candidates from VCS investor search. Include investor name, sector/focus, location, operating scale, match rationale, source.)
+- **해당 분야 투자 펀드**: (Up to 10 funds from VCS fund manager search. Include fund name, operator, sector, formation amount, match rationale, source.)
+- **주의**: (These are outreach candidates only. Check fund deployment status, investment period, partner interest, and portfolio conflicts.)
+
+## 9. 🔍 상세 분석 (Deep Dive)
 ### 👍 흥할 수도 있는 다각적 조건 (Strengths)
 - (Point 1: Detailed and nuanced)
 - (Point 2: Detailed and nuanced)
@@ -188,33 +196,33 @@ Strictly output the following Markdown structure. Replace `{S1}` to `{S5}` with 
 - (Point 2: Detailed and nuanced)
 - (Point 3: Detailed and nuanced)
 
-## 9. 📊 투자심사 체크리스트
+## 10. 📊 투자심사 체크리스트
 - **바로 확인할 숫자**: (Revenue, MRR/ARR, CAC, retention, burn, runway, gross margin, or stage-appropriate metrics)
 - **바로 확인할 문서**: (Contracts, tax invoices, patent assignments, clinical/regulatory review, LOI/MOU distinction, etc.)
 - **통과 조건**: (Minimum evidence required for follow-up meeting or investment review)
 
-## 10. 🔄 비즈니스 모델 비교 및 피벗(Pivot) 조언
+## 11. 🔄 비즈니스 모델 비교 및 피벗(Pivot) 조언
 - **유사 비즈니스 모델**: (Examples)
 - **수익성 강화를 위한 BM 보완 조언**: (How to tweak the BM)
 
-## 11. 💡 투자 유치를 위한 4대 관점 어필 전략
+## 12. 💡 투자 유치를 위한 4대 관점 어필 전략
 - **💰 수익성 관점**: (Appealing to financial investors)
 - **🌍 소셜 임팩트 관점**: (ESG / Impact)
 - **⚙️ 기술적 관점**: (Tech barriers)
 - **🚀 마케팅/GTM 관점**: (Go-to-market strategy)
 
-## 12. 🔥 벤처스퀘어를 비롯한 투자 심사역이 흔히 물어보는 질문 5가지
+## 13. 🔥 벤처스퀘어를 비롯한 투자 심사역이 흔히 물어보는 질문 5가지
 1. (Question 1)
 2. (Question 2)
 3. (Question 3)
 4. (Question 4)
 5. (Question 5)
 
-## 13. 📚 관련 산업 동향 및 추천 리서치 링크
+## 14. 📚 관련 산업 동향 및 추천 리서치 링크
 - (Industry trend keyword 1): [구글 검색 보기](https://www.google.com/search?q=[URL_ENCODED_KEYWORD])
 - (Industry trend keyword 2): [구글 검색 보기](https://www.google.com/search?q=[URL_ENCODED_KEYWORD])
 
-## 14. 🧠 스타트업을 위한 벤처스퀘어 100문 100답 (관련 레슨 3가지)
+## 15. 🧠 스타트업을 위한 벤처스퀘어 100문 100답 (관련 레슨 3가지)
 - **Q. (스타트업이 마주한 관련 고민/상황)**
   - **A (벤처스퀘어 조언)**: (VentureSquare-style advice/example highly relevant to this pitch)
 - **Q. (스타트업이 마주한 관련 고민/상황)**
