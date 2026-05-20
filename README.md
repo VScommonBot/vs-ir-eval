@@ -131,6 +131,20 @@ cd ~/.openclaw/workspace/skills
 git clone https://github.com/mse-lang/vs-ir-eval.git
 ```
 
+## 웹앱 배포 전 설정
+
+`web-app/index.php`는 공개 데모용 단일 파일 PHP 웹앱입니다. API 키를 소스 코드에 직접 넣지 말고, 서버 환경변수로만 주입하세요.
+
+```bash
+export OPENAI_API_KEY="sk-..."
+php -S 127.0.0.1:8080 -t web-app
+```
+
+공개 배포 시 주의 사항:
+- 입력 자료는 OpenAI API로 전송되므로 사용자에게 전송 고지와 동의를 받아야 합니다.
+- 비공개 IR, 개인정보, 계약서, 재무자료 원문 등 민감한 자료를 넣지 않도록 안내해야 합니다.
+- 모델 응답 Markdown은 HTML로 렌더링하기 전에 sanitize해야 합니다. 기본 웹앱은 DOMPurify를 사용합니다.
+
 ## 철학 (Philosophy)
 
 이 프레임워크는 벤처스퀘어의 실전 투자·멘토링 관점에서 정리한 다음의 뷰(View)를 따릅니다.

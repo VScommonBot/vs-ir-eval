@@ -1,17 +1,27 @@
 <?php
-// Backend API Handler
+// 간이 IR 평가 웹앱의 PHP 단일 파일 엔드포인트
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     header('Content-Type: application/json');
     $input = json_decode(file_get_contents('php://input'), true);
     $idea = $input['idea'] ?? '';
+    $consent = $input['consentToAiProcessing'] ?? false;
 
     if (empty($idea)) {
         echo json_encode(['error' => '아이디어를 입력해주세요.']);
         exit;
     }
 
-    // 보안: 실제 배포 시 .env 등에서 읽어오도록 수정하세요.
-    $api_key = 'sk-proj-**********************************'; // 서버에 배포할 때 실제 키로 교체 필요
+    if (!$consent) {
+        echo json_encode(['error' => 'AI 분석을 위해 입력 자료가 외부 API로 전송되는 것에 동의해야 합니다.']);
+        exit;
+    }
+
+    $api_key = getenv('OPENAI_API_KEY') ?: '';
+    if ($api_key === '') {
+        http_response_code(500);
+        echo json_encode(['error' => '서버 설정 오류: OPENAI_API_KEY 환경변수가 필요합니다.']);
+        exit;
+    }
 
     $system_prompt = <<<PROMPT
 # VS IR Evaluation Framework
@@ -54,9 +64,16 @@ PROMPT;
 
     $response = curl_exec($ch);
     if(curl_errno($ch)){
+        http_response_code(502);
         echo json_encode(['error' => curl_error($ch)]);
     } else {
         $res_json = json_decode($response, true);
+        if (!isset($res_json['choices'][0]['message']['content'])) {
+            http_response_code(502);
+            echo json_encode(['error' => $res_json['error']['message'] ?? 'OpenAI API 응답을 해석하지 못했습니다.']);
+            curl_close($ch);
+            exit;
+        }
         $markdown = $res_json['choices'][0]['message']['content'] ?? '';
         echo json_encode(['markdown' => $markdown]);
     }
@@ -72,6 +89,7 @@ PROMPT;
     <title>벤처스퀘어 간이 AI 셀프 평가</title>
     <!-- 마크다운 파서 및 CSS -->
     <script src="https://cdn.jsdelivr.net/npm/marked/markdown.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/dompurify/dist/purify.min.js"></script>
     <style>
         :root {
             --main-blue: #0032CD;
@@ -127,6 +145,26 @@ PROMPT;
             outline: none;
             border-color: var(--main-blue);
         }
+        .notice {
+            background: #f0f4ff;
+            border-left: 5px solid var(--main-blue);
+            border-radius: 4px;
+            padding: 14px 16px;
+            margin: 18px 0;
+            font-size: 14px;
+            color: #333;
+        }
+        .consent {
+            display: flex;
+            gap: 10px;
+            align-items: flex-start;
+            margin-top: 14px;
+            font-size: 14px;
+            color: #333;
+        }
+        .consent input {
+            margin-top: 4px;
+        }
         .btn {
             display: block;
             width: 100%;
@@ -171,7 +209,14 @@ PROMPT;
         </div>
         
         <p style="font-weight: bold;">당신의 사업 아이디어나 엘리베이터 피치를 자유롭게 적어주세요.</p>
+        <div class="notice">
+            입력한 내용은 평가 생성을 위해 OpenAI API로 전송됩니다. 비공개 IR, 개인정보, 계약서, 재무자료 원문 등 민감한 자료는 넣지 마세요.
+        </div>
         <textarea id="ideaInput" placeholder="예: 소상공인을 위한 AI 기반 재고관리 챗봇 서비스입니다. 기존 ERP와 달리 카카오톡으로 발주가 가능하며..."></textarea>
+        <label class="consent">
+            <input id="consentInput" type="checkbox">
+            <span>입력 자료가 AI 분석을 위해 외부 API로 전송되는 것에 동의합니다.</span>
+        </label>
         
         <button id="submitBtn" class="btn">[간이 AI 셀프 평가] 진행하기</button>
         <div id="loading" class="loading">벤처스퀘어 뷰로 사업을 분석 중입니다... (약 15초 소요)</div>
@@ -182,8 +227,13 @@ PROMPT;
     <script>
         document.getElementById('submitBtn').addEventListener('click', async () => {
             const idea = document.getElementById('ideaInput').value.trim();
+            const consentToAiProcessing = document.getElementById('consentInput').checked;
             if (!idea) {
                 alert('사업 아이디어를 입력해주세요.');
+                return;
+            }
+            if (!consentToAiProcessing) {
+                alert('AI 분석을 위한 외부 API 전송에 동의해주세요.');
                 return;
             }
 
@@ -199,7 +249,7 @@ PROMPT;
                 const response = await fetch('', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ idea })
+                    body: JSON.stringify({ idea, consentToAiProcessing })
                 });
 
                 const data = await response.json();
@@ -207,9 +257,8 @@ PROMPT;
                 if (data.error) {
                     alert('오류가 발생했습니다: ' + data.error);
                 } else {
-                    // 정규식으로 이미지 태그 수정 (URL 인코딩 등 안전장치)
                     let markdown = data.markdown;
-                    resultDiv.innerHTML = marked.parse(markdown);
+                    resultDiv.innerHTML = DOMPurify.sanitize(marked.parse(markdown));
                     resultDiv.style.display = 'block';
                 }
             } catch (err) {
