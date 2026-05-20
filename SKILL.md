@@ -1,19 +1,19 @@
 ---
 name: vs-ir-eval
-description: Evaluate startup IR decks, pitch decks, business plans, TIPS/LIPS fit, and early-stage investment readiness using VentureSquare/Geuman investment philosophy enhanced with Sequoia, YC, a16z, Bessemer, and marketplace/SaaS investor frameworks.
+description: Evaluate startup IR decks, pitch decks, business plans, TIPS/LIPS fit, and early-stage investment readiness using VentureSquare investment philosophy enhanced with Sequoia, YC, a16z, Bessemer, and marketplace/SaaS investor frameworks.
 ---
 
 # VS IR Evaluation Skill (vs-ir-eval)
 
 ## Description
-벤처스퀘어 명승은 대표(그만님)의 초기 스타트업 투자 및 멘토링 철학을 바탕으로 사업계획서(IR)를 평가하는 전문 프레임워크입니다. 그만님의 실전 투자 관점을 중심축으로 두고, Sequoia, Y Combinator, a16z, Bessemer 등 유명 투자사·액셀러레이터의 검증 렌즈를 보조 프레임으로 결합합니다.
+벤처스퀘어의 초기 스타트업 투자 및 멘토링 철학을 바탕으로 사업계획서(IR)를 평가하는 전문 프레임워크입니다. 벤처스퀘어의 실전 투자 관점을 중심축으로 두고, Sequoia, Y Combinator, a16z, Bessemer 등 유명 투자사·액셀러레이터의 검증 렌즈를 보조 프레임으로 결합합니다.
 
 ## Use When
 사용자가 초기 스타트업의 사업계획서(IR 덱, 요약본, 서비스 설명 등) 텍스트를 주면서 "이 사업 어때?", "평가해줘", "벤처스퀘어 스타일로 분석해줘"라고 요청할 때 이 스킬을 가동합니다.
 
-## Evaluation Framework (명승은 대표의 투자 철학)
+## Evaluation Framework (벤처스퀘어 투자 철학)
 
-AI는 사업계획서를 다음 6가지 핵심 관점과 명승은 대표의 실전 강의 인사이트를 바탕으로 분석해야 합니다.
+AI는 사업계획서를 다음 6가지 핵심 관점과 벤처스퀘어의 실전 투자 인사이트를 바탕으로 분석해야 합니다.
 
 1. **팀과 기업가 역량 (Team & CEO)**
    - 현장을 직접 발로 뛰며 진짜 고객을 만나고 있는가?
@@ -78,7 +78,7 @@ AI는 사업계획서를 다음 6가지 핵심 관점과 명승은 대표의 실
 
 ## External Investor Framework Overlay
 
-그만님 관점을 희석하지 말고, 아래 외부 프레임워크를 교차검증 렌즈로만 사용합니다.
+벤처스퀘어 관점을 희석하지 말고, 아래 외부 프레임워크를 교차검증 렌즈로만 사용합니다.
 
 1. **Sequoia pitch logic**
    - 한 문장 목적, 고객 고통, 솔루션, "왜 지금인가", 시장 잠재력, 경쟁/대안, 제품, 사업모델, 팀, 재무/마일스톤이 명확한지 본다.
@@ -206,7 +206,7 @@ AI 간이 투자심사보고서는 채팅 답변만으로 끝내지 않고, 업�
 
 ## Output Format
 
-답변은 반드시 아래 마크다운 구조를 엄격히 따르며, 어조는 '명승은 대표가 후배 창업가나 심사역에게 조언/보고하는 듯한 전문적이고 실용적인 톤(그만봇 톤)'으로 작성합니다.
+답변은 반드시 아래 마크다운 구조를 엄격히 따르며, 어조는 벤처스퀘어가 후배 창업가나 심사역에게 조언/보고하는 듯한 전문적이고 실용적인 톤으로 작성합니다.
 
 ```markdown
 # 📊 VS IR Evaluation Report: [스타트업/프로젝트 이름]
@@ -274,7 +274,7 @@ AI 간이 투자심사보고서는 채팅 답변만으로 끝내지 않고, 업�
 - **바로 확인할 문서**: (계약서, LOI/MOU 구분, 특허권리자, IRR/EXIT 가정, 인허가 검토 등)
 - **통과 조건**: (후속 미팅 또는 투자검토로 넘어가기 위한 최소 증거)
 
-## 10. 💡 벤처스퀘어 관점의 멘토링 (Geuman's Advice)
+## 10. 💡 벤처스퀘어 관점의 멘토링
 - **창업자에게 던질 압박 질문 3가지**:
   1. (예: "경쟁사가 내일 똑같은 기능 내놓으면 어떻게 막을 겁니까?")
   2. ...

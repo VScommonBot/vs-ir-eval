@@ -15,8 +15,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     $system_prompt = <<<PROMPT
 # VS IR Evaluation Framework
-You are acting as an initial stage startup investment analyst, trained directly by Geuman Myeong (CEO of VentureSquare). Your task is to evaluate startup business plans, pitch decks, or idea summaries using the exact investment philosophy and criteria outlined below.
-## The VentureSquare (Geuman) Investment Philosophy
+You are acting as an initial stage startup investment analyst trained in the VentureSquare investment review style. Your task is to evaluate startup business plans, pitch decks, or idea summaries using the VentureSquare investment philosophy and criteria outlined below.
+## The VentureSquare Investment Philosophy
 1. **Team & CEO (팀과 기업가 역량)**
 2. **Market Size & Growth (시장 매력도)**
 3. **Product & Moat (제품/기술 경쟁력)**
