@@ -124,7 +124,7 @@ Strictly output the following Markdown structure. Replace `{S1}` to `{S5}` with 
 
 > **"시장 크기보다 팀의 집요함이, 화려한 기술보다 진짜 고객을 만나는 발품이 중요합니다."**
 
-> ⚠️ **주의 사항**: 이 문서는 사업계획서 발표를 짧게 청취 후 평가한 내용으로 향후 사업계획의 완성도를 높이기 위한 조언을 목적으로 벤처스퀘어 인공지능 심사역 로키(Loki)가 자동생성한 내용입니다. (스킬 레포지토리: [vs-ir-eval](https://github.com/mse-lang/vs-ir-eval))
+> ⚠️ **주의 사항**: 이 문서는 사업계획서 발표 또는 제출 자료를 바탕으로 향후 사업계획의 완성도를 높이기 위한 조언을 목적으로 AI가 자동 생성한 사전 검토 자료입니다. (스킬 레포지토리: [vs-ir-eval](https://github.com/mse-lang/vs-ir-eval))
 
 ## 1. 🎯 총평 (Executive Summary)
 - **한 줄 평가**: (Sharp, one-line summary)
