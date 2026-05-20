@@ -101,6 +101,16 @@ Do not stop at a chat answer when the task is an AI lightweight investment revie
 5. **Competitor background collection**: Every competitor or comparable company identified during analysis should be queued for background collection with name, country, website, sector, product, customer segment, funding/listing/M&A events, source URLs, and confidence.
 6. **Safety rule**: External sharing and DB writes require proper permission/approval. If approval or credentials are unavailable, produce the Word-ready content, metadata JSON/SQL preview, and Chat draft instead.
 
+## Organic Review Loop
+VentureSquare investment review is not a one-shot report. It should become an iterative loop of questions, IR meetings, answers, transcripts, report updates, and mock investment-review coaching.
+
+1. **Company-specific advice/question boxes**: Add a bottom-box memo for each company. Include tailored advice and questions tied to the company's specific risks, assumptions, customers, BM, regulation, competition, and valuation.
+2. **Question structure**: For each question, include `question intent`, `what a good answer looks like`, `answer record field`, and `follow-up evidence`.
+3. **Meeting/IR answer capture**: During real meetings or IR sessions, record answers by question. Link transcripts, meeting notes, recordings, speaker, date, and context when available.
+4. **Report update loop**: Update score, investment opinion, risk, valuation, and TIPS/LIPS fit based on answers and evidence. Keep a revision log instead of silently overwriting the prior report.
+5. **Mock investment review**: Use accumulated questions/answers to create a mock investment-review guide for the startup: expected questions, weak answer examples, good answer criteria, evidence checklist, and homework before the next IR.
+6. **DB linkage**: Structure this loop for relational storage with entities such as `investment_questions`, `meeting_notes`, `meeting_recordings`, `question_answers`, `report_revisions`, and `mock_review_sessions`.
+
 ## Analysis Directives (Crucial!)
 - **Expand the Analysis**: Provide multiple, varied, and in-depth points for "Strengths" and "Weaknesses/Red Flags". Use diverse phrasing.
 - **Similar BM & Pivot Advice**: Identify similar existing business models and suggest specific ways to pivot or modify the BM for higher profitability and sustainability.
@@ -229,4 +239,12 @@ Strictly output the following Markdown structure. Replace `{S1}` to `{S5}` with 
 - **Google Chat 공유 요약**: (Summary under 5 lines)
 - **DB 확장 대상**: (Report, company, people, competitors, funding/M&A/IPO, sources)
 - **백그라운드 수집 큐**: (Competitor/comparable company list and collection priority)
+
+## 16. 🗂️ 미팅/IR 질문 박스와 업데이트 루프
+- **기업별 조언 메모**: (Tailored bottom-box memo)
+- **핵심 질문 박스**: (Question, intent, good-answer criteria, answer field, follow-up evidence)
+- **미팅/녹취 기록 계획**: (IR/meeting date, attendees, transcript/recording link, capture method)
+- **답변 반영 업데이트**: (How to update score/risk/valuation/TIPS after answers)
+- **모의 투자심사 가이드**: (Expected questions, weak-answer fixes, homework before next IR)
+- **DB 연계 대상**: (`investment_questions`, `meeting_notes`, `meeting_recordings`, `question_answers`, `report_revisions`, `mock_review_sessions`)
 ```
