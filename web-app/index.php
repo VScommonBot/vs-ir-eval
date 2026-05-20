@@ -1,17 +1,48 @@
 <?php
 // 간이 IR 평가 웹앱의 PHP 단일 파일 엔드포인트
+$script_nonce = bin2hex(random_bytes(16));
+header('X-Content-Type-Options: nosniff');
+header("Content-Security-Policy: default-src 'self'; script-src 'self' 'nonce-" . $script_nonce . "' https://cdn.jsdelivr.net; style-src 'self' 'unsafe-inline'; img-src 'self' https://quickchart.io data:; connect-src 'self'; base-uri 'none'; form-action 'self'; frame-ancestors 'none'");
+header('Referrer-Policy: strict-origin-when-cross-origin');
+header('Permissions-Policy: camera=(), microphone=(), geolocation=()');
+
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    header('Content-Type: application/json');
-    $input = json_decode(file_get_contents('php://input'), true);
-    $idea = $input['idea'] ?? '';
+    header('Content-Type: application/json; charset=utf-8');
+
+    $origin = $_SERVER['HTTP_ORIGIN'] ?? '';
+    $host = $_SERVER['HTTP_HOST'] ?? '';
+    if ($origin !== '' && $host !== '' && parse_url($origin, PHP_URL_HOST) !== $host) {
+        http_response_code(403);
+        echo json_encode(['error' => '허용되지 않은 요청 출처입니다.']);
+        exit;
+    }
+
+    $raw_input = file_get_contents('php://input');
+    $input = json_decode($raw_input ?: '', true);
+    if (!is_array($input)) {
+        http_response_code(400);
+        echo json_encode(['error' => '요청 본문이 올바른 JSON 형식이 아닙니다.']);
+        exit;
+    }
+
+    $idea = trim((string)($input['idea'] ?? ''));
     $consent = $input['consentToAiProcessing'] ?? false;
 
     if (empty($idea)) {
+        http_response_code(400);
         echo json_encode(['error' => '아이디어를 입력해주세요.']);
         exit;
     }
 
-    if (!$consent) {
+    $idea_length = function_exists('mb_strlen') ? mb_strlen($idea, 'UTF-8') : strlen($idea);
+    if ($idea_length > 12000) {
+        http_response_code(413);
+        echo json_encode(['error' => '입력은 12,000자 이내로 줄여주세요.']);
+        exit;
+    }
+
+    if ($consent !== true) {
+        http_response_code(400);
         echo json_encode(['error' => 'AI 분석을 위해 입력 자료가 외부 API로 전송되는 것에 동의해야 합니다.']);
         exit;
     }
@@ -22,11 +53,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         echo json_encode(['error' => '서버 설정 오류: OPENAI_API_KEY 환경변수가 필요합니다.']);
         exit;
     }
+    $model = getenv('OPENAI_MODEL') ?: 'gpt-4o';
 
     $system_prompt = <<<PROMPT
 # VS IR Evaluation Framework
-You are acting as an initial stage startup investment analyst trained in the VentureSquare investment review style. Your task is to evaluate startup business plans, pitch decks, or idea summaries using the VentureSquare investment philosophy and criteria outlined below.
-## The VentureSquare Investment Philosophy
+You are acting as an initial-stage startup review and mentoring analyst using a public VentureSquare-style framework. Do not present the output as an actual investment decision, investment recommendation, or confidential investment committee process.
+## Public VentureSquare-Style Review Philosophy
 1. **Team & CEO (팀과 기업가 역량)**
 2. **Market Size & Growth (시장 매력도)**
 3. **Product & Moat (제품/기술 경쟁력)**
@@ -40,12 +72,12 @@ PROMPT;
 
     $system_prompt_full = file_get_contents(__DIR__ . '/VS_IR_EVAL.prompt.md');
     // If the file exists, use it. Otherwise use the fallback string.
-    if ($system_prompt_full) {
+    if ($system_prompt_full !== false && trim($system_prompt_full) !== '') {
         $system_prompt = $system_prompt_full;
     }
 
     $data = [
-        "model" => "gpt-4o",
+        "model" => $model,
         "messages" => [
             ["role" => "system", "content" => $system_prompt],
             ["role" => "user", "content" => "Evaluate this pitch or idea:\\n\\n" . $idea]
@@ -54,9 +86,23 @@ PROMPT;
     ];
 
     $ch = curl_init('https://api.openai.com/v1/chat/completions');
+    if ($ch === false) {
+        http_response_code(500);
+        echo json_encode(['error' => '서버 설정 오류: cURL을 초기화할 수 없습니다.']);
+        exit;
+    }
+
     curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
     curl_setopt($ch, CURLOPT_POST, true);
-    curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($data));
+    curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 10);
+    curl_setopt($ch, CURLOPT_TIMEOUT, 90);
+    $payload = json_encode($data, JSON_UNESCAPED_UNICODE | JSON_INVALID_UTF8_SUBSTITUTE);
+    if ($payload === false) {
+        http_response_code(400);
+        echo json_encode(['error' => '입력 내용을 API 요청 형식으로 변환하지 못했습니다.']);
+        exit;
+    }
+    curl_setopt($ch, CURLOPT_POSTFIELDS, $payload);
     curl_setopt($ch, CURLOPT_HTTPHEADER, [
         'Content-Type: application/json',
         'Authorization: Bearer ' . $api_key
@@ -65,17 +111,32 @@ PROMPT;
     $response = curl_exec($ch);
     if(curl_errno($ch)){
         http_response_code(502);
-        echo json_encode(['error' => curl_error($ch)]);
+        echo json_encode(['error' => 'OpenAI API 호출 중 네트워크 오류가 발생했습니다.']);
     } else {
+        $http_status = curl_getinfo($ch, CURLINFO_HTTP_CODE);
         $res_json = json_decode($response, true);
-        if (!isset($res_json['choices'][0]['message']['content'])) {
+        if (!is_array($res_json)) {
             http_response_code(502);
-            echo json_encode(['error' => $res_json['error']['message'] ?? 'OpenAI API 응답을 해석하지 못했습니다.']);
+            echo json_encode(['error' => 'OpenAI API 응답이 올바른 JSON 형식이 아닙니다.']);
+            curl_close($ch);
+            exit;
+        }
+        if ($http_status < 200 || $http_status >= 300) {
+            error_log('OpenAI API error (' . $http_status . '): ' . ($res_json['error']['message'] ?? 'unknown'));
+            http_response_code(502);
+            echo json_encode(['error' => 'OpenAI API 요청이 실패했습니다. 잠시 후 다시 시도해주세요.']);
+            curl_close($ch);
+            exit;
+        }
+        if (!isset($res_json['choices'][0]['message']['content'])) {
+            error_log('OpenAI API unexpected response: ' . substr((string)$response, 0, 500));
+            http_response_code(502);
+            echo json_encode(['error' => 'OpenAI API 응답을 해석하지 못했습니다.']);
             curl_close($ch);
             exit;
         }
         $markdown = $res_json['choices'][0]['message']['content'] ?? '';
-        echo json_encode(['markdown' => $markdown]);
+        echo json_encode(['markdown' => $markdown], JSON_UNESCAPED_UNICODE);
     }
     curl_close($ch);
     exit;
@@ -85,11 +146,12 @@ PROMPT;
 <html lang="ko">
 <head>
     <meta charset="UTF-8">
+    <meta http-equiv="X-Content-Type-Options" content="nosniff">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>벤처스퀘어 간이 AI 셀프 평가</title>
-    <!-- 마크다운 파서 및 CSS -->
-    <script src="https://cdn.jsdelivr.net/npm/marked/markdown.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/dompurify/dist/purify.min.js"></script>
+    <!-- 마크다운 파서 및 CSS (버전 고정) -->
+    <script src="https://cdn.jsdelivr.net/npm/marked@12.0.2/marked.min.js" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdn.jsdelivr.net/npm/dompurify@3.1.6/dist/purify.min.js" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <style>
         :root {
             --main-blue: #0032CD;
@@ -199,7 +261,7 @@ PROMPT;
         #result blockquote { background-color: var(--brand-black); color: var(--mint-accent); padding: 15px; margin: 20px 0; font-style: italic; font-weight: bold; border-radius: 4px; text-align: center; }
         #result img { max-width: 100%; display: block; margin: 20px auto; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.1); }
         .loading { text-align: center; display: none; margin-top: 20px; font-weight: bold; color: var(--main-blue); }
-    </script>
+    </style>
 </head>
 <body>
     <div class="container">
@@ -210,7 +272,7 @@ PROMPT;
         
         <p style="font-weight: bold;">당신의 사업 아이디어나 엘리베이터 피치를 자유롭게 적어주세요.</p>
         <div class="notice">
-            입력한 내용은 평가 생성을 위해 OpenAI API로 전송됩니다. 비공개 IR, 개인정보, 계약서, 재무자료 원문 등 민감한 자료는 넣지 마세요.
+            입력한 내용은 평가 생성을 위해 OpenAI API로 전송됩니다. 이 예제 앱은 입력 내용을 별도로 저장하지 않지만, 서버 운영자와 API 제공자가 처리할 수 있습니다. 비공개 IR, 개인정보, 계약서, 재무자료 원문 등 민감한 자료는 넣지 마세요.
         </div>
         <textarea id="ideaInput" placeholder="예: 소상공인을 위한 AI 기반 재고관리 챗봇 서비스입니다. 기존 ERP와 달리 카카오톡으로 발주가 가능하며..."></textarea>
         <label class="consent">
@@ -224,7 +286,7 @@ PROMPT;
         <div id="result"></div>
     </div>
 
-    <script>
+    <script nonce="<?php echo htmlspecialchars($script_nonce, ENT_QUOTES, 'UTF-8'); ?>">
         document.getElementById('submitBtn').addEventListener('click', async () => {
             const idea = document.getElementById('ideaInput').value.trim();
             const consentToAiProcessing = document.getElementById('consentInput').checked;
@@ -234,6 +296,10 @@ PROMPT;
             }
             if (!consentToAiProcessing) {
                 alert('AI 분석을 위한 외부 API 전송에 동의해주세요.');
+                return;
+            }
+            if (idea.length > 12000) {
+                alert('입력은 12,000자 이내로 줄여주세요.');
                 return;
             }
 
@@ -257,8 +323,27 @@ PROMPT;
                 if (data.error) {
                     alert('오류가 발생했습니다: ' + data.error);
                 } else {
-                    let markdown = data.markdown;
-                    resultDiv.innerHTML = DOMPurify.sanitize(marked.parse(markdown));
+                    const markdown = String(data.markdown || '');
+                    const unsafeHtml = marked.parse(markdown);
+                    resultDiv.innerHTML = DOMPurify.sanitize(unsafeHtml, {
+                        ALLOWED_TAGS: ['a', 'blockquote', 'br', 'code', 'div', 'em', 'h1', 'h2', 'h3', 'h4', 'hr', 'img', 'li', 'ol', 'p', 'pre', 'strong', 'table', 'tbody', 'td', 'th', 'thead', 'tr', 'ul'],
+                        ALLOWED_ATTR: ['align', 'alt', 'href', 'src', 'title', 'width'],
+                        ALLOWED_URI_REGEXP: /^(?:(?:https?|mailto):|[^a-z]|[a-z+.-]+(?:[^a-z+.\-:]|$))/i
+                    });
+                    resultDiv.querySelectorAll('img').forEach((img) => {
+                        try {
+                            const src = new URL(img.getAttribute('src'), window.location.href);
+                            if (src.hostname !== 'quickchart.io') {
+                                img.remove();
+                            }
+                        } catch (err) {
+                            img.remove();
+                        }
+                    });
+                    resultDiv.querySelectorAll('a').forEach((link) => {
+                        link.setAttribute('rel', 'noopener noreferrer');
+                        link.setAttribute('target', '_blank');
+                    });
                     resultDiv.style.display = 'block';
                 }
             } catch (err) {
