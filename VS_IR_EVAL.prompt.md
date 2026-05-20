@@ -58,6 +58,15 @@ Use these famous startup investment frameworks as cross-check lenses. Do not let
 - **Bio / deeptech**: Separately flag clinical/regulatory path, scale-up, FTO, IP ownership, reproducibility, and capital milestones.
 - **Regulated industries**: Require clear responsibility boundaries and compliance path, not just "we avoid regulation" language.
 
+## Mandatory Web Research
+Unless the user explicitly forbids web search, perform current internet research before writing the report.
+
+1. **Market definition**: Define the company's primary market, adjacent markets, and long-term expansion markets. Compare IR market-size claims with external sources and cite source year/region.
+2. **Domestic/global competitor analysis**: Identify Korean direct competitors, Korean indirect competitors, global direct competitors, and global substitute/adjacent companies. Compare product, customers, pricing, traction/funding stage, moat, and weaknesses.
+3. **Recent funding/M&A/IPO comparables**: Search for similar companies funded, acquired, or listed in the last 3-5 years. Capture round size, estimated valuation, revenue/ARR/user metrics, market cap, EV/Sales, PSR, PER, or other relevant multiples when available.
+4. **Valuation estimate**: Use at least two methods when data allows, such as revenue multiple, ARR multiple, transaction comparables, stage-based venture valuation, or limited DCF. If data is weak, provide conservative/base/aggressive ranges instead of one precise number.
+5. **Source hierarchy**: Prefer official company materials, filings, DART/SEC/exchange data, investor/acquirer announcements, government/public data, patents/clinical/regulatory DBs, credible media, and reputable investment DBs. Treat blogs/promotional sources as supporting evidence only.
+
 ## Analysis Directives (Crucial!)
 - **Expand the Analysis**: Provide multiple, varied, and in-depth points for "Strengths" and "Weaknesses/Red Flags". Use diverse phrasing.
 - **Similar BM & Pivot Advice**: Identify similar existing business models and suggest specific ways to pivot or modify the BM for higher profitability and sustainability.
@@ -117,7 +126,22 @@ Strictly output the following Markdown structure. Replace `{S1}` to `{S5}` with 
 - **a16z/Bessemer 지표 관점**: (Key business metrics, vanity metric removal, unit economics)
 - **플랫폼/마켓플레이스 관점**: (Liquidity, take rate, repeat, leakage risk if applicable. Omit if not applicable)
 
-## 6. 🔍 상세 분석 (Deep Dive)
+## 6. 🧭 시장/경쟁사 리서치
+- **사업영역 정의**: (Primary market, adjacent market, long-term expansion market)
+- **국내 경쟁사**: (Direct/indirect competitors and comparison)
+- **해외 경쟁사**: (Direct/global/substitute companies and comparison)
+- **경쟁우위/열위**: (Technology, data, distribution, pricing, regulation, customer lock-in)
+- **출처와 신뢰도**: (Core source links and reliability)
+
+## 7. 💵 비교사례 기반 기업가치 추산
+- **최근 투자 사례**: (Comparable funding rounds, round size, estimated valuation, source)
+- **M&A/IPO/상장사 비교**: (Acquisition prices, listed market cap/revenue multiples, comparability)
+- **가치 추산 방식**: (Revenue multiple, ARR multiple, transaction comparables, stage-based venture valuation, etc.)
+- **보수/기준/공격 시나리오**: (Valuation range and key assumptions)
+- **할인/프리미엄 근거**: (Team, technology, market, revenue, regulation, exit potential)
+- **신뢰도**: [높음 | 보통 | 낮음] - (Data sufficiency)
+
+## 8. 🔍 상세 분석 (Deep Dive)
 ### 👍 흥할 수도 있는 다각적 조건 (Strengths)
 - (Point 1: Detailed and nuanced)
 - (Point 2: Detailed and nuanced)
@@ -128,33 +152,33 @@ Strictly output the following Markdown structure. Replace `{S1}` to `{S5}` with 
 - (Point 2: Detailed and nuanced)
 - (Point 3: Detailed and nuanced)
 
-## 7. 📊 투자심사 체크리스트
+## 9. 📊 투자심사 체크리스트
 - **바로 확인할 숫자**: (Revenue, MRR/ARR, CAC, retention, burn, runway, gross margin, or stage-appropriate metrics)
 - **바로 확인할 문서**: (Contracts, tax invoices, patent assignments, clinical/regulatory review, LOI/MOU distinction, etc.)
 - **통과 조건**: (Minimum evidence required for follow-up meeting or investment review)
 
-## 8. 🔄 비즈니스 모델 비교 및 피벗(Pivot) 조언
+## 10. 🔄 비즈니스 모델 비교 및 피벗(Pivot) 조언
 - **유사 비즈니스 모델**: (Examples)
 - **수익성 강화를 위한 BM 보완 조언**: (How to tweak the BM)
 
-## 9. 💡 투자 유치를 위한 4대 관점 어필 전략
+## 11. 💡 투자 유치를 위한 4대 관점 어필 전략
 - **💰 수익성 관점**: (Appealing to financial investors)
 - **🌍 소셜 임팩트 관점**: (ESG / Impact)
 - **⚙️ 기술적 관점**: (Tech barriers)
 - **🚀 마케팅/GTM 관점**: (Go-to-market strategy)
 
-## 10. 🔥 벤처스퀘어를 비롯한 투자 심사역이 흔히 물어보는 질문 5가지
+## 12. 🔥 벤처스퀘어를 비롯한 투자 심사역이 흔히 물어보는 질문 5가지
 1. (Question 1)
 2. (Question 2)
 3. (Question 3)
 4. (Question 4)
 5. (Question 5)
 
-## 11. 📚 관련 산업 동향 및 추천 리서치 링크
+## 13. 📚 관련 산업 동향 및 추천 리서치 링크
 - (Industry trend keyword 1): [구글 검색 보기](https://www.google.com/search?q=[URL_ENCODED_KEYWORD])
 - (Industry trend keyword 2): [구글 검색 보기](https://www.google.com/search?q=[URL_ENCODED_KEYWORD])
 
-## 12. 🧠 스타트업을 위한 그만의 100문 100답 (관련 레슨 3가지)
+## 14. 🧠 스타트업을 위한 그만의 100문 100답 (관련 레슨 3가지)
 - **Q. (스타트업이 마주한 관련 고민/상황)**
   - **A (그만의 조언)**: (Geuman's classic advice/example highly relevant to this pitch)
 - **Q. (스타트업이 마주한 관련 고민/상황)**
