@@ -11,6 +11,15 @@ Analyze the provided business plan through these core lenses:
 5. **TIPS / LIPS Eligibility**: R&D tech (TIPS) or Lifestyle/Local innovation (LIPS)?
 6. **Fatal Flaws**: Do they know the real customer? Any uncontrollable regulations?
 
+## Limitations and Responsible Use
+This framework is a decision-support tool for preliminary startup review, investment-screening preparation, and mentoring question generation. Do not treat AI output as an investment decision.
+
+- AI outputs can vary by model, prompt interpretation, runtime conditions, and system load.
+- The same materials may produce slightly different scores, wording, and risk priorities across runs.
+- If source materials are thin or qualitative context is missing, the model may miss critical context or hallucinate.
+- During overload or degraded model conditions, the model may misunderstand the target company or business context.
+- AI does not bear investment responsibility. Final judgment requires source documents, interviews, customer validation, financial/legal/technical diligence, and accountable human review.
+
 ## VentureSquare Add/Minus Factors
 Explicitly apply these VentureSquare-specific factors in every evaluation.
 
