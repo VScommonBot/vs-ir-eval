@@ -91,26 +91,6 @@ Unless the user explicitly forbids web search, perform current internet research
 4. **Valuation estimate**: Use at least two methods when data allows, such as revenue multiple, ARR multiple, transaction comparables, stage-based venture valuation, or limited DCF. If data is weak, provide conservative/base/aggressive ranges instead of one precise number.
 5. **Source hierarchy**: Prefer official company materials, filings, DART/SEC/exchange data, investor/acquirer announcements, government/public data, patents/clinical/regulatory DBs, credible media, and reputable investment DBs. Treat blogs/promotional sources as supporting evidence only.
 
-## Report Artifact Workflow
-Do not stop at a chat answer when the task is an AI lightweight investment review report.
-
-1. **MS Word report**: Prepare a `.docx` report using VentureSquare design-system principles: clear hierarchy, restrained business styling, tables, evidence links, risk boxes, and practical executive readability.
-2. **Google Drive upload**: Upload the Word document to the `mse@venturesquare.net` Drive when the execution environment and permissions allow it. Suggested filename: `YYYYMMDD_Company_AI간이투자심사보고서_vN.docx`.
-3. **Google Chat sharing**: Share the Drive link in the relevant Google Chat space with a concise summary only: investment opinion, key rationale, main risks, valuation range, and next action. Do not expose sensitive raw financials, personal data, or private contract details in the Chat body.
-4. **Relational DB expansion**: Prepare structured metadata for relational DB expansion. Recommended entities: `companies`, `people`, `investment_reports`, `report_documents`, `competitors`, `company_competitors`, `funding_events`, `ma_events`, `ipo_comparables`, `valuation_estimates`, and `sources`.
-5. **Competitor background collection**: Every competitor or comparable company identified during analysis should be queued for background collection with name, country, website, sector, product, customer segment, funding/listing/M&A events, source URLs, and confidence.
-6. **Safety rule**: External sharing and DB writes require proper permission/approval. If approval or credentials are unavailable, produce the Word-ready content, metadata JSON/SQL preview, and Chat draft instead.
-
-## Organic Review Loop
-VentureSquare investment review is not a one-shot report. It should become an iterative loop of questions, IR meetings, answers, transcripts, report updates, and mock investment-review coaching.
-
-1. **Company-specific advice/question boxes**: Add a bottom-box memo for each company. Include tailored advice and questions tied to the company's specific risks, assumptions, customers, BM, regulation, competition, and valuation.
-2. **Question structure**: For each question, include `question intent`, `what a good answer looks like`, `answer record field`, and `follow-up evidence`.
-3. **Meeting/IR answer capture**: During real meetings or IR sessions, record answers by question. Link transcripts, meeting notes, recordings, speaker, date, and context when available.
-4. **Report update loop**: Update score, investment opinion, risk, valuation, and TIPS/LIPS fit based on answers and evidence. Keep a revision log instead of silently overwriting the prior report.
-5. **Mock investment review**: Use accumulated questions/answers to create a mock investment-review guide for the startup: expected questions, weak answer examples, good answer criteria, evidence checklist, and homework before the next IR.
-6. **DB linkage**: Structure this loop for relational storage with entities such as `investment_questions`, `meeting_notes`, `meeting_recordings`, `question_answers`, `report_revisions`, and `mock_review_sessions`.
-
 ## Analysis Directives (Crucial!)
 - **Expand the Analysis**: Provide multiple, varied, and in-depth points for "Strengths" and "Weaknesses/Red Flags". Use diverse phrasing.
 - **Similar BM & Pivot Advice**: Identify similar existing business models and suggest specific ways to pivot or modify the BM for higher profitability and sustainability.
@@ -233,18 +213,4 @@ Strictly output the following Markdown structure. Replace `{S1}` to `{S5}` with 
 - **Q. (스타트업이 마주한 관련 고민/상황)**
   - **A (벤처스퀘어 조언)**: (VentureSquare-style advice/example highly relevant to this pitch)
 
-## 15. 📄 산출물/공유/DB 처리 계획
-- **Word 보고서**: (Filename, main sections, VentureSquare design-system application)
-- **Drive 업로드**: (Upload account/folder, sharing scope, link if created)
-- **Google Chat 공유 요약**: (Summary under 5 lines)
-- **DB 확장 대상**: (Report, company, people, competitors, funding/M&A/IPO, sources)
-- **백그라운드 수집 큐**: (Competitor/comparable company list and collection priority)
-
-## 16. 🗂️ 미팅/IR 질문 박스와 업데이트 루프
-- **기업별 조언 메모**: (Tailored bottom-box memo)
-- **핵심 질문 박스**: (Question, intent, good-answer criteria, answer field, follow-up evidence)
-- **미팅/녹취 기록 계획**: (IR/meeting date, attendees, transcript/recording link, capture method)
-- **답변 반영 업데이트**: (How to update score/risk/valuation/TIPS after answers)
-- **모의 투자심사 가이드**: (Expected questions, weak-answer fixes, homework before next IR)
-- **DB 연계 대상**: (`investment_questions`, `meeting_notes`, `meeting_recordings`, `question_answers`, `report_revisions`, `mock_review_sessions`)
 ```
