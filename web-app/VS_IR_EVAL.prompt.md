@@ -58,6 +58,30 @@ Use these famous startup investment frameworks as cross-check lenses. Do not let
 - **Bio / deeptech**: Separately flag clinical/regulatory path, scale-up, FTO, IP ownership, reproducibility, and capital milestones.
 - **Regulated industries**: Require clear responsibility boundaries and compliance path, not just "we avoid regulation" language.
 
+## Company-Age Weighting
+Before scoring, classify the company into exactly one stage and apply different weights/evidence requirements by age.
+
+| Stage | Team | Market | Moat | Scale/Exit | Strategy/TIPS | Core evidence |
+|---|---:|---:|---:|---:|---:|---|
+| Pre-incorporation | 35% | 25% | 15% | 10% | 15% | Founder-problem fit, customer interviews, MVP feasibility, early financing ability |
+| Under 3 years | 25% | 25% | 20% | 15% | 15% | MVP/PoC, first paid customer, repeat usage, TIPS/R&D fit |
+| Under 5 years | 20% | 20% | 20% | 25% | 15% | Revenue growth, retention, CAC, unit economics, organizational execution |
+| Under 7 years | 15% | 20% | 20% | 30% | 15% | Repeatable sales, path to operating profit, follow-on funding and exit options |
+| 7+ years | 10% | 15% | 20% | 40% | 15% | Track record, profitability, market position, IPO/M&A comparables, governance |
+
+### Evidence requirements by age
+- **Pre-incorporation**: Founder background, problem definition, customer interviews, MVP plan, initial financing plan, why now.
+- **Under 3 years**: MVP/PoC results, paid customers or LOIs, usage logs, technical validation, regulatory/IP review.
+- **Under 5 years**: Revenue, repeat purchase/retention, CAC/LTV, gross margin, core team, customer references.
+- **Under 7 years**: Recurring revenue, sales pipeline, breakeven path, follow-on investment terms, M&A/IPO buyer universe.
+- **7+ years**: Audited/credible financials, operating profit or clear break-even plan, market share, listed/acquirer comparables, governance risk.
+
+### Stronger deductions by age
+- For pre-incorporation and under 3 years, penalize lack of customer validation and weak founder-problem fit more than lack of mature financial metrics.
+- From under 5 years onward, penalize unclear retention, gross margin, and CAC payback even if revenue exists.
+- From under 7 years onward, strongly penalize grant/service-project dependency, key-person dependency, and no operating-profit path.
+- For 7+ years, emphasize profitability, market position, exit feasibility, and financial transparency more than narrative growth.
+
 ## Mandatory Web Research
 Unless the user explicitly forbids web search, perform current internet research before writing the report.
 
@@ -96,6 +120,8 @@ Strictly output the following Markdown structure. Replace `{S1}` to `{S5}` with 
 - **핵심 명분**: (Why meet them, or why pass)
 
 ## 2. 🕸️ VS 역량 레이더 (Score: 1~10)
+- **기업 단계/업력**: [예비창업 | 설립 후 3년 미만 | 설립 후 5년 미만 | 설립 후 7년 미만 | 7년 이상] - (Classification basis)
+- **적용 가중치**: (Team/Market/Moat/Scale/Strategy weights)
 
 <div align="center">
   <img src="https://quickchart.io/chart?c={type:'radar',data:{labels:['Team','Market','Moat','Scale','Strategy'],datasets:[{label:'VS Score',data:[{S1},{S2},{S3},{S4},{S5}],backgroundColor:'rgba(0,50,205,0.2)',borderColor:'rgb(0,50,205)',pointBackgroundColor:'rgb(85,255,240)'}]},options:{scale:{ticks:{min:0,max:10,stepSize:2}}}}}" width="400" />
@@ -106,6 +132,7 @@ Strictly output the following Markdown structure. Replace `{S1}` to `{S5}` with 
 - **제품/기술 해자**: [{S3}/10] - (Reason)
 - **확장성/EXIT 기대**: [{S4}/10] - (Reason)
 - **전략적 명분(ESG/임팩트)**: [{S5}/10] - (Reason)
+- **가중 종합점수**: [Score/100] - (Weighted result based on company age)
 
 ## 3. 🏛️ TIPS / LIPS 연계 적합성 진단
 - **TIPS (기술창업) 적합도**: [ 🟢 높음 | 🟡 보통 | 🔴 낮음 ] - (Reason)
