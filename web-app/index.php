@@ -26,11 +26,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 
     $idea = trim((string)($input['idea'] ?? ''));
-    $mode = (string)($input['mode'] ?? 'full');
+    $mode = (string)($input['mode'] ?? 'coaching');
     $consent = $input['consentToAiProcessing'] ?? false;
     $allowed_modes = ['coaching', 'screening', 'full'];
     if (!in_array($mode, $allowed_modes, true)) {
-        $mode = 'full';
+        $mode = 'coaching';
     }
 
     if (empty($idea)) {
@@ -291,14 +291,14 @@ PROMPT;
             <p>벤처스퀘어 간이 AI 셀프 평가 시스템</p>
         </div>
         
-        <p style="font-weight: bold;">당신의 사업 아이디어나 엘리베이터 피치를 자유롭게 적어주세요.</p>
+        <p style="font-weight: bold;">공개 가능한 사업 아이디어나 엘리베이터 피치를 적어주세요.</p>
         <div class="notice">
-            입력한 내용은 평가 생성을 위해 OpenAI API로 전송됩니다. 이 예제 앱은 입력 내용을 별도로 저장하지 않지만, 서버 운영자와 API 제공자가 처리할 수 있습니다. 점수는 투자 결정이 아니라 근거 정렬용 보조값입니다. 비공개 IR, 개인정보, 계약서, 재무자료 원문 등 민감한 자료는 넣지 마세요.
+            입력한 내용은 평가 생성을 위해 OpenAI API로 전송됩니다. 이 예제 앱은 입력 내용을 별도로 저장하지 않지만, 서버 운영자와 API 제공자가 처리할 수 있습니다. 비공개 IR 원문, 개인정보, 계약서, 재무자료, 투자조건표, 주주명부, 영업비밀은 넣지 마세요. 이 결과는 투자 권유나 합격/불합격 판정이 아니라 멘토링용 참고자료입니다.
         </div>
         <select id="modeInput" aria-label="출력 모드">
-            <option value="full">Full report mode - 전체 리포트</option>
+            <option value="coaching" selected>Coaching mode - 점수 없는 멘토링</option>
             <option value="screening">Screening mode - 1페이지 심사 메모</option>
-            <option value="coaching">Coaching mode - 점수 없는 멘토링</option>
+            <option value="full">Full report mode - 전체 리포트</option>
         </select>
         <textarea id="ideaInput" placeholder="예: 소상공인을 위한 AI 기반 재고관리 챗봇 서비스입니다. 기존 ERP와 달리 카카오톡으로 발주가 가능하며..."></textarea>
         <label class="consent">
@@ -306,7 +306,7 @@ PROMPT;
             <span>입력 자료가 AI 분석을 위해 외부 API로 전송되는 것에 동의합니다.</span>
         </label>
         
-        <button id="submitBtn" class="btn">[간이 AI 셀프 평가] 진행하기</button>
+        <button id="submitBtn" class="btn">[AI 멘토링 점검] 진행하기</button>
         <div id="loading" class="loading">벤처스퀘어 뷰로 사업을 분석 중입니다... (약 15초 소요)</div>
         
         <div id="result"></div>

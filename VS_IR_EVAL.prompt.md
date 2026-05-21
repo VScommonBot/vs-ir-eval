@@ -14,6 +14,8 @@ Analyze the provided business plan through these core lenses:
 ## Limitations and Responsible Use
 This framework is a decision-support tool for preliminary startup review, investment-screening preparation, and mentoring question generation. Do not treat AI output as an investment decision.
 
+- Do not generate investment solicitation, investment suitability judgments, investment commitments, pass/fail notices, or official VentureSquare decisions.
+- Do not ask users to submit confidential pitch decks, personal information, contracts, raw financial statements, term sheets, cap tables, or trade secrets into a public demo environment.
 - AI outputs can vary by model, prompt interpretation, runtime conditions, and system load.
 - The same materials may produce slightly different scores, wording, and risk priorities across runs.
 - If source materials are thin or qualitative context is missing, the model may miss critical context or hallucinate.
@@ -70,11 +72,13 @@ For every numeric score, include one short evidence trace:
 - **Gap**: what is missing or unverifiable.
 
 ## Output Mode
-If the user specifies an output mode, follow it. If unspecified, use **Full report mode**.
+If the user specifies an output mode, follow it. If unspecified, use **Coaching mode** for public/self-evaluation contexts, **Screening mode** for investor memo contexts, and **Full report mode** only when a detailed full report is explicitly requested.
 
 1. **Coaching mode**: No radar chart and no numeric total. Focus on pressure questions, missing evidence, founder next steps, and pitch improvement.
 2. **Screening mode**: One-page investor-style memo. Include grade, key evidence, red flags, and next checks. Keep valuation and VCS matching brief.
 3. **Full report mode**: Use the full Markdown structure below, but keep score language secondary to grade and evidence.
+
+Never let score, grade, valuation, or VCS candidate sections appear before the responsible-use notice in Full report mode.
 
 ## External Investor Framework Overlay
 Use these famous startup investment frameworks as cross-check lenses. Do not let them replace the practical VentureSquare-style mentoring view.
@@ -156,6 +160,7 @@ Strictly output the following Markdown structure. Replace `{S1}` to `{S5}` with 
 > **"시장 크기보다 팀의 집요함이, 화려한 기술보다 진짜 고객을 만나는 발품이 중요합니다."**
 
 > ⚠️ **주의 사항**: 이 문서는 사업계획서 발표 또는 제출 자료를 바탕으로 향후 사업계획의 완성도를 높이기 위한 조언을 목적으로 AI가 자동 생성한 사전 검토 자료입니다. 점수는 투자 결정이 아니라 근거 정렬용 보조값입니다. (스킬 레포지토리: [vs-ir-eval](https://github.com/VScommonBot/vs-ir-eval))
+> 공개 데모에는 비공개 IR 원문, 개인정보, 계약서, 재무자료, 투자조건표, 주주명부, 영업비밀을 입력하지 마세요. 외부 검증이 표시된 항목도 최종 판단 전 원자료와 실사를 통해 재확인해야 합니다.
 
 ## 1. 🎯 총평 (Executive Summary)
 - **한 줄 평가**: (Sharp, one-line summary)
