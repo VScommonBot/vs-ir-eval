@@ -26,7 +26,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 
     $idea = trim((string)($input['idea'] ?? ''));
+    $mode = (string)($input['mode'] ?? 'full');
     $consent = $input['consentToAiProcessing'] ?? false;
+    $allowed_modes = ['coaching', 'screening', 'full'];
+    if (!in_array($mode, $allowed_modes, true)) {
+        $mode = 'full';
+    }
 
     if (empty($idea)) {
         http_response_code(400);
@@ -53,7 +58,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         echo json_encode(['error' => '서버 설정 오류: OPENAI_API_KEY 환경변수가 필요합니다.']);
         exit;
     }
-    $model = getenv('OPENAI_MODEL') ?: 'gpt-4o';
+    $model = getenv('OPENAI_MODEL') ?: 'gpt-4.1';
 
     $system_prompt = <<<PROMPT
 # VS IR Evaluation Framework
@@ -80,9 +85,9 @@ PROMPT;
         "model" => $model,
         "messages" => [
             ["role" => "system", "content" => $system_prompt],
-            ["role" => "user", "content" => "Evaluate this pitch or idea:\\n\\n" . $idea]
+            ["role" => "user", "content" => "Output mode: " . $mode . "\\n\\nEvaluate this pitch or idea:\\n\\n" . $idea]
         ],
-        "temperature" => 0.7
+        "temperature" => 0.2
     ];
 
     $ch = curl_init('https://api.openai.com/v1/chat/completions');
@@ -207,6 +212,21 @@ PROMPT;
             outline: none;
             border-color: var(--main-blue);
         }
+        select {
+            width: 100%;
+            padding: 12px 14px;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            font-size: 15px;
+            box-sizing: border-box;
+            font-family: inherit;
+            background: #fff;
+            margin-bottom: 12px;
+        }
+        select:focus {
+            outline: none;
+            border-color: var(--main-blue);
+        }
         .notice {
             background: #f0f4ff;
             border-left: 5px solid var(--main-blue);
@@ -272,8 +292,13 @@ PROMPT;
         
         <p style="font-weight: bold;">당신의 사업 아이디어나 엘리베이터 피치를 자유롭게 적어주세요.</p>
         <div class="notice">
-            입력한 내용은 평가 생성을 위해 OpenAI API로 전송됩니다. 이 예제 앱은 입력 내용을 별도로 저장하지 않지만, 서버 운영자와 API 제공자가 처리할 수 있습니다. 비공개 IR, 개인정보, 계약서, 재무자료 원문 등 민감한 자료는 넣지 마세요.
+            입력한 내용은 평가 생성을 위해 OpenAI API로 전송됩니다. 이 예제 앱은 입력 내용을 별도로 저장하지 않지만, 서버 운영자와 API 제공자가 처리할 수 있습니다. 점수는 투자 결정이 아니라 근거 정렬용 보조값입니다. 비공개 IR, 개인정보, 계약서, 재무자료 원문 등 민감한 자료는 넣지 마세요.
         </div>
+        <select id="modeInput" aria-label="출력 모드">
+            <option value="full">Full report mode - 전체 리포트</option>
+            <option value="screening">Screening mode - 1페이지 심사 메모</option>
+            <option value="coaching">Coaching mode - 점수 없는 멘토링</option>
+        </select>
         <textarea id="ideaInput" placeholder="예: 소상공인을 위한 AI 기반 재고관리 챗봇 서비스입니다. 기존 ERP와 달리 카카오톡으로 발주가 가능하며..."></textarea>
         <label class="consent">
             <input id="consentInput" type="checkbox">
@@ -289,6 +314,7 @@ PROMPT;
     <script nonce="<?php echo htmlspecialchars($script_nonce, ENT_QUOTES, 'UTF-8'); ?>">
         document.getElementById('submitBtn').addEventListener('click', async () => {
             const idea = document.getElementById('ideaInput').value.trim();
+            const mode = document.getElementById('modeInput').value;
             const consentToAiProcessing = document.getElementById('consentInput').checked;
             if (!idea) {
                 alert('사업 아이디어를 입력해주세요.');
@@ -315,7 +341,7 @@ PROMPT;
                 const response = await fetch('', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ idea, consentToAiProcessing })
+                    body: JSON.stringify({ idea, mode, consentToAiProcessing })
                 });
 
                 const data = await response.json();

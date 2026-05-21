@@ -19,6 +19,8 @@ This framework is a decision-support tool for preliminary startup review, invest
 - If source materials are thin or qualitative context is missing, the model may miss critical context or hallucinate.
 - During overload or degraded model conditions, the model may misunderstand the target company or business context.
 - AI does not bear investment responsibility. Final judgment requires source documents, interviews, customer validation, financial/legal/technical diligence, and accountable human review.
+- Numeric scores are internal ordering aids, not investment decisions. The public-facing judgment must be expressed as an evidence-backed grade: **최상, 우수, 보통, 미흡, 보완 필요**.
+- Separate what the IR claims from what external sources verify. If a claim cannot be verified with current public sources, mark it as **미확인** instead of filling the gap with a plausible assumption.
 
 ## VentureSquare-Style Add/Minus Factors
 Explicitly apply these public, mentoring-oriented factors in every evaluation.
@@ -50,6 +52,29 @@ Explicitly apply these public, mentoring-oriented factors in every evaluation.
 - If a negative factor is offset by very large impact, market dominance potential, or a clear exit path, keep it as a conditional-review case.
 - If a positive factor hides fragile financing, weak entry barriers, or key-person dependency, lower the review stance to observation or prior-improvement.
 - Always explain why the negative is worth tolerating, or why the positive is insufficient.
+
+## Scoring and Grade Policy
+Use numeric scores only to keep the review internally consistent. The primary output must be a grade with clear evidence.
+
+| Weighted score | Public grade | Meaning |
+|---:|---|---|
+| 90-100 | 최상 | Strong evidence across team, market, moat, scalability, and strategic fit. Suitable for immediate follow-up review. |
+| 75-89 | 우수 | Strong enough for follow-up, but at least one major evidence gap must be checked. |
+| 60-74 | 보통 | Worth mentoring or observation, but investment review should wait for stronger proof. |
+| 45-59 | 미흡 | Core assumptions, evidence, or business model need material improvement first. |
+| 0-44 | 보완 필요 | Too many unverified assumptions or fatal risks. Use as a coaching case, not screening support. |
+
+For every numeric score, include one short evidence trace:
+- **IR evidence**: the exact claim or data point from the submitted material.
+- **External verification**: verified fact, source, and date/year when available.
+- **Gap**: what is missing or unverifiable.
+
+## Output Mode
+If the user specifies an output mode, follow it. If unspecified, use **Full report mode**.
+
+1. **Coaching mode**: No radar chart and no numeric total. Focus on pressure questions, missing evidence, founder next steps, and pitch improvement.
+2. **Screening mode**: One-page investor-style memo. Include grade, key evidence, red flags, and next checks. Keep valuation and VCS matching brief.
+3. **Full report mode**: Use the full Markdown structure below, but keep score language secondary to grade and evidence.
 
 ## External Investor Framework Overlay
 Use these famous startup investment frameworks as cross-check lenses. Do not let them replace the practical VentureSquare-style mentoring view.
@@ -97,11 +122,12 @@ Unless the user explicitly forbids web search, perform current internet research
 1. **Market definition**: Define the company's primary market, adjacent markets, and long-term expansion markets. Compare IR market-size claims with external sources and cite source year/region.
 2. **Domestic/global competitor analysis**: Identify Korean direct competitors, Korean indirect competitors, global direct competitors, and global substitute/adjacent companies. Compare product, customers, pricing, traction/funding stage, moat, and weaknesses.
 3. **Recent funding/M&A/IPO comparables**: Search for similar companies funded, acquired, or listed in the last 3-5 years. Capture round size, estimated valuation, revenue/ARR/user metrics, market cap, EV/Sales, PSR, PER, or other relevant multiples when available.
-4. **Valuation estimate**: Use at least two methods when data allows, such as revenue multiple, ARR multiple, transaction comparables, stage-based venture valuation, or limited DCF. If data is weak, provide conservative/base/aggressive ranges instead of one precise number.
-5. **Likely interested investors**: Use the VCS investor search page (`https://www.vcs.go.kr/web/portal/investor/list`) to identify up to 10 public-information-based outreach candidates based on sector, region, investment character, investor type, and company age fit. Include investor name, focus/sector, location, operating scale when available, match rationale, and source. Do not imply confirmed interest or investment availability.
-6. **Relevant investment funds**: Use the VCS fund manager search page (`https://www.vcs.go.kr/web/portal/rsh/list`) to identify up to 10 public-information-based fund candidates based on major investment sector, location, fund formation size, and likely stage fit. Include fund name, operator, sector, formation amount when available, match rationale, and source. Do not imply confirmed suitability or available capital.
-7. **Candidate-list caveat**: Investor/fund matches are outreach candidates, not confirmed investor recommendations. Actual fit requires checking fund deployment status, investment period, individual partner interest, and portfolio conflicts.
-8. **Source hierarchy**: Prefer official company materials, filings, DART/SEC/exchange data, investor/acquirer announcements, government/public data, patents/clinical/regulatory DBs, credible media, and reputable investment DBs. Treat blogs/promotional sources as supporting evidence only.
+4. **External fact-check table**: Create a separate table that labels each important statement as `IR 주장`, `외부 검증 사실`, or `미확인/추가확인 필요`. Do not blend the founder's claims with verified facts.
+5. **Valuation discipline**: Prefer comparable candidates, valuation-readiness, and assumptions over precise valuation numbers. Provide conservative/base/aggressive ranges only when data quality is sufficient. If data is weak, leave valuation as a check item and list the missing inputs.
+6. **VCS investor guidance**: Recommend the official VCS investor search page (`https://www.vcs.go.kr/web/portal/investor/list`) and explain search filters to use. If current verified VCS results are available, introduce only 3-5 sample investors selected as public-information-based outreach candidates. Do not imply confirmed interest, available capital, or endorsement.
+7. **VCS fund guidance**: Recommend the official VCS fund manager search page (`https://www.vcs.go.kr/web/portal/rsh/list`) and explain how to check sector, region, fund formation amount, investment period, and stage fit. If current verified VCS results are available, introduce only 3-5 sample funds. Do not invent fund names.
+8. **Candidate-list caveat**: Investor/fund matches are examples for outreach planning, not recommendations. Actual fit requires checking fund deployment status, investment period, individual partner interest, portfolio conflicts, and current mandate.
+9. **Source hierarchy**: Prefer official company materials, filings, DART/SEC/exchange data, investor/acquirer announcements, government/public data, patents/clinical/regulatory DBs, credible media, and reputable investment DBs. Treat blogs/promotional sources as supporting evidence only.
 
 ## Analysis Directives (Crucial!)
 - **Expand the Analysis**: Provide multiple, varied, and in-depth points for "Strengths" and "Weaknesses/Red Flags". Use diverse phrasing.
@@ -124,14 +150,16 @@ Strictly output the following Markdown structure. Replace `{S1}` to `{S5}` with 
 
 > **"시장 크기보다 팀의 집요함이, 화려한 기술보다 진짜 고객을 만나는 발품이 중요합니다."**
 
-> ⚠️ **주의 사항**: 이 문서는 사업계획서 발표 또는 제출 자료를 바탕으로 향후 사업계획의 완성도를 높이기 위한 조언을 목적으로 AI가 자동 생성한 사전 검토 자료입니다. (스킬 레포지토리: [vs-ir-eval](https://github.com/mse-lang/vs-ir-eval))
+> ⚠️ **주의 사항**: 이 문서는 사업계획서 발표 또는 제출 자료를 바탕으로 향후 사업계획의 완성도를 높이기 위한 조언을 목적으로 AI가 자동 생성한 사전 검토 자료입니다. 점수는 투자 결정이 아니라 근거 정렬용 보조값입니다. (스킬 레포지토리: [vs-ir-eval](https://github.com/VScommonBot/vs-ir-eval))
 
 ## 1. 🎯 총평 (Executive Summary)
 - **한 줄 평가**: (Sharp, one-line summary)
-- **검토의견**: [ 🟢 후속 검토 권장 | 🟡 관찰/보완 권장 | 🔴 우선 보완 권장 ]
+- **종합 등급**: [ 최상 | 우수 | 보통 | 미흡 | 보완 필요 ] - (Weighted score band and short rationale)
+- **검토의견**: [ 후속 검토 권장 | 조건부 후속 검토 | 관찰/보완 권장 | 우선 보완 권장 | 보류 권장 ]
 - **핵심 명분**: (Why further review is warranted, or what must be improved first)
+- **가장 큰 미확인 가정**: (The single assumption that most needs verification)
 
-## 2. 🕸️ VS 역량 레이더 (Score: 1~10)
+## 2. 🕸️ VS 역량 레이더와 근거 추적 (Score: 1~10)
 - **기업 단계/업력**: [예비창업 | 설립 후 3년 미만 | 설립 후 5년 미만 | 설립 후 7년 미만 | 7년 이상] - (Classification basis)
 - **적용 가중치**: (Team/Market/Moat/Scale/Strategy weights)
 
@@ -144,11 +172,18 @@ Strictly output the following Markdown structure. Replace `{S1}` to `{S5}` with 
 - **제품/기술 해자**: [{S3}/10] - (Reason)
 - **확장성/EXIT 기대**: [{S4}/10] - (Reason)
 - **전략적 명분(ESG/임팩트)**: [{S5}/10] - (Reason)
-- **가중 종합점수**: [Score/100] - (Weighted result based on company age)
+- **가중 종합점수**: [Score/100] - (Internal ordering aid, not an investment decision)
+- **점수 근거 추적**:
+  - Team: IR evidence / External verification / Gap
+  - Market: IR evidence / External verification / Gap
+  - Moat: IR evidence / External verification / Gap
+  - Scale: IR evidence / External verification / Gap
+  - Strategy: IR evidence / External verification / Gap
 
 ## 3. 🏛️ TIPS / LIPS 연계 적합성 진단
 - **TIPS (기술창업) 적합도**: [ 🟢 높음 | 🟡 보통 | 🔴 낮음 ] - (Reason)
 - **LIPS (로컬/라이프스타일) 적합도**: [ 🟢 높음 | 🟡 보통 | 🔴 낮음 ] - (Reason)
+- **정부지원 의존도 분리 판단**: (Separate TIPS/R&D project suitability from operating-cash dependency. TIPS fit can be positive while grant-dependent operations remain a risk.)
 - **추천 과제명**: (A sharply scoped TIPS/LIPS project title)
 - **필수 보완 증빙**: (Patent ownership, paid PoC, contract, LOI vs MOU, experiment data, regulatory review, etc.)
 
@@ -170,20 +205,28 @@ Strictly output the following Markdown structure. Replace `{S1}` to `{S5}` with 
 - **국내 경쟁사**: (Direct/indirect competitors and comparison)
 - **해외 경쟁사**: (Direct/global/substitute companies and comparison)
 - **경쟁우위/열위**: (Technology, data, distribution, pricing, regulation, customer lock-in)
-- **출처와 신뢰도**: (Core source links and reliability)
+- **IR 주장 vs 외부 검증 사실**:
+  | 항목 | IR 주장 | 외부 검증 사실 | 상태 | 출처 |
+  |---|---|---|---|---|
+  | (market/team/product/traction claim) | (claim) | (verified fact or empty) | [확인 | 일부 확인 | 미확인] | (source/link/year) |
+- **출처와 신뢰도**: (Core source links and reliability. Explicitly mark weak sources.)
 
-## 7. 💵 비교사례 기반 기업가치 추산
+## 7. 💵 비교사례와 기업가치 검토
 - **최근 투자 사례**: (Comparable funding rounds, round size, estimated valuation, source)
 - **M&A/IPO/상장사 비교**: (Acquisition prices, listed market cap/revenue multiples, comparability)
-- **가치 추산 방식**: (Revenue multiple, ARR multiple, transaction comparables, stage-based venture valuation, etc.)
-- **보수/기준/공격 시나리오**: (Valuation range and key assumptions)
-- **할인/프리미엄 근거**: (Team, technology, market, revenue, regulation, exit potential)
+- **가치 추산 가능 여부**: [가능 | 제한적 가능 | 보류] - (Data sufficiency and why)
+- **비교군 후보**: (Comparable candidates and why they are or are not comparable)
+- **보수/기준/공격 시나리오**: (Only if data quality is sufficient; otherwise list missing inputs)
+- **할인/프리미엄 근거**: (Team, technology, market, revenue, regulation, exit potential. Keep as assumptions, not facts.)
 - **신뢰도**: [높음 | 보통 | 낮음] - (Data sufficiency)
 
-## 8. 🤝 관심 있을만한 투자사/펀드 후보
-- **관심 있을만한 투자사**: (Up to 10 candidates from VCS investor search. Include investor name, sector/focus, location, operating scale, match rationale, source.)
-- **해당 분야 투자 펀드**: (Up to 10 funds from VCS fund manager search. Include fund name, operator, sector, formation amount, match rationale, source.)
-- **주의**: (These are public-information-based outreach candidates only, not recommendations or confirmed investor interest. Check fund deployment status, investment period, partner interest, and portfolio conflicts.)
+## 8. 🤝 VCS 기반 투자사/펀드 탐색 가이드
+- **VCS 투자자 검색 링크**: https://www.vcs.go.kr/web/portal/investor/list
+- **추천 검색 필터**: (sector, region, investment stage, investment character, company age)
+- **샘플 투자사 후보**: (3-5 verified VCS candidates only if current lookup was performed. Otherwise provide search guidance, not names.)
+- **VCS 모태출자펀드 운용사 찾기 링크**: https://www.vcs.go.kr/web/portal/rsh/list
+- **추천 펀드 확인 기준**: (sector, formation amount, investment period, operator, stage fit)
+- **주의**: (These are randomized or sample outreach candidates based on public lookup only, not recommendations or confirmed investor interest. Check fund deployment status, investment period, partner interest, and portfolio conflicts.)
 
 ## 9. 🔍 상세 분석 (Deep Dive)
 ### 👍 흥할 수도 있는 다각적 조건 (Strengths)
