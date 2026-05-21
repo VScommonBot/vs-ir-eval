@@ -80,11 +80,12 @@ PROMPT;
     if ($system_prompt_full !== false && trim($system_prompt_full) !== '') {
         $system_prompt = $system_prompt_full;
     }
+    $runtime_note = 'Runtime capability note: this demo web app does not provide live web search or browsing tools. Do not claim that external verification was performed unless the user supplied sources or URLs. Mark unverifiable facts as 미수행(검색 도구 없음) or 미확인, and turn market, valuation, and VCS sections into search guidance/checklists when live verification is unavailable.';
 
     $data = [
         "model" => $model,
         "messages" => [
-            ["role" => "system", "content" => $system_prompt],
+            ["role" => "system", "content" => $system_prompt . "\n\n" . $runtime_note],
             ["role" => "user", "content" => "Output mode: " . $mode . "\\n\\nEvaluate this pitch or idea:\\n\\n" . $idea]
         ],
         "temperature" => 0.2

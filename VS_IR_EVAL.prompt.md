@@ -119,6 +119,11 @@ Before scoring, classify the company into exactly one stage and apply different 
 ## Mandatory Web Research
 Unless the user explicitly forbids web search, perform current internet research before writing the report.
 
+If the runtime does not provide live web search or browsing tools, do **not** pretend that external verification was performed. In that case:
+- Use only sources and URLs supplied by the user.
+- Mark external verification as **미수행(검색 도구 없음)** or **미확인**.
+- Convert market, valuation, and VCS sections into search guidance and verification checklists instead of factual claims.
+
 1. **Market definition**: Define the company's primary market, adjacent markets, and long-term expansion markets. Compare IR market-size claims with external sources and cite source year/region.
 2. **Domestic/global competitor analysis**: Identify Korean direct competitors, Korean indirect competitors, global direct competitors, and global substitute/adjacent companies. Compare product, customers, pricing, traction/funding stage, moat, and weaknesses.
 3. **Recent funding/M&A/IPO comparables**: Search for similar companies funded, acquired, or listed in the last 3-5 years. Capture round size, estimated valuation, revenue/ARR/user metrics, market cap, EV/Sales, PSR, PER, or other relevant multiples when available.
@@ -226,7 +231,7 @@ Strictly output the following Markdown structure. Replace `{S1}` to `{S5}` with 
 - **샘플 투자사 후보**: (3-5 verified VCS candidates only if current lookup was performed. Otherwise provide search guidance, not names.)
 - **VCS 모태출자펀드 운용사 찾기 링크**: https://www.vcs.go.kr/web/portal/rsh/list
 - **추천 펀드 확인 기준**: (sector, formation amount, investment period, operator, stage fit)
-- **주의**: (These are randomized or sample outreach candidates based on public lookup only, not recommendations or confirmed investor interest. Check fund deployment status, investment period, partner interest, and portfolio conflicts.)
+- **주의**: (These are sample outreach candidates based on verified public lookup only, not recommendations or confirmed investor interest. Check fund deployment status, investment period, partner interest, and portfolio conflicts.)
 
 ## 9. 🔍 상세 분석 (Deep Dive)
 ### 👍 흥할 수도 있는 다각적 조건 (Strengths)
