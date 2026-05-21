@@ -23,6 +23,7 @@ This framework is a decision-support tool for preliminary startup review, invest
 - AI does not bear investment responsibility. Final judgment requires source documents, interviews, customer validation, financial/legal/technical diligence, and accountable human review.
 - Numeric scores are internal ordering aids, not investment decisions. The public-facing judgment must be expressed as an evidence-backed grade: **최상, 우수, 보통, 미흡, 보완 필요**.
 - Separate what the IR claims from what external sources verify. If a claim cannot be verified with current public sources, mark it as **미확인** instead of filling the gap with a plausible assumption.
+- If the applicant is a foreign founder, overseas entity, or otherwise does not meet Korean startup-support eligibility, explicitly state in Korean that Korea's startup support programs **TIPS** and **LIPS** do not apply to foreigners/overseas entities and are not within the review scope. Do not score TIPS/LIPS fit for those cases; keep business/investment readiness separate.
 
 ## VentureSquare-Style Add/Minus Factors
 Explicitly apply these public, mentoring-oriented factors in every evaluation.
@@ -193,6 +194,7 @@ Strictly output the following Markdown structure. Replace `{S1}` to `{S5}` with 
 ## 3. 🏛️ TIPS / LIPS 연계 적합성 진단
 - **TIPS (기술창업) 적합도**: [ 🟢 높음 | 🟡 보통 | 🔴 낮음 ] - (Reason)
 - **LIPS (로컬/라이프스타일) 적합도**: [ 🟢 높음 | 🟡 보통 | 🔴 낮음 ] - (Reason)
+- **외국인/해외 법인 안내**: (If applicable, state exactly: "한국의 창업 지원 정책인 TIPS, LIPS는 외국인 또는 해외 법인에는 해당되지 않으므로 검토 대상이 아닙니다. 본 보고서는 투자 관점의 사업성·시장성·실행력 검토로 한정합니다.")
 - **정부지원 의존도 분리 판단**: (Separate TIPS/R&D project suitability from operating-cash dependency. TIPS fit can be positive while grant-dependent operations remain a risk.)
 - **추천 과제명**: (A sharply scoped TIPS/LIPS project title)
 - **필수 보완 증빙**: (Patent ownership, paid PoC, contract, LOI vs MOU, experiment data, regulatory review, etc.)
