@@ -11,6 +11,19 @@ Use this skill to evaluate startup IR decks, pitch materials, product summaries,
 
 This public version must not include confidential VentureSquare investment committee criteria, internal documents, private deal information, or official investment decision logic.
 
+## Language Support
+
+The repository keeps English and Korean public versions side by side. Use the user's requested language when specified. If no language is specified, respond in the language of the user's input.
+
+Korean reference files:
+
+- README.ko.md
+- NOTICE.ko.md
+- SKILL.ko.md
+- VS_IR_EVAL.ko.prompt.md
+
+Do not remove the Korean files when updating the English public version.
+
 ## Use When
 
 Use this skill when the user provides startup materials and asks for a review, evaluation, mentoring memo, pitch critique, TIPS/LIPS fit check, or VentureSquare-style analysis.

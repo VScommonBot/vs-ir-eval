@@ -13,6 +13,17 @@ The 2026-05 version also uses public Sequoia, Y Combinator, a16z, Bessemer, mark
 
 Before using this in a public demo or sharing it externally, read [Public Use Notice](NOTICE.md).
 
+## Korean Version
+
+The English public version is the default at the repository root. The Korean version is kept alongside it for Korean founders and reviewers:
+
+- [Korean README](README.ko.md)
+- [Korean public notice](NOTICE.ko.md)
+- [Korean skill file](SKILL.ko.md)
+- [Korean prompt](VS_IR_EVAL.ko.prompt.md)
+
+The demo web app also supports Korean and English output. Select the preferred output language before running a review.
+
 ## Usage
 
 Give an OpenClaw agent or compatible prompt runtime a business plan, pitch deck text, product summary, or idea brief and ask:
@@ -161,6 +172,7 @@ Public deployment checklist:
 - Tell users that submitted text is sent to the OpenAI API and require consent.
 - Warn users not to submit confidential IR materials, personal information, contracts, source financials, term sheets, cap tables, shareholder lists, or trade secrets.
 - Keep Coaching mode as the public default.
+- Keep Korean and English outputs available. Do not remove the Korean prompt/doc files when updating the English public version.
 - Sanitize Markdown before rendering it as HTML. The demo app uses DOMPurify.
 - Add request-size limits, rate limiting, monitoring, and logging appropriate for your server.
 - Pin CDN assets with integrity checks or self-host them before production deployment.

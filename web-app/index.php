@@ -27,10 +27,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     $idea = trim((string)($input['idea'] ?? ''));
     $mode = (string)($input['mode'] ?? 'coaching');
+    $language = (string)($input['language'] ?? 'en');
     $consent = $input['consentToAiProcessing'] ?? false;
     $allowed_modes = ['coaching', 'screening', 'full'];
     if (!in_array($mode, $allowed_modes, true)) {
         $mode = 'coaching';
+    }
+    $allowed_languages = ['en', 'ko'];
+    if (!in_array($language, $allowed_languages, true)) {
+        $language = 'en';
     }
 
     if (empty($idea)) {
@@ -75,18 +80,22 @@ Output strictly in the Markdown format requested, including the QuickChart radar
 Keep the radar chart URL compact and do not add spaces inside the chart data array.
 PROMPT;
 
-    $system_prompt_full = file_get_contents(__DIR__ . '/VS_IR_EVAL.prompt.md');
+    $prompt_file = $language === 'ko' ? 'VS_IR_EVAL.ko.prompt.md' : 'VS_IR_EVAL.prompt.md';
+    $system_prompt_full = file_get_contents(__DIR__ . '/' . $prompt_file);
     // If the file exists, use it. Otherwise use the fallback string.
     if ($system_prompt_full !== false && trim($system_prompt_full) !== '') {
         $system_prompt = $system_prompt_full;
     }
     $runtime_note = 'Runtime capability note: this demo web app does not provide live web search or browsing tools. Do not claim that external verification was performed unless the user supplied sources or URLs. Mark unverifiable facts as Not performed (no browsing tool) or Unverified, and turn market, valuation, and VCS sections into search guidance/checklists when live verification is unavailable.';
+    $language_note = $language === 'ko'
+        ? 'Output language: Korean. Use Korean headings, labels, grades, caveats, and action items.'
+        : 'Output language: English. Use English headings, labels, grades, caveats, and action items.';
 
     $data = [
         "model" => $model,
         "messages" => [
-            ["role" => "system", "content" => $system_prompt . "\n\n" . $runtime_note],
-            ["role" => "user", "content" => "Output mode: " . $mode . "\\n\\nEvaluate this pitch or idea:\\n\\n" . $idea]
+            ["role" => "system", "content" => $system_prompt . "\n\n" . $runtime_note . "\n\n" . $language_note],
+            ["role" => "user", "content" => "Output mode: " . $mode . "\\nOutput language: " . $language . "\\n\\nEvaluate this pitch or idea:\\n\\n" . $idea]
         ],
         "temperature" => 0.2
     ];
@@ -300,6 +309,10 @@ PROMPT;
             <option value="screening">Screening mode - one-page pre-review memo</option>
             <option value="full">Full report mode - complete diagnostic report</option>
         </select>
+        <select id="languageInput" aria-label="Output language">
+            <option value="en" selected>English output</option>
+            <option value="ko">한국어 출력</option>
+        </select>
         <textarea id="ideaInput" placeholder="Example: We are building an AI inventory-management chatbot for small merchants. Unlike traditional ERP tools, it lets owners place orders through a familiar messaging workflow..."></textarea>
         <label class="consent">
             <input id="consentInput" type="checkbox">
@@ -316,6 +329,7 @@ PROMPT;
         document.getElementById('submitBtn').addEventListener('click', async () => {
             const idea = document.getElementById('ideaInput').value.trim();
             const mode = document.getElementById('modeInput').value;
+            const language = document.getElementById('languageInput').value;
             const consentToAiProcessing = document.getElementById('consentInput').checked;
             if (!idea) {
                 alert('Please enter a business idea or pitch.');
@@ -342,7 +356,7 @@ PROMPT;
                 const response = await fetch('', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ idea, mode, consentToAiProcessing })
+                    body: JSON.stringify({ idea, mode, language, consentToAiProcessing })
                 });
 
                 const data = await response.json();
