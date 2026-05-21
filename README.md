@@ -1,145 +1,133 @@
 # VS IR Evaluation Skill (vs-ir-eval)
 
-벤처스퀘어의 공개 멘토링 관점과 초기 스타트업 검토 프레임을 바탕으로 사업계획서(IR)를 평가하는 프레임워크 스킬입니다.
+`vs-ir-eval` is a public framework for reviewing startup IR decks, pitch materials, and business plans from a VentureSquare-style mentoring perspective.
 
-기존의 단순 요약 봇을 넘어, **'진짜 고객을 만나는가?', '우리 말고는 하기 어려운가?', '역량 없는 리더가 완성되지 않은 기술에 집착하는 것은 아닌가?'** 등 초기 투자 심사역의 날카로운 관점으로 사업을 해체하고 압박 질문을 도출합니다.
+It goes beyond simple summarization. The skill asks practical early-stage questions such as:
 
-2026-05 업데이트로 Sequoia, Y Combinator, a16z, Bessemer의 공개 투자/피치/지표 프레임워크를 보조 렌즈로 접목했습니다. 단, 이 저장소는 공개 배포용이므로 실제 투자 의사결정, 투자 권유, 내부 투자위원회 기준을 대체하지 않습니다.
+- Are the founders meeting real customers?
+- Is the business hard for others to copy?
+- Is the team chasing unfinished technology without enough customer evidence?
+- Can the company reach paid usage, operating leverage, and a credible exit path?
 
-2026-05 보완 업데이트에서는 점수 중심 출력의 오용 위험을 줄이기 위해 종합 판단을 **최상 / 우수 / 보통 / 미흡 / 보완 필요** 5단계 등급으로 구분하고, IR 자기주장과 외부 검증 사실을 분리하도록 바꿨습니다. VCS 투자사·펀드 매칭도 확정 추천이 아니라 공식 사이트 검색 가이드와 공개 정보 기반 샘플 후보 소개로 톤을 낮췄습니다.
+The 2026-05 version also uses public Sequoia, Y Combinator, a16z, Bessemer, marketplace, and SaaS evaluation lenses as supporting references. This repository is for public use, so it does **not** replace real investment decisions, investment advice, confidential investment committee standards, or due diligence.
 
-공개 데모나 외부 공유 전에 [공개 사용 안내](NOTICE.md)를 먼저 확인하세요.
+Before using this in a public demo or sharing it externally, read [Public Use Notice](NOTICE.md).
 
-## 사용법 (Usage)
+## Usage
 
-OpenClaw 에이전트(또는 호환되는 프롬프트 환경)에 사업계획서, IR 덱 텍스트, 또는 아이디어 요약본을 전달하며 아래처럼 요청하세요.
+Give an OpenClaw agent or compatible prompt runtime a business plan, pitch deck text, product summary, or idea brief and ask:
 
-> **"이 사업계획서를 vs-ir-eval 스킬로 평가해줘"**  
-> **"벤처스퀘어 스타일로 이 스타트업 분석해줘"**
+> "Evaluate this business plan with the vs-ir-eval skill."
 
-권장 기본 사용은 **Coaching mode**입니다. 공개 데모나 창업자 셀프 점검에서는 점수보다 보완 질문과 다음 증빙을 먼저 보는 편이 안전합니다. 투자사 내부의 사전 검토 메모가 필요할 때는 **Screening mode**, 긴 진단서가 필요할 때만 **Full report mode**를 사용하세요.
+> "Analyze this startup in a VentureSquare-style review."
 
-## 제약 사항과 책임 있는 사용
+The recommended default is **Coaching mode**. For public demos and founder self-checks, it is safer to focus on questions, missing evidence, and next steps instead of showing scores first.
 
-이 스킬은 클라우드 LLM 어디서나 응용해 스타트업의 사전 평가, 투자심사 준비, 멘토링 질문 도출에 활용할 수 있는 보조 프레임워크입니다. 하지만 투자판단 자체를 AI에 의탁해서는 안 됩니다.
+Use **Screening mode** when you need a compact investor-style pre-review memo. Use **Full report mode** only when a longer diagnostic report is explicitly needed.
 
-- 이 스킬은 **투자 권유, 투자 적합성 판단, 투자 확약, 합격/불합격 통보**를 생성하기 위한 도구가 아닙니다.
-- 스타트업이 공개 데모를 사용할 때는 비공개 IR 원문, 개인정보, 계약서, 재무자료, 투자조건표, 주주명부, 영업비밀을 입력하지 않아야 합니다.
-- 투자 심사역이 사용할 때도 출력 내용을 회의 자료로 인용하기 전 원자료, 미팅, 고객 검증, 재무·법무·기술 실사를 거쳐야 합니다.
-- AI 출력은 호출 시점, 모델 상태, 프롬프트 해석, 사용량이 많은 시간대 등 환경에 따라 미묘하게 달라질 수 있습니다.
-- 같은 자료를 넣어도 평가 점수와 표현이 매번 완전히 일관되지는 않을 수 있습니다.
-- 숫자 점수는 내부 정렬을 돕는 보조값입니다. 공개 판단 단위는 5단계 등급과 근거 추적입니다.
-- 자료가 부족하거나 정성 정보가 빠져 있으면 AI가 중요한 맥락을 놓치거나 할루시네이션을 일으킬 수 있습니다.
-- IR에 적힌 자기주장과 외부에서 확인된 사실은 반드시 분리해 읽어야 합니다.
-- 새벽 시간대, 과부하 상황, 모델 품질 저하 구간 등에서는 평가 대상이나 사업 맥락을 잘못 잡을 가능성도 있습니다.
-- AI는 투자 책임을 지지 않습니다. 최종 판단은 투자자, 심사역, 멘토, 창업자가 원자료와 추가 인터뷰, 고객 검증, 재무·법무·기술 실사 등을 통해 내려야 합니다.
+## Responsible Use
 
-그럼에도 이 스킬은 유용합니다. 스타트업은 자신의 사업을 보다 객관적으로 되돌아보고 보완할 지점을 찾을 수 있고, 멘토와 심사역은 기업 자료를 사전에 빠르게 훑어 질문, 리스크, 조언 포인트를 준비할 수 있습니다.
+This skill is a mentoring and preparation aid. Do not outsource investment judgment to AI.
 
-## 출력 형식 (Output Format)
+- It must not be used to produce investment advice, suitability judgments, investment commitments, pass/fail notifications, or official VentureSquare investment decisions.
+- Public demos must not receive confidential IR materials, personal information, contracts, source financial documents, term sheets, cap tables, shareholder lists, or trade secrets.
+- Reviewers must verify outputs through source materials, founder meetings, customer validation, financial/legal/technical due diligence, and human judgment before using them in any decision process.
+- AI outputs can vary by model state, prompt interpretation, runtime conditions, and traffic load.
+- Numeric scores are secondary ordering aids. Public-facing judgment should use grade bands and traceable evidence.
+- Founder claims and externally verified facts must be separated.
+- If live browsing is unavailable, the output must mark external verification as `Not performed (no browsing tool)` or `Unverified`.
 
-1. **🎯 총평 (Executive Summary)**: 한 줄 평가, 검토의견(후속 검토 권장/관찰·보완 권장/우선 보완 권장), 핵심 명분
-2. **🕸️ VS 역량 레이더와 근거 추적 (Score: 1~10)**: 업력 구간 분류, 단계별 가중치, 팀/시장/해자/확장성/전략 점수화와 근거 추적
-3. **🏛️ TIPS / LIPS 연계 적합성 진단**: 기술창업/R&D 과제화 가능성, 추천 과제명, 보완 증빙
-4. **⚖️ 벤처스퀘어 스타일 가점/감점 요인**: 비용구조, 재원 조달 능력, 과금까지의 시간, 외부 의존도, 인력/용역/정부지원 의존성
-5. **🧪 글로벌 투자 프레임워크 교차검증**: Sequoia, YC, a16z/Bessemer, marketplace/SaaS 관점 검토
-6. **🧭 시장/경쟁사 리서치와 외부 팩트체크**: IR 주장, 외부 검증 사실, 미확인 항목을 분리해 정리
-7. **💵 비교사례와 기업가치 검토**: 비교군과 추정 가능성을 제시하되, 자료가 부족하면 밸류 범위를 만들지 않고 추가 확인 항목으로 남김
-8. **🤝 VCS 기반 투자사/펀드 탐색 가이드**: VCS 공식 사이트 검색 방법을 안내하고, 확인 가능한 경우에만 공개 정보 기반 샘플 후보를 3~5개 소개
-9. **🔍 상세 분석 (Deep Dive)**:
-   - 👍 흥할 수도 있는 조건 (Strengths)
-   - 👎 망할 수도 있는 상황 (Red Flags & Weaknesses)
-10. **📊 투자심사 체크리스트**: 바로 확인할 숫자, 문서, 통과 조건
-11. **💡 공개 멘토링 관점의 조언**: 창업자에게 던질 압박 질문 3가지, 넥스트 스텝 조언
+## Output Format
 
-## 필수 웹 리서치 기준
+1. **Executive Summary**: one-line assessment, review opinion, rationale, and the largest unverified assumption
+2. **VS Capability Radar and Evidence Trace**: stage classification, stage-based weighting, Team/Market/Moat/Scale/Strategy scores, and evidence gaps
+3. **TIPS / LIPS Fit Diagnosis**: technology-startup or local/lifestyle program fit, suggested project title, and required evidence
+4. **VentureSquare-Style Upside and Downside Factors**: cost structure, funding ability, time to monetization, dependency risks, and operating-profit path
+5. **Global Investor Framework Cross-Check**: Sequoia, YC, a16z/Bessemer, marketplace, and SaaS lenses where applicable
+6. **Market, Competitor, and External Fact Check**: separate founder claims, verified facts, and unverified items
+7. **Comparable Cases and Valuation Readiness**: comparable candidates and valuation assumptions only when data quality supports them
+8. **VCS Investor/Fund Search Guide**: official VCS search guidance and, only when verified, public-information-based sample outreach candidates
+9. **Deep Dive**: strengths and red flags
+10. **Investment Review Checklist**: numbers, documents, and pass conditions to verify next
+11. **Public Mentoring Advice**: pressure questions, missing proof, and next actions for the founder
 
-사용자가 명시적으로 웹 검색을 금지하지 않는 한 스킬이 최신 인터넷 리서치를 수행합니다. 아래 항목은 사용자가 사전에 모두 제공해야 하는 자료가 아니라, 스킬이 가능한 범위에서 찾아 검토해 결과에 표시하는 분석 대상입니다.
+## Web Research Standard
 
-- 기업의 사업 영역을 1차 시장, 인접 시장, 장기 확장 시장으로 나눈다.
-- 국내 직접 경쟁사, 국내 간접 경쟁사, 해외 직접 경쟁사, 해외 유사/대체재 기업을 구분한다.
-- 경쟁사별 제품, 고객군, 가격/과금 방식, 매출/투자 단계, 기술·데이터·유통 해자, 약점을 비교한다.
-- 최근 3~5년 내 유사 기업의 투자 라운드, 인수합병, IPO/상장사 시가총액을 검색한다.
-- 가능하면 투자금액, 추정 밸류에이션, 매출/ARR/사용자 수, EV/Sales·PSR·PER 등 비교 가능한 배수를 함께 확인한다.
-- IR 자기주장과 외부에서 확인한 사실을 별도 표로 분리한다. 확인되지 않은 내용은 `미확인`으로 표시한다.
-- 기업가치는 자료가 충분할 때만 보수/기준/공격 시나리오 범위를 제시한다. 자료가 부족하면 비교군 후보와 필요한 입력값만 남긴다.
-- 벤처투자종합포털 `투자자 검색`은 공식 탐색 링크와 검색 필터를 추천하는 용도로 사용한다. 최신 검색 결과를 확인한 경우에만 공개 정보 기반 샘플 후보를 3~5개 소개한다.
-- 벤처투자종합포털 `모태출자펀드 운용사 찾기`는 펀드 확인 기준을 안내하는 용도로 사용한다. 확인되지 않은 펀드명은 만들지 않는다.
-- 출처는 회사 공식자료, 공시, DART/SEC/거래소, 투자사/인수사 발표, 정부/공공 통계, 특허/임상/인허가 DB, 신뢰 가능한 언론과 투자 DB 순으로 우선한다.
-- VCS 기반 투자사·펀드 목록은 확정 추천이 아니라 공개 정보 기반 접촉 후보 예시다. 실제 투자 가능성은 각 투자사의 현재 펀드 소진율, 투자 기간, 심사역 관심사, 포트폴리오 충돌 여부를 별도 확인해야 한다.
+Unless the user explicitly forbids web search, the skill should perform current internet research before producing a report.
 
-## 점수와 등급
+If the runtime does not provide live web search or browsing tools:
 
-| 가중 종합점수 | 공개 등급 | 의미 |
+- Use only sources and URLs supplied by the user.
+- Do not imply that external verification was performed.
+- Mark external verification as `Not performed (no browsing tool)` or `Unverified`.
+- Turn market, valuation, and VCS sections into search guidance and verification checklists.
+
+Research should prioritize official company materials, filings, DART/SEC/exchange data, investor or acquirer announcements, government/public statistics, patent/clinical/regulatory databases, credible media, and reputable investment databases.
+
+## Grade Bands
+
+| Weighted score | Public grade | Meaning |
 |---:|---|---|
-| 90-100 | 최상 | 팀·시장·해자·확장성·전략 명분의 증거가 고르게 강함 |
-| 75-89 | 우수 | 후속 검토 가치가 크지만 주요 확인 항목이 남아 있음 |
-| 60-74 | 보통 | 멘토링·관찰 대상이며 투자 검토 전 증거 보강 필요 |
-| 45-59 | 미흡 | 핵심 가정, 증거, BM 중 하나 이상을 크게 보완해야 함 |
-| 0-44 | 보완 필요 | 미확인 가정이나 치명 리스크가 많아 코칭 용도로 먼저 사용 |
+| 90-100 | Excellent | Strong evidence across team, market, moat, scale, and strategic rationale |
+| 75-89 | Strong | Worth deeper review, with important verification items remaining |
+| 60-74 | Moderate | Useful for mentoring or observation, but evidence must improve before investment review |
+| 45-59 | Weak | One or more core assumptions, evidence areas, or business-model elements need major repair |
+| 0-44 | Needs Work | Too many unverified assumptions or fatal risks; use primarily for coaching |
 
-## 출력 모드
+## Output Modes
 
-- **Coaching mode**: 점수 없이 압박 질문, 보완 자료, 다음 실행만 중심으로 정리
-- **Screening mode**: 심사역용 1페이지 요약, 등급, 핵심 근거, 리스크, 다음 확인 항목 중심
-- **Full report mode**: 전체 15개 섹션 출력. 긴 진단서가 필요할 때만 사용
+- **Coaching mode**: no total score or radar-first framing; focus on pressure questions, missing evidence, and next actions
+- **Screening mode**: one-page investor memo with grade, evidence, risks, and follow-up checks
+- **Full report mode**: full diagnostic report with all sections
 
-공개 웹앱의 기본값은 Coaching mode입니다. 숫자와 레이더 차트가 먼저 보이면 창업자가 결과를 판정표처럼 받아들일 수 있기 때문입니다.
+The public web app defaults to Coaching mode because founders can misread score-first outputs as pass/fail judgments.
 
-## 업력별 평가 가중치
+## Stage-Based Weights
 
-| 단계 | Team | Market | Moat | Scale/Exit | Strategy/TIPS |
+| Stage | Team | Market | Moat | Scale/Exit | Strategy/TIPS |
 |---|---:|---:|---:|---:|---:|
-| 예비창업 | 35% | 25% | 15% | 10% | 15% |
-| 설립 후 3년 미만 | 25% | 25% | 20% | 15% | 15% |
-| 설립 후 5년 미만 | 20% | 20% | 20% | 25% | 15% |
-| 설립 후 7년 미만 | 15% | 20% | 20% | 30% | 15% |
-| 7년 이상 | 10% | 15% | 20% | 40% | 15% |
+| Pre-incorporation | 35% | 25% | 15% | 10% | 15% |
+| Under 3 years | 25% | 25% | 20% | 15% | 15% |
+| Under 5 years | 20% | 20% | 20% | 25% | 15% |
+| Under 7 years | 15% | 20% | 20% | 30% | 15% |
+| 7+ years | 10% | 15% | 20% | 40% | 15% |
 
-업력별 핵심 증빙:
-- **예비창업**: 창업자-문제 적합성, 고객 인터뷰, MVP 계획, 초기 자금 계획
-- **3년 미만**: MVP/PoC, 첫 유상 고객, 사용 로그, 기술/규제/IP 검증
-- **5년 미만**: 매출, 유지율, CAC/LTV, 총마진, 고객 레퍼런스
-- **7년 미만**: 반복 매출, 세일즈 파이프라인, 손익분기 경로, 후속 투자/회수 가능성
-- **7년 이상**: 재무자료, 영업이익 또는 흑자전환 계획, 시장점유율, IPO/M&A 비교, 지배구조 리스크
+Key evidence by stage:
 
-## 벤처스퀘어 스타일 가점/감점 기준
+- **Pre-incorporation**: founder-problem fit, customer interviews, MVP plan, initial funding plan
+- **Under 3 years**: MVP/PoC, first paid customers, usage logs, technical/regulatory/IP validation
+- **Under 5 years**: revenue, retention, CAC/LTV, gross margin, customer references
+- **Under 7 years**: repeat revenue, sales pipeline, break-even path, follow-on funding or exit feasibility
+- **7+ years**: financial statements, operating-profit path, market share, IPO/M&A comparables, governance risks
 
-가점 요인:
-- 비용구조가 간단하고 대표자/핵심 인력에게 현실적인 재원 조달 능력이 있음
-- 완제품이나 서비스가 고객 과금에 도달하기까지의 기간이 짧음
-- 인프라 완비 후 구조조정, 자동화, 비용절감, 단위경제 개선으로 영업이익 전환 가능
-- 대표나 핵심 인력 개인에만 의존하지 않고 시스템과 프로세스로 반복 매출 가능
+## VentureSquare-Style Review Factors
 
-감점 요인:
-- 대표자/핵심 인력의 경험, 경력, 학력, 관련 분야 종사 이력, 도메인 지식 부족
-- 비용구조가 무겁고 여러 차례 후속 투자를 받아도 이익을 내기 어려운 구조
-- 외부 고객, 특정 파트너, 특정 플랫폼, 특정 기관 의존도가 높음
-- 단기 용역, 정부지원, 내부 인력의 수작업 의존도가 높고 시스템 기반 BM이 약함
-- 매출은 만들 수 있어도 영업이익 전환 구조가 불명확함
+Upside factors:
 
-감점이지만 가점으로 상쇄될 수 있는 요인:
-- 솔루션 개발 기간이 길고 비용이 많이 들더라도 성공 시 경제적·사회적 파급력이 매우 큼
-- 경쟁이 치열하지만 사업 안착 후 네트워크 효과, 데이터, 공급망, 규제/인허가 선점으로 과점 가능성이 높음
+- Simple cost structure and realistic founder/team financing capacity
+- Short path from product completion to paid customer usage
+- Potential for operating-profit conversion through automation, cost reduction, or unit-economics improvement
+- Repeatable revenue supported by systems and process, not only founder heroics
 
-가점이지만 감점으로 재검토할 요인:
-- 재원 조달이 순조로워 보여도 실제로는 대출, 가수금, 정부지원금에 의존함
-- 비용구조와 BM이 단순하지만 누구나 진입 가능한 시장이라 방어력이 약함
-- 대표자/핵심 관계자의 역량은 뛰어나지만 기술 영역이 협소하거나 고차원적이라 후속 팀원 확장이 어려움
+Downside factors:
 
-종합 판단:
-- 가점과 감점은 단순 합산하지 않고, 감점의 상쇄 가능성과 가점의 숨은 리스크를 함께 본다.
-- 최종 의견에는 "왜 이 감점을 감수할 만한가" 또는 "왜 이 가점만으로는 부족한가"를 명시한다.
+- Founder or core team lacks relevant experience, domain knowledge, or execution history
+- Heavy cost structure that may remain unprofitable even after multiple funding rounds
+- High dependency on one customer, partner, platform, institution, grant, or manual project work
+- Revenue may exist, but the path to operating profit is unclear
 
-## 접목한 외부 프레임워크
+The final opinion should explain either why a downside is tolerable or why an upside is still insufficient.
 
-- **Sequoia Capital**: 목적, 문제, 솔루션, 왜 지금인가, 시장, 경쟁, 제품, 비즈니스 모델, 팀, 재무/마일스톤 구조
-- **Y Combinator**: 사람들이 원하는 것을 만들고 있는지, 초기 사용자 사랑, 출시와 사용자 대화, "확장되지 않는 일"의 실행
-- **a16z**: 매출 품질, CAC/LTV, gross margin, churn, retention, burn, engagement 등 지표 중심 검증
-- **a16z Marketplace**: GMV, take rate, liquidity, fill/match rate, repeat usage, disintermediation 위험
-- **Bessemer**: SaaS/cloud의 ARR/MRR 품질, CAC payback, net revenue retention, gross margin, burn multiple
+## External Frameworks Used
 
-참고 출처:
+- **Sequoia Capital**: purpose, problem, solution, why now, market, competition, product, business model, team, financials, and milestones
+- **Y Combinator**: making something people want, early user love, launch discipline, user conversations, and doing things that do not scale
+- **a16z**: revenue quality, CAC/LTV, gross margin, churn, retention, burn, engagement, and metric discipline
+- **a16z Marketplace**: GMV, take rate, liquidity, fill/match rate, repeat usage, and disintermediation risk
+- **Bessemer**: SaaS/cloud ARR/MRR quality, CAC payback, net revenue retention, gross margin, and burn multiple
+
+Reference links:
+
 - https://sequoiacap.com/article/writing-a-business-plan/
 - https://www.ycombinator.com/blog/ycs-essential-startup-advice/
 - https://www.ycombinator.com/blog/how-not-to-fail/
@@ -149,21 +137,18 @@ OpenClaw 에이전트(또는 호환되는 프롬프트 환경)에 사업계획�
 - https://www.vcs.go.kr/web/portal/investor/list
 - https://www.vcs.go.kr/web/portal/rsh/list
 
-## 설치 (Installation)
+## Installation
 
-이 스킬은 OpenClaw의 `skills` 디렉토리에 복사하여 즉시 사용할 수 있습니다.
+Copy this repository into your OpenClaw skills directory.
 
 ```bash
-# 스킬 디렉토리로 이동
 cd ~/.openclaw/workspace/skills
-
-# 저장소 클론
 git clone https://github.com/VScommonBot/vs-ir-eval.git
 ```
 
-## 웹앱 배포 전 설정
+## Web App Setup
 
-`web-app/index.php`는 공개 데모용 단일 파일 PHP 웹앱입니다. API 키를 소스 코드에 직접 넣지 말고, 서버 환경변수로만 주입하세요.
+`web-app/index.php` is a single-file PHP demo app. Do not place API keys in source code. Inject them only through server environment variables.
 
 ```bash
 export OPENAI_API_KEY="<your-openai-api-key>"
@@ -171,20 +156,20 @@ export OPENAI_MODEL="<your-preferred-chat-model>"
 php -S 127.0.0.1:8080 -t web-app
 ```
 
-공개 배포 시 주의 사항:
-- 입력 자료는 OpenAI API로 전송되므로 사용자에게 전송 고지와 동의를 받아야 합니다.
-- 비공개 IR, 개인정보, 계약서, 재무자료 원문 등 민감한 자료를 넣지 않도록 안내해야 합니다.
-- 공개 데모 기본 모드는 Coaching mode를 권장합니다. Full report는 사용자가 직접 선택하게 두세요.
-- 모델 응답 Markdown은 HTML로 렌더링하기 전에 sanitize해야 합니다. 기본 웹앱은 DOMPurify를 사용합니다.
-- 공개 서버에 배포할 때는 웹서버 또는 애플리케이션 계층에서 요청 크기 제한, rate limit, 모니터링을 추가하세요.
-- CDN 스크립트는 운영 배포 전 버전 고정과 무결성 검증 또는 자체 호스팅을 권장합니다.
-- 데모 웹앱은 API 모델 자체의 웹 검색 도구를 붙이지 않습니다. 최신 팩트체크가 필요한 운영 환경에서는 별도 검색/브라우징 도구를 연결하거나 검증 결과를 입력에 함께 제공하세요.
-- 웹 검색 도구가 없는 환경에서는 외부 검증을 수행한 것처럼 출력하지 않고, 해당 항목을 `미수행(검색 도구 없음)` 또는 `미확인`으로 표시해야 합니다.
+Public deployment checklist:
 
-## 철학 (Philosophy)
+- Tell users that submitted text is sent to the OpenAI API and require consent.
+- Warn users not to submit confidential IR materials, personal information, contracts, source financials, term sheets, cap tables, shareholder lists, or trade secrets.
+- Keep Coaching mode as the public default.
+- Sanitize Markdown before rendering it as HTML. The demo app uses DOMPurify.
+- Add request-size limits, rate limiting, monitoring, and logging appropriate for your server.
+- Pin CDN assets with integrity checks or self-host them before production deployment.
+- The demo app does not provide live browsing tools. When external verification is needed, connect a separate search/browsing tool or provide verified sources in the input.
 
-이 프레임워크는 벤처스퀘어의 공개 멘토링 관점에서 정리한 다음의 뷰(View)를 따릅니다.
+## Philosophy
 
-- **흥할 조건**: 현재 필요한 시장, 적정 기술, 진짜 고객을 발로 뛰며 만나는 실행력, "우리 말고는 하기 어려운" 해자, 끝까지 버티는 팀.
-- **망할 조건**: 진짜 고객이 누군지 모름, 미완성 기술에 집착, 통제 불가능한 규제 도전, 역량 없는 리더.
-- **투자자 관점**: 회수 가능성, M&A/글로벌 가능성, 정부 지원(TIPS/소부장) 및 ESG 연계 명분.
+This framework reflects a public VentureSquare-style mentoring view:
+
+- **Conditions for growth**: a timely market, appropriate technology, founders who meet real customers, a defensible reason why this team can win, and a team that can persist.
+- **Conditions for failure**: unclear customer definition, obsession with unfinished technology, uncontrollable regulatory risk, weak leadership, and no path to paid usage or operating leverage.
+- **Investor lens**: exit feasibility, M&A/global potential, public-support fit such as TIPS/LIPS, and evidence quality.

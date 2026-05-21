@@ -1,5 +1,5 @@
 <?php
-// 간이 IR 평가 웹앱의 PHP 단일 파일 엔드포인트
+// Single-file PHP endpoint for the lightweight IR evaluation demo app.
 $script_nonce = bin2hex(random_bytes(16));
 header('X-Content-Type-Options: nosniff');
 header("Content-Security-Policy: default-src 'self'; script-src 'self' 'nonce-" . $script_nonce . "' https://cdn.jsdelivr.net; style-src 'self' 'unsafe-inline'; img-src 'self' https://quickchart.io data:; connect-src 'self'; base-uri 'none'; form-action 'self'; frame-ancestors 'none'");
@@ -13,7 +13,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $host = $_SERVER['HTTP_HOST'] ?? '';
     if ($origin !== '' && $host !== '' && parse_url($origin, PHP_URL_HOST) !== $host) {
         http_response_code(403);
-        echo json_encode(['error' => '허용되지 않은 요청 출처입니다.']);
+        echo json_encode(['error' => 'Request origin is not allowed.']);
         exit;
     }
 
@@ -21,7 +21,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $input = json_decode($raw_input ?: '', true);
     if (!is_array($input)) {
         http_response_code(400);
-        echo json_encode(['error' => '요청 본문이 올바른 JSON 형식이 아닙니다.']);
+        echo json_encode(['error' => 'Request body must be valid JSON.']);
         exit;
     }
 
@@ -35,27 +35,27 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     if (empty($idea)) {
         http_response_code(400);
-        echo json_encode(['error' => '아이디어를 입력해주세요.']);
+        echo json_encode(['error' => 'Please enter a business idea or pitch.']);
         exit;
     }
 
     $idea_length = function_exists('mb_strlen') ? mb_strlen($idea, 'UTF-8') : strlen($idea);
     if ($idea_length > 12000) {
         http_response_code(413);
-        echo json_encode(['error' => '입력은 12,000자 이내로 줄여주세요.']);
+        echo json_encode(['error' => 'Please keep the input under 12,000 characters.']);
         exit;
     }
 
     if ($consent !== true) {
         http_response_code(400);
-        echo json_encode(['error' => 'AI 분석을 위해 입력 자료가 외부 API로 전송되는 것에 동의해야 합니다.']);
+        echo json_encode(['error' => 'You must consent to sending the input to an external API for AI analysis.']);
         exit;
     }
 
     $api_key = getenv('OPENAI_API_KEY') ?: '';
     if ($api_key === '') {
         http_response_code(500);
-        echo json_encode(['error' => '서버 설정 오류: OPENAI_API_KEY 환경변수가 필요합니다.']);
+        echo json_encode(['error' => 'Server configuration error: OPENAI_API_KEY environment variable is required.']);
         exit;
     }
     $model = getenv('OPENAI_MODEL') ?: 'gpt-4.1';
@@ -64,15 +64,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 # VS IR Evaluation Framework
 You are acting as an initial-stage startup review and mentoring analyst using a public VentureSquare-style framework. Do not present the output as an actual investment decision, investment recommendation, or confidential investment committee process.
 ## Public VentureSquare-Style Review Philosophy
-1. **Team & CEO (팀과 기업가 역량)**
-2. **Market Size & Growth (시장 매력도)**
-3. **Product & Moat (제품/기술 경쟁력)**
-4. **Scalability & EXIT (사업 확장 및 회수 가능성)**
-5. **TIPS / LIPS Eligibility (정부지원사업 적합성)**
-6. **Fatal Flaws (치명적 실패 요인 - Red Flags)**
+1. **Team & CEO**
+2. **Market Size & Growth**
+3. **Product & Moat**
+4. **Scalability & Exit**
+5. **TIPS / LIPS Eligibility**
+6. **Fatal Flaws and Red Flags**
 
 Output strictly in the Markdown format requested, including the QuickChart radar image URL.
-(참고: 레이더 차트의 URL은 띄어쓰기 없이 작성할 것)
+Keep the radar chart URL compact and do not add spaces inside the chart data array.
 PROMPT;
 
     $system_prompt_full = file_get_contents(__DIR__ . '/VS_IR_EVAL.prompt.md');
@@ -80,7 +80,7 @@ PROMPT;
     if ($system_prompt_full !== false && trim($system_prompt_full) !== '') {
         $system_prompt = $system_prompt_full;
     }
-    $runtime_note = 'Runtime capability note: this demo web app does not provide live web search or browsing tools. Do not claim that external verification was performed unless the user supplied sources or URLs. Mark unverifiable facts as 미수행(검색 도구 없음) or 미확인, and turn market, valuation, and VCS sections into search guidance/checklists when live verification is unavailable.';
+    $runtime_note = 'Runtime capability note: this demo web app does not provide live web search or browsing tools. Do not claim that external verification was performed unless the user supplied sources or URLs. Mark unverifiable facts as Not performed (no browsing tool) or Unverified, and turn market, valuation, and VCS sections into search guidance/checklists when live verification is unavailable.';
 
     $data = [
         "model" => $model,
@@ -94,7 +94,7 @@ PROMPT;
     $ch = curl_init('https://api.openai.com/v1/chat/completions');
     if ($ch === false) {
         http_response_code(500);
-        echo json_encode(['error' => '서버 설정 오류: cURL을 초기화할 수 없습니다.']);
+        echo json_encode(['error' => 'Server configuration error: unable to initialize cURL.']);
         exit;
     }
 
@@ -105,7 +105,7 @@ PROMPT;
     $payload = json_encode($data, JSON_UNESCAPED_UNICODE | JSON_INVALID_UTF8_SUBSTITUTE);
     if ($payload === false) {
         http_response_code(400);
-        echo json_encode(['error' => '입력 내용을 API 요청 형식으로 변환하지 못했습니다.']);
+        echo json_encode(['error' => 'Unable to encode the input as an API request.']);
         exit;
     }
     curl_setopt($ch, CURLOPT_POSTFIELDS, $payload);
@@ -117,27 +117,27 @@ PROMPT;
     $response = curl_exec($ch);
     if(curl_errno($ch)){
         http_response_code(502);
-        echo json_encode(['error' => 'OpenAI API 호출 중 네트워크 오류가 발생했습니다.']);
+        echo json_encode(['error' => 'A network error occurred while calling the OpenAI API.']);
     } else {
         $http_status = curl_getinfo($ch, CURLINFO_HTTP_CODE);
         $res_json = json_decode($response, true);
         if (!is_array($res_json)) {
             http_response_code(502);
-            echo json_encode(['error' => 'OpenAI API 응답이 올바른 JSON 형식이 아닙니다.']);
+            echo json_encode(['error' => 'OpenAI API response was not valid JSON.']);
             curl_close($ch);
             exit;
         }
         if ($http_status < 200 || $http_status >= 300) {
             error_log('OpenAI API error (' . $http_status . '): ' . ($res_json['error']['message'] ?? 'unknown'));
             http_response_code(502);
-            echo json_encode(['error' => 'OpenAI API 요청이 실패했습니다. 잠시 후 다시 시도해주세요.']);
+            echo json_encode(['error' => 'OpenAI API request failed. Please try again later.']);
             curl_close($ch);
             exit;
         }
         if (!isset($res_json['choices'][0]['message']['content'])) {
             error_log('OpenAI API unexpected response: ' . substr((string)$response, 0, 500));
             http_response_code(502);
-            echo json_encode(['error' => 'OpenAI API 응답을 해석하지 못했습니다.']);
+            echo json_encode(['error' => 'Unable to parse the OpenAI API response.']);
             curl_close($ch);
             exit;
         }
@@ -149,13 +149,13 @@ PROMPT;
 }
 ?>
 <!DOCTYPE html>
-<html lang="ko">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-Content-Type-Options" content="nosniff">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>벤처스퀘어 간이 AI 셀프 평가</title>
-    <!-- 마크다운 파서 및 CSS (버전 고정) -->
+    <title>VentureSquare IR Evaluation Demo</title>
+    <!-- Markdown parser and sanitizer, pinned to explicit versions. -->
     <script src="https://cdn.jsdelivr.net/npm/marked@12.0.2/marked.min.js" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script src="https://cdn.jsdelivr.net/npm/dompurify@3.1.6/dist/purify.min.js" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <style>
@@ -275,7 +275,7 @@ PROMPT;
             border-top: 1px solid #ddd;
             padding-top: 30px;
         }
-        /* VS 디자인 마크다운 렌더링 스타일 */
+        /* VentureSquare-style Markdown rendering. */
         #result h1 { color: var(--main-blue); border-bottom: 2px solid var(--main-blue); padding-bottom: 8px; font-size: 24px; }
         #result h2 { color: var(--brand-black); background-color: #f0f4ff; border-left: 5px solid var(--main-blue); padding: 6px 10px; font-size: 18px; margin-top: 24px; }
         #result h3 { color: var(--deep-navy); font-size: 16px; margin-top: 16px; }
@@ -288,26 +288,26 @@ PROMPT;
     <div class="container">
         <div class="header">
             <h1>VentureSquare IR Evaluation</h1>
-            <p>벤처스퀘어 간이 AI 셀프 평가 시스템</p>
+            <p>Lightweight AI self-review system for public startup mentoring</p>
         </div>
         
-        <p style="font-weight: bold;">공개 가능한 사업 아이디어나 엘리베이터 피치를 적어주세요.</p>
+        <p style="font-weight: bold;">Enter a public business idea or elevator pitch.</p>
         <div class="notice">
-            입력한 내용은 평가 생성을 위해 OpenAI API로 전송됩니다. 이 예제 앱은 입력 내용을 별도로 저장하지 않지만, 서버 운영자와 API 제공자가 처리할 수 있습니다. 비공개 IR 원문, 개인정보, 계약서, 재무자료, 투자조건표, 주주명부, 영업비밀은 넣지 마세요. 이 결과는 투자 권유나 합격/불합격 판정이 아니라 멘토링용 참고자료입니다.
+            Your input will be sent to the OpenAI API to generate the review. This demo app does not intentionally store submissions, but the server operator and API provider may process them. Do not submit confidential IR materials, personal information, contracts, source financials, term sheets, cap tables, shareholder lists, or trade secrets. The result is a mentoring reference, not investment advice or a pass/fail decision.
         </div>
-        <select id="modeInput" aria-label="출력 모드">
-            <option value="coaching" selected>Coaching mode - 점수 없는 멘토링</option>
-            <option value="screening">Screening mode - 1페이지 심사 메모</option>
-            <option value="full">Full report mode - 전체 리포트</option>
+        <select id="modeInput" aria-label="Output mode">
+            <option value="coaching" selected>Coaching mode - mentoring without score-first framing</option>
+            <option value="screening">Screening mode - one-page pre-review memo</option>
+            <option value="full">Full report mode - complete diagnostic report</option>
         </select>
-        <textarea id="ideaInput" placeholder="예: 소상공인을 위한 AI 기반 재고관리 챗봇 서비스입니다. 기존 ERP와 달리 카카오톡으로 발주가 가능하며..."></textarea>
+        <textarea id="ideaInput" placeholder="Example: We are building an AI inventory-management chatbot for small merchants. Unlike traditional ERP tools, it lets owners place orders through a familiar messaging workflow..."></textarea>
         <label class="consent">
             <input id="consentInput" type="checkbox">
-            <span>입력 자료가 AI 분석을 위해 외부 API로 전송되는 것에 동의합니다.</span>
+            <span>I consent to sending my input to an external API for AI analysis.</span>
         </label>
         
-        <button id="submitBtn" class="btn">[AI 멘토링 점검] 진행하기</button>
-        <div id="loading" class="loading">벤처스퀘어 뷰로 사업을 분석 중입니다... (약 15초 소요)</div>
+        <button id="submitBtn" class="btn">Run AI Mentoring Review</button>
+        <div id="loading" class="loading">Analyzing the business through a VentureSquare-style lens... (about 15 seconds)</div>
         
         <div id="result"></div>
     </div>
@@ -318,15 +318,15 @@ PROMPT;
             const mode = document.getElementById('modeInput').value;
             const consentToAiProcessing = document.getElementById('consentInput').checked;
             if (!idea) {
-                alert('사업 아이디어를 입력해주세요.');
+                alert('Please enter a business idea or pitch.');
                 return;
             }
             if (!consentToAiProcessing) {
-                alert('AI 분석을 위한 외부 API 전송에 동의해주세요.');
+                alert('Please consent to external API processing for AI analysis.');
                 return;
             }
             if (idea.length > 12000) {
-                alert('입력은 12,000자 이내로 줄여주세요.');
+                alert('Please keep the input under 12,000 characters.');
                 return;
             }
 
@@ -348,7 +348,7 @@ PROMPT;
                 const data = await response.json();
                 
                 if (data.error) {
-                    alert('오류가 발생했습니다: ' + data.error);
+                    alert('Error: ' + data.error);
                 } else {
                     const markdown = String(data.markdown || '');
                     const unsafeHtml = marked.parse(markdown);
@@ -374,7 +374,7 @@ PROMPT;
                     resultDiv.style.display = 'block';
                 }
             } catch (err) {
-                alert('서버 통신 중 오류가 발생했습니다.');
+                alert('A server communication error occurred.');
             } finally {
                 btn.disabled = false;
                 loading.style.display = 'none';

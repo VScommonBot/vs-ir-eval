@@ -1,8 +1,8 @@
 {
   "name": "@venturesquare/vs-ir-eval",
   "version": "1.0.0",
-  "description": "벤처스퀘어 스타일의 공개 스타트업 멘토링 프레임을 반영한 사업계획서(IR) 평가 스킬",
-  "keywords": ["openclaw", "skill", "startup", "invest", "venturesquare", "IR"],
+  "description": "A public VentureSquare-style startup IR and business-plan evaluation skill for mentoring and early review",
+  "keywords": ["openclaw", "skill", "startup", "investment", "venturesquare", "IR"],
   "author": "VentureSquare",
   "license": "MIT",
   "repository": {

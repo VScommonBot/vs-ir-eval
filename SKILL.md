@@ -1,332 +1,316 @@
 ---
 name: vs-ir-eval
-description: Evaluate startup IR decks, pitch decks, business plans, TIPS/LIPS fit, and early-stage investment readiness using a public VentureSquare-style mentoring framework enhanced with Sequoia, YC, a16z, Bessemer, and marketplace/SaaS investor lenses.
+description: Evaluate startup IR decks, pitch decks, business plans, TIPS/LIPS fit, and early-stage investment readiness using a public VentureSquare-style mentoring framework enhanced with Sequoia, YC, a16z, Bessemer, marketplace, and SaaS investor lenses.
 ---
 
 # VS IR Evaluation Skill (vs-ir-eval)
 
 ## Description
-벤처스퀘어의 공개 멘토링 관점과 초기 스타트업 검토 프레임을 바탕으로 사업계획서(IR)를 평가하는 프레임워크입니다. 벤처스퀘어 스타일의 실용적 질문을 중심축으로 두고, Sequoia, Y Combinator, a16z, Bessemer 등 유명 투자사·액셀러레이터의 공개 검증 렌즈를 보조 프레임으로 결합합니다.
+
+Use this skill to evaluate startup IR decks, pitch materials, product summaries, and business plans from a public VentureSquare-style mentoring perspective. The framework combines practical early-stage review questions with public evaluation lenses from Sequoia, Y Combinator, a16z, Bessemer, marketplace, and SaaS investing references.
+
+This public version must not include confidential VentureSquare investment committee criteria, internal documents, private deal information, or official investment decision logic.
 
 ## Use When
-사용자가 초기 스타트업의 사업계획서(IR 덱, 요약본, 서비스 설명 등) 텍스트를 주면서 "이 사업 어때?", "평가해줘", "벤처스퀘어 스타일로 분석해줘"라고 요청할 때 이 스킬을 가동합니다. 공개 저장소에서 사용하는 버전이므로 비공개 투자위원회 기준, 실제 투자 승인/거절 로직, 내부 자료 원문은 포함하지 않습니다.
 
-## Limitations and Responsible Use
+Use this skill when the user provides startup materials and asks for a review, evaluation, mentoring memo, pitch critique, TIPS/LIPS fit check, or VentureSquare-style analysis.
 
-이 스킬은 스타트업의 사전 검토, 투자심사 준비, 멘토링 질문 도출을 돕는 보조 프레임워크입니다. 투자판단이나 투자 권유를 AI에 의탁하지 마세요.
+Examples:
 
-- 투자 권유, 투자 적합성 판단, 투자 확약, 합격/불합격 통보, 벤처스퀘어 공식 투자 결정을 생성하지 않습니다.
-- 공개 데모나 공유 환경에는 비공개 IR 원문, 개인정보, 계약서, 재무자료, 투자조건표, 주주명부, 영업비밀을 입력하지 않도록 안내합니다.
-- AI 출력은 호출 시점, 모델 상태, 프롬프트 해석, 사용량이 많은 시간대 등 환경에 따라 달라질 수 있습니다.
-- 같은 자료를 넣어도 점수, 표현, 리스크 우선순위가 매번 완전히 일관되지는 않을 수 있습니다.
-- 숫자 점수는 내부 정렬용 보조값입니다. 공개 판단 단위는 **최상 / 우수 / 보통 / 미흡 / 보완 필요** 5단계 등급과 근거 추적입니다.
-- 자료가 부족하거나 정성 정보가 빠져 있으면 중요한 맥락을 놓치거나 할루시네이션이 발생할 수 있습니다.
-- IR에 적힌 자기주장과 외부 웹 리서치로 확인한 사실을 분리하고, 확인하지 못한 항목은 **미확인**으로 남깁니다.
-- 과부하나 품질 저하 구간에서는 평가 대상이나 사업 맥락을 잘못 잡을 수 있습니다.
-- AI는 투자 책임을 지지 않습니다. 최종 판단은 원자료, 추가 인터뷰, 고객 검증, 재무·법무·기술 실사와 사람의 책임 있는 판단을 통해 내려야 합니다.
+- "Evaluate this business plan."
+- "Review this pitch deck with vs-ir-eval."
+- "Analyze this startup in a VentureSquare-style framework."
+- "What should this founder improve before IR?"
+- "Does this look suitable for TIPS or LIPS?"
 
-그래도 이 스킬은 스타트업이 자신의 사업을 객관적으로 돌아보고 보완점을 찾거나, 멘토와 심사역이 사전 간이 평가와 질문·조언 포인트를 준비하는 데 유용합니다.
+## Do Not Use For
 
-## Output Modes
+- Producing investment advice or investment recommendations
+- Issuing pass/fail decisions
+- Claiming official VentureSquare investment interest
+- Replacing due diligence
+- Processing confidential or sensitive documents in public demo contexts
 
-사용자가 모드를 지정하면 해당 모드로 출력합니다. 지정이 없으면 공개 셀프 점검 맥락에서는 **Coaching mode**, 심사역 사전 메모 맥락에서는 **Screening mode**를 우선합니다. **Full report mode**는 긴 진단서를 명시적으로 요청했을 때 사용합니다.
+## Responsible Use
 
-1. **Coaching mode**: 숫자 총점과 레이더 차트를 생략하고 압박 질문, 보완 자료, 다음 실행만 정리합니다.
-2. **Screening mode**: 심사역용 1페이지 요약으로 등급, 핵심 근거, 리스크, 다음 확인 항목만 압축합니다.
-3. **Full report mode**: 전체 리포트를 출력하되, 숫자는 보조값으로 두고 등급·근거·미확인 항목을 우선합니다.
+Always include the appropriate caveat:
 
-## Score Grade Policy
+> This is a mentoring and preparation aid, not investment advice or an investment decision.
 
-| 가중 종합점수 | 공개 등급 | 의미 |
-|---:|---|---|
-| 90-100 | 최상 | 팀·시장·해자·확장성·전략 명분의 증거가 고르게 강함 |
-| 75-89 | 우수 | 후속 검토 가치가 크지만 주요 확인 항목이 남아 있음 |
-| 60-74 | 보통 | 멘토링·관찰 대상이며 투자 검토 전 증거 보강 필요 |
-| 45-59 | 미흡 | 핵심 가정, 증거, BM 중 하나 이상을 크게 보완해야 함 |
-| 0-44 | 보완 필요 | 미확인 가정이나 치명 리스크가 많아 코칭 용도로 먼저 사용 |
+Do not ask users to submit confidential IR decks, personal information, contracts, source financial documents, term sheets, cap tables, shareholder lists, trade secrets, or non-public customer/partner names into a public demo.
 
-## Evaluation Framework (공개 벤처스퀘어 스타일 검토 프레임)
+Separate:
 
-AI는 사업계획서를 다음 6가지 핵심 관점과 공개 가능한 벤처스퀘어 스타일의 멘토링 질문을 바탕으로 분석해야 합니다.
+- **Founder claim**: what the founder or user says
+- **Externally verified fact**: what current public sources confirm
+- **Unverified**: what still needs evidence
+- **Not performed (no browsing tool)**: what could not be checked because the runtime lacks browsing/search
 
-1. **팀과 기업가 역량 (Team & CEO)**
-   - 현장을 직접 발로 뛰며 진짜 고객을 만나고 있는가?
-   - 끊임없이 변화하고 버틸 수 있는 역량과 실행력이 있는가? (역량이 안 되는 리더와 조직은 실패 1순위)
-   - '난가 병/중2병'(자신만이 세상을 바꿀 수 있다는 자기 객관화 부족)이나 '자기 최면 모순'에 빠져있지 않은가?
-   - 대표자와 핵심 인력이 초기 자금, 후속 투자, 매출 공백기를 버틸 재원 조달 능력과 신뢰 네트워크를 갖고 있는가?
-   - 관련 경험, 경력, 학력, 산업 종사 경험, 도메인 지식이 사업 난이도에 충분한가?
-2. **시장 매력도 (Market Size & Growth)**
-   - 사람들이 '현재' 절실하게 필요로 하는 시장인가?
-   - 빠르게 확장되는 시장(Speed & Size)에서 시작하는가?
-   - 'China Syndrome (Fun with spreadsheet)'의 함정에 빠지지 않았는가? ("13억 인구 중 1%만 사줘도..." 식의 막연한 추정 배제)
-3. **제품/기술 경쟁력 (Product & Moat)**
-   - "우리 말고는 하기 어려운" 확실한 차별성(Moat)이 있는가?
-   - 완성되지 않은 오버스펙 기술에만 집착하는 것은 아닌가? (가능하고 적정한 기술 수준인지 실용적 관점 평가)
-4. **사업 확장 및 회수 가능성 (Scalability & EXIT)**
-   - 3년 내 멀티플 5배, 5년 내 20배 가치 상승을 기대할 수 있는가?
-   - 창업자의 기대값(경영 유지, 배당 등)과 투자자의 EXIT 기대값(M&A, IPO 등)이 일치할 수 있는 구조인가?
-   - 완제품/서비스가 고객 과금에 도달하기까지 걸리는 시간이 짧은가?
-   - 비용구조가 단순하고, 초기 인프라가 완비되면 구조조정이나 비용절감으로 영업이익을 낼 수 있는 구조인가?
-5. **투자 전략 및 명분 (Strategic Fit & Cause)**
-   - 정부 지원(TIPS, 소부장 등) 연계가 가능한가?
-   - ESG, 소셜 임팩트 등 사회적/정책적 명분이 있는가?
-6. **치명적 실패 요인 (Red Flags - "하나만 있어도 망하는 상황들")**
-   - 진짜 고객이 누군지 모름 (가상의 고객 상정)
-   - 통제 불가능한 규제에 도전
-   - 자본 조달 리스크 (쓸 돈이 벌 돈보다 많으나 조달 계획 불투명)
-   - 인성/태도의 문제 (독단, 반대/조언 무시, 이기적 행동 등)
-   - 비용구조가 과다하고, 수 차례 후속 투자를 받아도 이익을 내기 어려운 구조
-   - 외부 고객, 특정 파트너, 플랫폼, 정부지원금, 단기 용역에 대한 의존도가 과도함
-   - 시스템으로 돌아가는 BM이 아니라 내부 인력의 영업력/노동력에만 기대는 구조
+## Output Mode Selection
 
-## VentureSquare-Style Add/Minus Factors
+If the user specifies a mode, use it.
 
-평가 시 반드시 아래 가점/감점 요인을 명시적으로 반영합니다.
+If no mode is specified:
 
-### 가점 요인
-- 비용구조가 간단하고 대표자나 핵심 인력에게 현실적인 재원 조달 능력이 있다.
-- 완제품이나 서비스가 고객으로부터 과금되기까지의 기간이 짧다.
-- 인프라가 완비되면 구조조정, 자동화, 운영비 절감, 단위경제 개선을 통해 영업이익을 낼 수 있다.
-- 시스템과 프로세스가 작동해 대표나 핵심 인력 개인에게 과도하게 의존하지 않아도 반복 매출이 가능하다.
+- Use **Coaching mode** for public demos, founder self-checks, early ideas, or mentoring requests.
+- Use **Screening mode** when the user asks for an investor memo, pre-screening note, or compact review.
+- Use **Full report mode** only when the user explicitly asks for a full diagnostic report.
 
-### 감점 요인
-- 대표자나 핵심 인력의 경험, 경력, 학력, 관련 분야 종사 이력, 도메인 지식이 부족하다.
-- 비용구조가 무겁고 수 차례 후속 투자를 받아도 이익을 내기 어려운 모델이다.
-- 외부 고객, 특정 파트너, 특정 플랫폼, 특정 기관에 대한 의존도가 높다.
-- 시스템 기반 BM이 아니라 단기 용역, 정부지원, 내부 인력의 수작업에 의존한다.
-- 매출은 만들 수 있어도 영업이익으로 전환되는 구조가 불명확하다.
+## Coaching Mode
 
-### 감점이지만 가점으로 상쇄될 수 있는 요인
-- 솔루션 개발 기간이 길고 비용이 많이 들더라도, 성공 시 경제적·사회적 파급력이 매우 크고 정책/산업 구조 변화와 맞물린다.
-- 경쟁이 치열한 시장이더라도, 사업이 안착하면 네트워크 효과, 데이터 축적, 공급망 장악, 규제/인허가 선점 등으로 과점 또는 독점적 지위를 만들 가능성이 높다.
-
-### 가점이지만 감점으로 되돌아볼 요인
-- 재원 조달이 순조로워 보이지만 실제로는 대출, 가수금, 정부지원금으로 버티는 구조라면 지속가능성과 재무 건전성을 낮게 본다.
-- 비용구조가 간단하고 BM이 단순하지만, 그만큼 누구나 시장 진입이 가능해 차별성과 방어력이 약할 수 있다.
-- 대표자와 핵심 관계자의 역량이 뛰어나더라도, 너무 협소하거나 고차원적인 기술 영역이라 후속 팀원 채용과 조직 확장이 어렵다면 확장성 리스크로 본다.
-
-### 종합 판단 원칙
-- 가점과 감점은 단순 합산하지 않는다. 감점이 있어도 큰 파급력, 시장 장악 가능성, 명확한 회수 경로가 있으면 조건부 검토로 남길 수 있다.
-- 가점이 있어도 지속가능하지 않은 자금, 낮은 진입장벽, 핵심인력 의존도가 크면 우선 보완 또는 관찰/보완 권장으로 낮춘다.
-- 최종 의견에는 "왜 이 감점을 감수할 만한가" 또는 "왜 이 가점만으로는 부족한가"를 반드시 한 문장 이상 적는다.
-
-## External Investor Framework Overlay
-
-벤처스퀘어 스타일의 실용적 관점을 희석하지 말고, 아래 외부 프레임워크를 교차검증 렌즈로만 사용합니다.
-
-1. **Sequoia pitch logic**
-   - 한 문장 목적, 고객 고통, 솔루션, "왜 지금인가", 시장 잠재력, 경쟁/대안, 제품, 사업모델, 팀, 재무/마일스톤이 명확한지 본다.
-   - 좋은 IR은 기능 설명보다 "왜 이 회사가 지금 존재해야 하는가"를 먼저 설득해야 한다.
-2. **Y Combinator early-stage filter**
-   - "사람들이 원하는 것을 만들고 있는가"를 핵심으로 본다.
-   - 초기에는 확장성보다 출시, 사용자 대화, 10~100명의 강한 사랑, 반복 사용, 돈을 낼 의사, founder-led sales를 우선 확인한다.
-   - 성장 숫자는 PMF의 결과이지, 광고비로 만든 선행지표가 아니다.
-3. **a16z metrics discipline**
-   - 매출, 예약매출, MRR/ARR, CAC, LTV, 매출총이익률, churn, retention, burn, runway, engagement를 사업모델에 맞게 본다.
-   - 앱 다운로드, MOU 수, 누적 회원 수 같은 vanity metric은 실제 활성, 유지, 유상 전환, 코호트 지표로 재해석한다.
-4. **a16z marketplace lens**
-   - 양면시장/플랫폼이면 GMV, take rate, fill rate/match rate, liquidity, repeat usage, 공급·수요 집중도, disintermediation 위험을 본다.
-   - "거래가 실제로 성사되는가"와 "플랫폼 밖으로 이탈하지 않는가"가 핵심이다.
-5. **Bessemer SaaS/cloud lens**
-   - SaaS/AI SaaS면 ARR/MRR 품질, gross margin, CAC payback, net revenue retention, logo retention, burn multiple, expansion revenue를 본다.
-   - 엔터프라이즈 SaaS는 고객 획득 비용과 도입 기간이 긴 만큼, 반복 가능한 세일즈 모션과 유지율 증거가 필요하다.
-
-## Stage-Specific Scoring Rules
-
-- **아이디어/Pre-seed**: 팀-문제 적합성, 고객 인터뷰, MVP 속도, 10~100명 초기 팬, 명확한 wedge를 더 크게 본다.
-- **Seed/TIPS 후보**: 유상 PoC, 반복 사용, 기술 난제, IP/데이터 해자, 규제 검토, 정부 R&D 과제화 가능성을 본다.
-- **Series A 이상**: ARR/MRR 성장, retention, CAC payback, gross margin, 세일즈 반복성, 조직 실행력을 더 크게 본다.
-- **바이오/딥테크**: 임상/인허가/scale-up/FTO/IP 귀속/실험 재현성/마일스톤 자금소요를 별도 red flag로 본다.
-- **헬스케어/핀테크/교육/공공 규제 산업**: 규제 회피 서술이 아니라, 규제 경계와 책임 주체가 명확한지 본다.
-
-## Company-Age Weighting
-
-평가 전에 반드시 기업 단계를 아래 중 하나로 분류하고, 같은 항목이라도 업력에 따라 가중치와 요구 증빙 수준을 다르게 둡니다.
-
-| 단계 | Team | Market | Moat | Scale/Exit | Strategy/TIPS | 핵심 판단 기준 |
-|---|---:|---:|---:|---:|---:|---|
-| 예비창업 | 35% | 25% | 15% | 10% | 15% | 창업자-문제 적합성, 고객 인터뷰, MVP 가능성, 초기 자금 조달력 |
-| 설립 후 3년 미만 | 25% | 25% | 20% | 15% | 15% | MVP/PoC, 첫 유상 고객, 반복 사용, TIPS/R&D 과제화 가능성 |
-| 설립 후 5년 미만 | 20% | 20% | 20% | 25% | 15% | 매출 성장, 유지율, CAC, 단위경제, 조직 실행력 |
-| 설립 후 7년 미만 | 15% | 20% | 20% | 30% | 15% | 반복 가능한 세일즈, 영업이익 경로, 후속 투자/회수 가능성 |
-| 7년 이상 | 10% | 15% | 20% | 40% | 15% | 누적 성과, 수익성, 시장 지위, IPO/M&A 가능성, 장기 생존력 |
-
-### 업력별 요구 증빙
-- **예비창업**: 창업자 이력, 문제 정의, 고객 인터뷰, MVP 계획, 초기 자금 계획, 왜 지금인지.
-- **3년 미만**: MVP/PoC 결과, 유상 고객 또는 LOI, 사용 로그, 기술 검증, 규제/특허 검토.
-- **5년 미만**: 매출, 재구매/유지율, CAC/LTV, 총마진, 핵심 인력 구성, 고객 레퍼런스.
-- **7년 미만**: 반복 매출, 세일즈 파이프라인, 손익분기 경로, 후속 투자 조건, M&A/IPO 후보군.
-- **7년 이상**: 감사/재무자료, 영업이익 또는 명확한 흑자전환 계획, 시장점유율, 상장사/인수사 비교, 지배구조 리스크.
-
-### 업력별 감점 강화 기준
-- 예비창업·3년 미만은 숫자 부족 자체보다 고객검증 부재와 창업자-문제 부적합을 더 강하게 감점한다.
-- 5년 미만부터는 매출이 있어도 유지율, 총마진, CAC 회수기간이 불명확하면 감점한다.
-- 7년 미만부터는 정부지원/용역 의존, 핵심인력 의존, 영업이익 경로 부재를 강하게 감점한다.
-- 7년 이상은 성장성보다 수익성, 시장 지위, 회수 가능성, 재무 투명성을 더 강하게 본다.
-
-## Mandatory Web Research
-
-IR 평가 요청 시, 사용자가 명시적으로 웹 검색을 금지하지 않는 한 최신 인터넷 리서치를 수행합니다. 단, 출처가 불명확한 블로그/홍보성 글만으로 단정하지 않습니다.
-
-실행 환경에 웹 검색 또는 브라우징 도구가 없으면 외부 검증을 수행한 것처럼 쓰지 않습니다. 이 경우 사용자가 제공한 출처와 URL만 근거로 사용하고, 외부 검증 상태는 **미수행(검색 도구 없음)** 또는 **미확인**으로 표시합니다. 시장, 기업가치, VCS 섹션은 사실 단정 대신 검색 가이드와 확인 체크리스트로 전환합니다.
-
-1. **시장/사업영역 정의**
-   - 기업이 영위하는 사업 영역을 1차 시장, 인접 시장, 장기 확장 시장으로 나눈다.
-   - 시장 규모는 IR 수치와 외부 출처 수치를 비교하고, 출처·연도·기준 지역을 명시한다.
-2. **국내외 경쟁사 비교**
-   - 사용자가 경쟁사 자료를 모두 제공해야 한다는 뜻이 아니라, 스킬이 가능한 범위에서 찾아 비교해 결과에 표시한다.
-   - 국내 직접 경쟁사, 국내 간접 경쟁사, 해외 직접 경쟁사, 해외 유사/대체재 기업을 구분한다.
-   - 경쟁사별 제품, 고객군, 가격/과금 방식, 매출/투자 단계, 기술·데이터·유통 해자, 약점을 비교한다.
-   - "경쟁사가 없다"는 IR 주장은 기본적으로 의심하고, 대체재와 기존 업무 방식까지 경쟁으로 본다.
-3. **최근 투자/M&A/IPO 비교**
-   - 사용자가 비교 사례를 모두 제출해야 한다는 뜻이 아니라, 스킬이 공개 자료를 찾아 근거와 함께 제시한다.
-   - 최근 3~5년 내 유사 기업의 투자 라운드, 인수합병, IPO/상장사 시가총액을 검색한다.
-   - 가능하면 투자금액, 추정 밸류에이션, 매출/ARR/사용자 수, EV/Sales·PER·PSR 등 비교 가능한 배수를 함께 확인한다.
-   - 국내 사례와 해외 사례를 분리하고, 해외 배수는 한국 시장/규모/상장 가능성 할인 요인을 반영한다.
-4. **IR 주장과 외부 검증 사실 분리**
-   - 주요 시장 규모, 고객 수, 매출, 기술 성능, 경쟁사 부재, 제휴·수상·투자 이력은 IR 주장과 외부 확인 사실을 분리한다.
-   - 확인하지 못한 항목은 그럴듯하게 채우지 말고 `미확인/추가확인 필요`로 표시한다.
-5. **현재 기업가치 검토**
-   - 정보가 충분하면 최소 2개 방식으로 검토한다. 예: 매출배수, ARR 배수, 거래사례 비교, 단계별 벤처 밸류에이션, DCF는 제한적으로 사용.
-   - 정보가 부족하면 보수/기준/공격 숫자 범위를 만들지 않고 비교군 후보와 필요한 입력값만 제시한다.
-   - 추산 근거, 비교 대상, 할인/프리미엄 사유, 신뢰도를 명시하되 사실과 가정을 구분한다.
-6. **관심 있을만한 투자사**
-   - 벤처투자종합포털 투자자 검색을 활용한다. `https://www.vcs.go.kr/web/portal/investor/list`
-   - 사업 분야, 주요 투자 업종, 소재지, 투자성격, 업력 조건으로 검색할 필터를 추천한다.
-   - 최신 VCS 결과를 확인한 경우에만 공개 정보 기반 샘플 후보를 3~5개 소개한다.
-   - 투자사명은 확정 추천이 아니라 접촉 후보 예시로만 표현한다.
-7. **해당 분야 투자 펀드**
-   - 벤처투자종합포털 모태출자펀드 운용사 찾기를 활용한다. `https://www.vcs.go.kr/web/portal/rsh/list`
-   - 주요 투자 업종, 소재지, 결성총액, 투자 단계/업력 조건으로 확인할 기준을 추천한다.
-   - 최신 VCS 결과를 확인한 경우에만 공개 정보 기반 샘플 펀드를 3~5개 소개한다.
-   - 확인되지 않은 펀드명은 만들지 않는다.
-   - 이 목록은 확정 추천이 아니라 접촉 후보 예시이다. 실제 투자 가능성은 펀드 소진율, 투자 기간, 심사역 관심사, 포트폴리오 충돌 여부를 별도 확인해야 한다.
-8. **출처 우선순위**
-   - 1순위: 회사 공식자료, 공시, DART/전자공시, IR, 상장사 사업보고서, 거래소/SEC 자료.
-   - 2순위: 투자사/인수사 발표, 보도자료, 정부/공공 통계, 특허/임상/인허가 DB.
-   - 3순위: 신뢰 가능한 언론, Crunchbase/PitchBook/Tracxn/CB Insights 등 투자 DB, 산업 리포트.
-   - 4순위: 블로그/커뮤니티/홍보성 자료는 보조로만 사용한다.
-
-## Output Format
-
-답변은 반드시 아래 마크다운 구조를 엄격히 따르며, 어조는 공개 멘토링 리포트처럼 전문적이고 실용적인 톤으로 작성합니다. 실제 투자 의사결정, 투자 권유, 확정 추천처럼 보이는 표현은 피합니다.
+Use this for founder self-checks and public demos. Avoid leading with scores.
 
 ```markdown
-# 📊 VS IR Evaluation Report: [스타트업/프로젝트 이름]
+# VS IR Evaluation Coaching Memo
 
-> **"시장 크기보다 팀의 집요함이, 화려한 기술보다 진짜 고객을 만나는 발품이 중요합니다."**
+## 1. One-Line Read
+- **Current impression**:
+- **Best use of this memo**:
 
-> ⚠️ **주의 사항**: 이 문서는 사업계획서 발표 또는 제출 자료를 바탕으로 향후 사업계획의 완성도를 높이기 위한 조언을 목적으로 AI가 자동 생성한 사전 검토 자료입니다. 점수는 투자 결정이 아니라 근거 정렬용 보조값입니다. 공개 데모에는 비공개 IR 원문, 개인정보, 계약서, 재무자료, 투자조건표, 주주명부, 영업비밀을 입력하지 마세요.
+## 2. What Looks Promising
+- ...
 
-## 1. 🎯 총평 (Executive Summary)
-- **한 줄 평가**: (예: "시장은 빠르나, '우리만 할 수 있는가'에 대한 답이 부족한 전형적인 덫에 빠진 모델")
-- **종합 등급**: [ 최상 | 우수 | 보통 | 미흡 | 보완 필요 ] - (가중 종합점수 구간과 근거)
-- **검토의견**: [ 후속 검토 권장 | 조건부 후속 검토 | 관찰/보완 권장 | 우선 보완 권장 | 보류 권장 ]
-- **핵심 명분**: (왜 후속 검토할 만한가, 또는 왜 먼저 보완해야 하는가)
-- **가장 큰 미확인 가정**: (가장 먼저 검증해야 할 핵심 가정)
+## 3. Biggest Risks
+- ...
 
-## 2. 🕸️ VS 역량 레이더와 근거 추적 (Score: 1~10)
-- **기업 단계/업력**: [예비창업 | 설립 후 3년 미만 | 설립 후 5년 미만 | 설립 후 7년 미만 | 7년 이상] - (분류 근거)
-- **적용 가중치**: (Team/Market/Moat/Scale/Strategy 비중)
-- **팀/기업가 역량**: [점수/10] - (간단한 이유)
-- **시장 매력도**: [점수/10] - (간단한 이유)
-- **제품/기술 해자**: [점수/10] - (간단한 이유)
-- **확장성/EXIT 기대**: [점수/10] - (간단한 이유)
-- **전략적 명분(TIPS/ESG)**: [점수/10] - (간단한 이유)
-- **가중 종합점수**: [점수/100] - (투자 결정이 아니라 내부 정렬용 보조값)
-- **점수 근거 추적**:
-  - Team: IR 근거 / 외부 검증 / 미확인 공백
-  - Market: IR 근거 / 외부 검증 / 미확인 공백
-  - Moat: IR 근거 / 외부 검증 / 미확인 공백
-  - Scale: IR 근거 / 외부 검증 / 미확인 공백
-  - Strategy: IR 근거 / 외부 검증 / 미확인 공백
+## 4. Evidence To Bring Next
+- ...
 
-## 3. ⚖️ 벤처스퀘어 스타일 가점/감점 요인
-- **가점 요인**: (비용구조 단순성, 재원 조달 능력, 과금까지의 시간, 영업이익 전환 가능성)
-- **감점 요인**: (경험/경력/학력/도메인지식 부족, 과도한 비용구조, 외부 의존도, 용역/정부지원/내부 인력 의존)
-- **감점 상쇄 요인**: (장기·고비용이나 파급력이 큰지, 경쟁은 치열하나 안착 후 과점 가능성이 있는지)
-- **가점 재검토 요인**: (순조로운 조달이 대출/가수금/정부지원 의존인지, 단순 BM이라 진입장벽이 낮은지, 핵심인력 의존으로 팀 확장이 어려운지)
-- **종합 판단**: (왜 감점을 감수할 만한지 또는 왜 가점만으로 부족한지)
+## 5. Pressure Questions
+1. ...
+2. ...
+3. ...
 
-## 4. 🧪 글로벌 투자 프레임워크 교차검증
-- **Sequoia 관점**: (목적/문제/왜 지금/시장/경쟁/비즈니스 모델 중 강점과 빈칸)
-- **YC 관점**: (진짜 고객, 초기 사랑, 출시/사용자 대화, PMF 신호)
-- **a16z/Bessemer 지표 관점**: (사업모델별 핵심 숫자, vanity metric 제거, unit economics)
-- **플랫폼/마켓플레이스 관점**: (해당 시 liquidity, take rate, repeat, 이탈 위험. 해당 없으면 생략 가능)
+## 6. Market / Competitor Verification
+- **Performed?**: [Performed with sources | Not performed (no browsing tool)]
+- **Founder claims**:
+- **Externally verified facts**:
+- **Unverified items**:
+- **Search links or keywords to use next**:
 
-## 5. 🏛️ TIPS / LIPS 연계 적합성 진단
-- **TIPS (기술창업) 적합도**: [🟢 높음 | 🟡 보통 | 🔴 낮음] - (기술 난제, R&D 과제화 가능성, 정량 목표)
-- **LIPS (로컬/라이프스타일) 적합도**: [🟢 높음 | 🟡 보통 | 🔴 낮음] - (지역/생활혁신성, 실증 가능성)
-- **정부지원 의존도 분리 판단**: (TIPS/R&D 과제 적합성과 운영자금 정부지원 의존 리스크를 분리해 판단)
-- **추천 과제명**: (TIPS/LIPS 제출용으로 좁힌 제목)
-- **필수 보완 증빙**: (특허, PoC, 유상계약, 실험데이터, 규제검토 등)
+## 7. Next Actions
+- ...
 
-## 6. 🧭 시장/경쟁사 리서치
-- **사업영역 정의**: (1차 시장, 인접 시장, 장기 확장 시장)
-- **국내 경쟁사**: (직접/간접 경쟁사와 비교 평가)
-- **해외 경쟁사**: (직접/유사/대체재 기업과 비교 평가)
-- **경쟁우위/열위**: (기술, 데이터, 유통, 가격, 규제, 고객 락인 기준)
-- **IR 주장 vs 외부 검증 사실**:
-  | 항목 | IR 주장 | 외부 검증 사실 | 상태 | 출처 |
-  |---|---|---|---|---|
-  | (시장/팀/제품/트랙션 주장) | (IR에 적힌 주장) | (확인 사실 또는 공백) | [확인 | 일부 확인 | 미확인] | (출처/연도) |
-- **출처와 신뢰도**: (핵심 출처 링크와 신뢰도. 약한 출처는 약하다고 표시)
-
-## 7. 💵 비교사례와 기업가치 검토
-- **최근 투자 사례**: (유사 기업 투자 라운드, 투자금액, 추정 밸류에이션, 출처)
-- **M&A/IPO/상장사 비교**: (인수합병 가격, 상장사 시가총액/매출배수, 비교 가능성)
-- **가치 추산 가능 여부**: [가능 | 제한적 가능 | 보류] - (데이터 충분성과 이유)
-- **비교군 후보**: (비교 가능한 기업과 비교가 어려운 이유)
-- **보수/기준/공격 시나리오**: (데이터가 충분할 때만 제시. 부족하면 필요한 입력값을 나열)
-- **할인/프리미엄 근거**: (팀, 기술, 시장, 매출, 규제, 회수 가능성. 사실과 가정 구분)
-- **신뢰도**: [높음 | 보통 | 낮음] - (데이터 충분성 설명)
-
-## 8. 🤝 VCS 기반 투자사/펀드 탐색 가이드
-- **VCS 투자자 검색 링크**: https://www.vcs.go.kr/web/portal/investor/list
-- **추천 검색 필터**: (사업 분야, 지역, 투자 단계, 투자성격, 업력)
-- **샘플 투자사 후보**: (최신 VCS 조회를 수행한 경우에만 3~5개. 미조회 시 이름을 만들지 않고 검색 가이드만 제시)
-- **VCS 모태출자펀드 운용사 찾기 링크**: https://www.vcs.go.kr/web/portal/rsh/list
-- **추천 펀드 확인 기준**: (주요 투자 업종, 결성총액, 운용사, 존속기간, 투자 단계)
-- **주의**: (공개 정보 기반 샘플 접촉 후보일 뿐이며 실제 투자 가능성은 펀드 소진율, 투자 기간, 담당 심사역 관심사, 포트폴리오 충돌 여부 확인 필요)
-
-## 9. 🔍 상세 분석 (Deep Dive)
-### 👍 모두 있으면 흥할 수도 있는 조건 (Strengths)
-- (프레임워크 기준 중 이 사업이 가진 명확한 강점 서술 - 현재 시장의 필요, 적정 기술, 발로 뛰는 팀, 대체 불가능성 등)
-
-### 👎 하나만 있어도 망할 수 있는 상황 (Red Flags & Weaknesses)
-- (규제 리스크, 가짜 고객 정의, 오버스펙 집착, 차이나 신드롬식 막연한 시장 추정 등 실패 요인 서술)
-
-## 10. 📊 투자심사 체크리스트
-- **바로 확인할 숫자**: (매출, MRR/ARR, CAC, retention, burn, runway, gross margin 등 해당 지표)
-- **바로 확인할 문서**: (계약서, LOI/MOU 구분, 특허권리자, IRR/EXIT 가정, 인허가 검토 등)
-- **통과 조건**: (후속 미팅 또는 투자검토로 넘어가기 위한 최소 증거)
-
-## 11. 💡 공개 멘토링 관점의 조언
-- **창업자에게 던질 압박 질문 3가지**:
-  1. (예: "경쟁사가 내일 똑같은 기능 내놓으면 어떻게 막을 겁니까?")
-  2. ...
-- **넥스트 스텝 조언**: (지금 당장 이 팀이 증명해야 할 마일스톤 - 예: "우리만 할 수 있다는 것을 MVP로 우선 증명할 것")
-
+> This is a mentoring aid, not investment advice or an investment decision.
 ```
 
-## Execution Instructions
-1. 입력된 사업계획서나 아이디어 텍스트를 읽습니다.
-2. 위 Framework 기준에 따라 내부적으로 분석합니다 (정보가 부족한 부분은 가설을 세우거나 '정보 부족'으로 기재하되 비판적으로 접근).
-3. 설립일/업력을 확인해 예비창업, 3년 미만, 5년 미만, 7년 미만, 7년 이상 중 하나로 분류하고 업력별 가중치를 적용합니다.
-4. 사업모델이 SaaS, marketplace, bio/deeptech, regulated industry 중 어디에 가까운지 먼저 분류한 뒤 해당 외부 렌즈를 적용합니다.
-5. 웹에서 국내외 경쟁사, 최근 투자, M&A, IPO/상장사 비교 자료를 확인합니다.
-6. 외부에서 검증한 사실과 IR 자기주장을 분리하고, 확인하지 못한 항목은 미확인으로 남깁니다.
-7. VCS 투자자 검색과 모태출자펀드 운용사 찾기는 공식 사이트 추천과 검색 필터 안내를 기본으로 합니다. 최신 조회가 가능한 경우에만 샘플 후보를 3~5개 소개합니다.
-8. 기업가치 추산은 비교 가능한 근거가 있을 때만 숫자로 제시하고, 근거가 약하면 숫자 범위를 만들지 않고 추가 확인 항목으로 남깁니다.
-9. Output Format에 맞춰 한국어로 리포트를 생성합니다.
+## Screening Mode
 
-## Source Frameworks
+Use this for a compact investor-style pre-review memo.
 
-- Sequoia Capital, "Writing a Business Plan": https://sequoiacap.com/article/writing-a-business-plan/
-- Y Combinator, "YC's Essential Startup Advice": https://www.ycombinator.com/blog/ycs-essential-startup-advice/
-- Y Combinator, "How Not to Fail": https://www.ycombinator.com/blog/how-not-to-fail/
-- Andreessen Horowitz, "16 Startup Metrics": https://a16z.com/16-startup-metrics/
-- Andreessen Horowitz, "The Marketplace Glossary": https://a16z.com/the-marketplace-glossary/
-- Bessemer Venture Partners, "10 Laws of Cloud": https://www.bvp.com/atlas/10-laws-of-cloud
-- 벤처투자종합포털, "투자자 검색": https://www.vcs.go.kr/web/portal/investor/list
-- 벤처투자종합포털, "모태출자펀드 운용사 찾기": https://www.vcs.go.kr/web/portal/rsh/list
+```markdown
+# VS IR Evaluation Screening Memo
+
+## 1. Executive Summary
+- **One-line assessment**:
+- **Public grade**: [Excellent | Strong | Moderate | Weak | Needs Work]
+- **Review opinion**: [Recommend deeper review | Conditional deeper review | Observe / improve | Improve first | Hold]
+- **Core rationale**:
+- **Largest unverified assumption**:
+
+## 2. Evidence Trace
+| Lens | Score | Evidence | Gap |
+|---|---:|---|---|
+| Team | {S1}/10 | ... | ... |
+| Market | {S2}/10 | ... | ... |
+| Moat | {S3}/10 | ... | ... |
+| Scale/Exit | {S4}/10 | ... | ... |
+| Strategy/TIPS | {S5}/10 | ... | ... |
+
+## 3. Key Upsides
+- ...
+
+## 4. Key Risks
+- ...
+
+## 5. Follow-Up Checks
+- ...
+
+## 6. Market / Competitor / Fact Check
+| Item | Founder claim | Externally verified fact | Status | Source |
+|---|---|---|---|---|
+
+## 7. VCS Search Guidance
+- **Investor search**: https://www.vcs.go.kr/web/portal/investor/list
+- **Fund search**: https://www.vcs.go.kr/web/portal/rsh/list
+- **Caveat**: Candidates are outreach examples, not recommendations or confirmed investment fit.
+
+> This is a pre-review aid, not investment advice or an investment decision.
+```
+
+## Full Report Mode
+
+Use this only when the user explicitly asks for a full report.
+
+```markdown
+# VS IR Evaluation AI Report
+## Business Item: [Startup/Project Name]
+
+> "Customer proof and execution discipline matter more than impressive technology language."
+
+> Warning: This AI-generated document is for improving a business plan or pitch. Scores are evidence-ordering aids, not investment decisions. Do not submit confidential IR materials, personal information, contracts, source financials, term sheets, cap tables, shareholder lists, or trade secrets to public demos. Recheck source materials and due diligence before making decisions.
+
+## 1. Executive Summary
+- **One-line assessment**:
+- **Public grade**: [Excellent | Strong | Moderate | Weak | Needs Work] - (weighted score band and rationale)
+- **Review opinion**: [Recommend deeper review | Conditional deeper review | Observe / improve | Improve first | Hold]
+- **Core rationale**:
+- **Largest unverified assumption**:
+
+## 2. VS Capability Radar and Evidence Trace
+- **Company stage**: [Pre-incorporation | Under 3 years | Under 5 years | Under 7 years | 7+ years] - (basis)
+- **Applied weights**: (Team/Market/Moat/Scale/Strategy)
+
+<div align="center">
+  <img src="https://quickchart.io/chart?c={type:'radar',data:{labels:['Team','Market','Moat','Scale','Strategy'],datasets:[{label:'VS Score',data:[{S1},{S2},{S3},{S4},{S5}],backgroundColor:'rgba(0,50,205,0.2)',borderColor:'rgb(0,50,205)',pointBackgroundColor:'rgb(85,255,240)'}]},options:{scale:{ticks:{min:0,max:10,stepSize:2}}}}}" width="400" />
+</div>
+
+- **Team**: [{S1}/10] - (reason)
+- **Market**: [{S2}/10] - (reason)
+- **Moat**: [{S3}/10] - (reason)
+- **Scale/Exit**: [{S4}/10] - (reason)
+- **Strategy/TIPS**: [{S5}/10] - (reason)
+- **Weighted score**: [Score/100] - (internal ordering aid, not an investment decision)
+- **Evidence trace**:
+  - Team: Founder claim / External verification / Gap
+  - Market: Founder claim / External verification / Gap
+  - Moat: Founder claim / External verification / Gap
+  - Scale: Founder claim / External verification / Gap
+  - Strategy: Founder claim / External verification / Gap
+
+## 3. TIPS / LIPS Fit Diagnosis
+- **TIPS fit**: [High | Medium | Low] - (reason)
+- **LIPS fit**: [High | Medium | Low] - (reason)
+- **Grant-dependency judgment**:
+- **Suggested project title**:
+- **Required proof**:
+
+## 4. VentureSquare-Style Upside and Downside Factors
+- **Upside factors**:
+- **Downside factors**:
+- **Downside offsets**:
+- **Upside caveats**:
+- **Overall judgment**:
+
+## 5. Global Investor Framework Cross-Check
+- **Sequoia lens**:
+- **YC lens**:
+- **a16z/Bessemer metrics lens**:
+- **Marketplace/platform lens**:
+
+## 6. Market / Competitor Research
+- **Market definition**:
+- **Domestic competitors**:
+- **Global competitors**:
+- **Competitive advantages / disadvantages**:
+- **Founder claims vs externally verified facts**:
+  | Item | Founder claim | Externally verified fact | Status | Source |
+  |---|---|---|---|---|
+
+## 7. Comparable Cases and Valuation Readiness
+- **Comparable candidates**:
+- **Available multiples / benchmarks**:
+- **Valuation readiness**:
+- **Missing inputs before valuation**:
+
+## 8. VCS Investor / Fund Search Guide
+- **Investor search**: https://www.vcs.go.kr/web/portal/investor/list
+- **Fund search**: https://www.vcs.go.kr/web/portal/rsh/list
+- **Suggested filters**:
+- **Sample candidates if verified**:
+- **Caveat**: These are public-information-based outreach examples, not recommendations or confirmed fit.
+
+## 9. Deep Dive
+### Strengths
+- ...
+
+### Red Flags and Weaknesses
+- ...
+
+## 10. Investment Review Checklist
+- **Numbers to verify**:
+- **Documents to request**:
+- **Pass conditions**:
+
+## 11. Public Mentoring Advice
+- **Pressure questions**:
+  1. ...
+  2. ...
+  3. ...
+- **How to pitch from profitability / impact / technology / GTM angles**:
+- **Next actions before the next IR**:
+
+> This report is a mentoring and preparation aid, not investment advice or an investment decision.
+```
+
+## Review Framework
+
+Assess through five lenses:
+
+1. **Team**: founder-problem fit, domain expertise, execution history, resilience, hiring ability, customer-contact discipline
+2. **Market**: urgent problem, clear buyer, market size, growth, willingness to pay, timing, competition, expansion path
+3. **Moat**: technology, data, distribution, workflow lock-in, network effects, regulatory position, cost advantage
+4. **Scale/Exit**: repeatable revenue, margins, retention, sales motion, operating leverage, exit comparability
+5. **Strategy/TIPS**: public-support fit, TIPS/LIPS projectability, strategic rationale, impact/ESG relevance, proof requirements
+
+## Stage-Based Weights
+
+| Stage | Team | Market | Moat | Scale/Exit | Strategy/TIPS |
+|---|---:|---:|---:|---:|---:|
+| Pre-incorporation | 35% | 25% | 15% | 10% | 15% |
+| Under 3 years | 25% | 25% | 20% | 15% | 15% |
+| Under 5 years | 20% | 20% | 20% | 25% | 15% |
+| Under 7 years | 15% | 20% | 20% | 30% | 15% |
+| 7+ years | 10% | 15% | 20% | 40% | 15% |
+
+## Grade Bands
+
+| Weighted score | Public grade | Meaning |
+|---:|---|---|
+| 90-100 | Excellent | Strong evidence across team, market, moat, scale, and strategic rationale |
+| 75-89 | Strong | Worth deeper review, with important verification items remaining |
+| 60-74 | Moderate | Useful for mentoring or observation, but evidence must improve before investment review |
+| 45-59 | Weak | One or more core assumptions, evidence areas, or business-model elements need major repair |
+| 0-44 | Needs Work | Too many unverified assumptions or fatal risks; use primarily for coaching |
+
+## Web Research Requirements
+
+Unless the user explicitly forbids web search, perform current internet research before writing the report.
+
+If the runtime does not provide live web search or browsing tools:
+
+- Use only sources and URLs supplied by the user.
+- Mark external verification as `Not performed (no browsing tool)` or `Unverified`.
+- Convert market, valuation, and VCS sections into search guidance and verification checklists.
+
+Preferred source order:
+
+1. Official company materials
+2. Filings, DART, SEC, exchange disclosures
+3. Investor/acquirer announcements
+4. Government/public data
+5. Patent, clinical, regulatory, and certification databases
+6. Credible media
+7. Reputable investment databases
+8. Blogs or promotional sources only as support
+
+## VentureSquare-Style Interpretation
+
+Prioritize:
+
+- Real customer contact
+- Short path to paid usage
+- Simple cost structure
+- Ability to reach operating leverage
+- Evidence that the team can persist and learn
+- Clear explanation of why this team can win
+
+Penalize:
+
+- Building technology before proving demand
+- Heavy fixed-cost structures
+- Overdependence on grants, manual projects, one partner, one customer, or one platform
+- Weak founder-domain fit
+- Unclear operating-profit path
+
+Final wording should be frank but useful. The goal is to make the next investor/founder conversation sharper, not to create a verdict.
