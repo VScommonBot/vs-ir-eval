@@ -162,7 +162,7 @@ git clone https://github.com/VScommonBot/vs-ir-eval.git
 `web-app/index.php` is a single-file PHP demo app. Do not place API keys in source code. Inject them only through server environment variables.
 
 ```bash
-export OPENAI_API_KEY="<your-openai-api-key>"
+export OPENCLAW_MODEL="openai/gpt-5.4-mini"
 export OPENAI_MODEL="<your-preferred-chat-model>"
 php -S 127.0.0.1:8080 -t web-app
 ```

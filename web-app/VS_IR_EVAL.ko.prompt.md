@@ -86,9 +86,10 @@ Use these famous startup investment frameworks as cross-check lenses. Do not let
 
 1. **Sequoia pitch logic**: Check whether the deck clearly explains company purpose, customer pain, solution, why now, market potential, competition/alternatives, product, business model, team, and financial milestones.
 2. **Y Combinator early-stage filter**: Test whether the team is making something people want, launching quickly, talking to users, doing things that do not scale, and finding 10-100 customers who truly love the product.
-3. **a16z metrics discipline**: Replace vanity metrics with revenue quality, bookings, MRR/ARR, CAC, LTV, gross margin, churn, retention, burn, runway, and engagement.
-4. **a16z marketplace lens**: If the business is a marketplace/platform, evaluate GMV, take rate, fill/match rate, liquidity, repeat usage, concentration, and disintermediation risk.
-5. **Bessemer SaaS/cloud lens**: If the business is SaaS/AI SaaS/cloud, evaluate ARR/MRR quality, gross margin, CAC payback, net revenue retention, logo retention, burn multiple, and expansion revenue.
+3. **Y Combinator Requests for Startups (RFS)**: Check whether the company directly or adjacently matches a current or recent YC RFS theme. Treat this as a separate thematic relevance signal, not as investment readiness or a recommendation. Cite: Y Combinator, "Requests for Startups", https://www.ycombinator.com/rfs, checked [date].
+4. **a16z metrics discipline**: Replace vanity metrics with revenue quality, bookings, MRR/ARR, CAC, LTV, gross margin, churn, retention, burn, runway, and engagement.
+5. **a16z marketplace lens**: If the business is a marketplace/platform, evaluate GMV, take rate, fill/match rate, liquidity, repeat usage, concentration, and disintermediation risk.
+6. **Bessemer SaaS/cloud lens**: If the business is SaaS/AI SaaS/cloud, evaluate ARR/MRR quality, gross margin, CAC payback, net revenue retention, logo retention, burn multiple, and expansion revenue.
 
 ## Stage-Specific Scoring Rules
 - **Idea / Pre-seed**: Weight founder-problem fit, customer interviews, MVP speed, 10-100 early fans, and a sharp wedge.
@@ -251,33 +252,40 @@ Strictly output the following Markdown structure. Replace `{S1}` to `{S5}` with 
 - (Point 2: Detailed and nuanced)
 - (Point 3: Detailed and nuanced)
 
-## 10. 📊 투자심사 체크리스트
+## 10. 🧭 YC Requests for Startups 해당 여부
+- **RFS match**: [직접 해당 | 인접 해당 | 해당 없음 | 미확인]
+- **관련 YC RFS 주제·연도**:
+- **해당 근거**:
+- **갭 또는 불일치**:
+- **출처**: Y Combinator, "Requests for Startups", https://www.ycombinator.com/rfs, 확인일 [YYYY-MM-DD]
+
+## 11. 📊 투자심사 체크리스트
 - **바로 확인할 숫자**: (Revenue, MRR/ARR, CAC, retention, burn, runway, gross margin, or stage-appropriate metrics)
 - **바로 확인할 문서**: (Contracts, tax invoices, patent assignments, clinical/regulatory review, LOI/MOU distinction, etc.)
 - **통과 조건**: (Minimum evidence required for follow-up meeting or investment review)
 
-## 11. 🔄 비즈니스 모델 비교 및 피벗(Pivot) 조언
+## 12. 🔄 비즈니스 모델 비교 및 피벗(Pivot) 조언
 - **유사 비즈니스 모델**: (Examples)
 - **수익성 강화를 위한 BM 보완 조언**: (How to tweak the BM)
 
-## 12. 💡 투자 유치를 위한 4대 관점 어필 전략
+## 13. 💡 투자 유치를 위한 4대 관점 어필 전략
 - **💰 수익성 관점**: (Appealing to financial investors)
 - **🌍 소셜 임팩트 관점**: (ESG / Impact)
 - **⚙️ 기술적 관점**: (Tech barriers)
 - **🚀 마케팅/GTM 관점**: (Go-to-market strategy)
 
-## 13. 🔥 초기 투자 심사역/멘토가 흔히 물어보는 질문 5가지
+## 14. 🔥 초기 투자 심사역/멘토가 흔히 물어보는 질문 5가지
 1. (Question 1)
 2. (Question 2)
 3. (Question 3)
 4. (Question 4)
 5. (Question 5)
 
-## 14. 📚 관련 산업 동향 및 추천 리서치 링크
+## 15. 📚 관련 산업 동향 및 추천 리서치 링크
 - (Industry trend keyword 1): [구글 검색 보기](https://www.google.com/search?q=[URL_ENCODED_KEYWORD])
 - (Industry trend keyword 2): [구글 검색 보기](https://www.google.com/search?q=[URL_ENCODED_KEYWORD])
 
-## 15. 🧠 스타트업을 위한 공개 멘토링 Q&A (관련 레슨 3가지)
+## 16. 🧠 스타트업을 위한 공개 멘토링 Q&A (관련 레슨 3가지)
 - **Q. (스타트업이 마주한 관련 고민/상황)**
   - **A (멘토링 조언)**: (Public mentoring advice/example highly relevant to this pitch)
 - **Q. (스타트업이 마주한 관련 고민/상황)**

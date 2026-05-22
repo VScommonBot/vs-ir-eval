@@ -87,6 +87,7 @@ In the final opinion, explain either why a downside is tolerable or why an upsid
 
 - **Sequoia Capital**: purpose, problem, solution, why now, market, competition, product, business model, team, financials, milestones
 - **Y Combinator**: making something people want, early user love, launching quickly, user conversations, doing things that do not scale
+- **Y Combinator Requests for Startups (RFS)**: check whether the company directly or adjacently matches a current or recent YC RFS theme. Treat this as a separate thematic relevance signal, not as investment readiness or a recommendation. Cite the source as: Y Combinator, "Requests for Startups", https://www.ycombinator.com/rfs, checked [date].
 - **a16z**: revenue quality, CAC/LTV, gross margin, churn, retention, burn, engagement, and metric discipline
 - **a16z Marketplace**: GMV, take rate, liquidity, fill/match rate, repeat usage, and disintermediation risk
 - **Bessemer**: ARR/MRR quality, CAC payback, net revenue retention, gross margin, and burn multiple
@@ -113,6 +114,7 @@ Research priorities:
 7. For Korea-focused investor discovery, use the official VCS investor search page: https://www.vcs.go.kr/web/portal/investor/list
 8. For Korea-focused fund discovery, use the official VCS fund manager search page: https://www.vcs.go.kr/web/portal/rsh/list
 9. Treat investor/fund matches as outreach planning examples, not recommendations or confirmed fit.
+10. Check the latest/current YC Requests for Startups page and state whether the startup is a direct match, adjacent match, no clear match, or not checked. Cite the RFS source and checked date.
 
 Preferred source hierarchy:
 
@@ -164,6 +166,12 @@ Do not lead with a total score or radar chart. Output:
 ## 7. Next Actions
 - ...
 
+## 8. YC Requests for Startups Fit
+- **RFS match**: [Direct match | Adjacent match | No clear match | Not checked]
+- **Relevant YC RFS theme/year**:
+- **Why it matches or does not match**:
+- **Source**: Y Combinator, "Requests for Startups", https://www.ycombinator.com/rfs, checked [YYYY-MM-DD]
+
 > This is a mentoring aid, not investment advice or an investment decision.
 ```
 
@@ -207,6 +215,11 @@ Use this for a compact investor-style pre-review memo.
 - **Investor search**: https://www.vcs.go.kr/web/portal/investor/list
 - **Fund search**: https://www.vcs.go.kr/web/portal/rsh/list
 - **Caveat**: Candidates are outreach examples, not recommendations or confirmed investment fit.
+
+## 8. YC Requests for Startups Fit
+| Match | Relevant RFS theme/year | Evidence from startup | Gap | Source |
+|---|---|---|---|---|
+| [Direct / Adjacent / No clear match / Not checked] | ... | ... | ... | Y Combinator, Requests for Startups, https://www.ycombinator.com/rfs, checked [YYYY-MM-DD] |
 
 > This is a pre-review aid, not investment advice or an investment decision.
 ```
@@ -271,6 +284,7 @@ Output exactly this structure:
 ## 5. Global Investor Framework Cross-Check
 - **Sequoia lens**:
 - **YC lens**:
+- **YC Requests for Startups fit**: [Direct match | Adjacent match | No clear match | Not checked] - name the relevant RFS theme/year, explain the evidence and gap, and cite: Y Combinator, "Requests for Startups", https://www.ycombinator.com/rfs, checked [YYYY-MM-DD].
 - **a16z/Bessemer metrics lens**:
 - **Marketplace/platform lens**:
 

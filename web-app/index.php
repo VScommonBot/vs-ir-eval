@@ -53,17 +53,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     if ($consent !== true) {
         http_response_code(400);
-        echo json_encode(['error' => 'You must consent to sending the input to an external API for AI analysis.']);
+        echo json_encode(['error' => 'You must consent to AI analysis through the authenticated VentureSquare model gateway.']);
         exit;
     }
 
-    $api_key = getenv('OPENAI_API_KEY') ?: '';
-    if ($api_key === '') {
-        http_response_code(500);
-        echo json_encode(['error' => 'Server configuration error: OPENAI_API_KEY environment variable is required.']);
-        exit;
-    }
-    $model = getenv('OPENAI_MODEL') ?: 'gpt-4.1';
+    $model = getenv('OPENCLAW_MODEL') ?: 'openai/gpt-5.4-mini';
 
     $system_prompt = <<<PROMPT
 # VS IR Evaluation Framework
@@ -75,6 +69,7 @@ You are acting as an initial-stage startup review and mentoring analyst using a 
 4. **Scalability & Exit**
 5. **TIPS / LIPS Eligibility**
 6. **Fatal Flaws and Red Flags**
+7. **YC Requests for Startups fit**: state whether the startup is a direct match, adjacent match, no clear match, or not checked against Y Combinator's Requests for Startups page. Cite: https://www.ycombinator.com/rfs.
 
 If the applicant is a foreign founder or overseas entity, state that Korea's startup support programs TIPS and LIPS do not apply to foreigners/overseas entities and are outside the review scope. Do not score TIPS/LIPS fit in that case; keep business viability and investment-readiness review separate.
 
@@ -93,69 +88,34 @@ PROMPT;
         ? 'Output language: Korean. Use Korean headings, labels, grades, caveats, and action items.'
         : 'Output language: English. Use English headings, labels, grades, caveats, and action items.';
 
-    $data = [
-        "model" => $model,
-        "messages" => [
-            ["role" => "system", "content" => $system_prompt . "\n\n" . $runtime_note . "\n\n" . $language_note],
-            ["role" => "user", "content" => "Output mode: " . $mode . "\\nOutput language: " . $language . "\\n\\nEvaluate this pitch or idea:\\n\\n" . $idea]
-        ],
-        "temperature" => 0.2
-    ];
-
-    $ch = curl_init('https://api.openai.com/v1/chat/completions');
-    if ($ch === false) {
+    $prompt = $system_prompt . "\n\n" . $runtime_note . "\n\n" . $language_note
+        . "\n\nOutput mode: " . $mode
+        . "\nOutput language: " . $language
+        . "\n\nEvaluate this pitch or idea:\n\n" . $idea;
+    $bridge = '/Users/mupeng/.openclaw/workspace/scripts/openclaw_gateway_generate.py';
+    if (!is_file($bridge)) {
         http_response_code(500);
-        echo json_encode(['error' => 'Server configuration error: unable to initialize cURL.']);
+        echo json_encode(['error' => 'Server configuration error: model gateway bridge is missing.']);
         exit;
     }
-
-    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-    curl_setopt($ch, CURLOPT_POST, true);
-    curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 10);
-    curl_setopt($ch, CURLOPT_TIMEOUT, 90);
-    $payload = json_encode($data, JSON_UNESCAPED_UNICODE | JSON_INVALID_UTF8_SUBSTITUTE);
-    if ($payload === false) {
-        http_response_code(400);
-        echo json_encode(['error' => 'Unable to encode the input as an API request.']);
-        exit;
-    }
-    curl_setopt($ch, CURLOPT_POSTFIELDS, $payload);
-    curl_setopt($ch, CURLOPT_HTTPHEADER, [
-        'Content-Type: application/json',
-        'Authorization: Bearer ' . $api_key
-    ]);
-
-    $response = curl_exec($ch);
-    if(curl_errno($ch)){
+    $cmd = '/usr/bin/python3 ' . escapeshellarg($bridge)
+        . ' --model ' . escapeshellarg($model)
+        . ' --prompt-b64 ' . escapeshellarg(base64_encode($prompt));
+    $response = shell_exec($cmd . ' 2>&1');
+    $res_json = json_decode((string)$response, true);
+    if (!is_array($res_json)) {
         http_response_code(502);
-        echo json_encode(['error' => 'A network error occurred while calling the OpenAI API.']);
-    } else {
-        $http_status = curl_getinfo($ch, CURLINFO_HTTP_CODE);
-        $res_json = json_decode($response, true);
-        if (!is_array($res_json)) {
-            http_response_code(502);
-            echo json_encode(['error' => 'OpenAI API response was not valid JSON.']);
-            curl_close($ch);
-            exit;
-        }
-        if ($http_status < 200 || $http_status >= 300) {
-            error_log('OpenAI API error (' . $http_status . '): ' . ($res_json['error']['message'] ?? 'unknown'));
-            http_response_code(502);
-            echo json_encode(['error' => 'OpenAI API request failed. Please try again later.']);
-            curl_close($ch);
-            exit;
-        }
-        if (!isset($res_json['choices'][0]['message']['content'])) {
-            error_log('OpenAI API unexpected response: ' . substr((string)$response, 0, 500));
-            http_response_code(502);
-            echo json_encode(['error' => 'Unable to parse the OpenAI API response.']);
-            curl_close($ch);
-            exit;
-        }
-        $markdown = $res_json['choices'][0]['message']['content'] ?? '';
-        echo json_encode(['markdown' => $markdown], JSON_UNESCAPED_UNICODE);
+        echo json_encode(['error' => 'Model gateway response was not valid JSON.']);
+        exit;
     }
-    curl_close($ch);
+    if (empty($res_json['ok'])) {
+        error_log('Model gateway error: ' . ($res_json['error'] ?? 'unknown'));
+        http_response_code(502);
+        echo json_encode(['error' => 'Model gateway request failed. Please try again later.']);
+        exit;
+    }
+    $markdown = $res_json['raw'] ?? '';
+    echo json_encode(['markdown' => $markdown], JSON_UNESCAPED_UNICODE);
     exit;
 }
 ?>

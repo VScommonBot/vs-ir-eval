@@ -103,7 +103,13 @@ Use this for founder self-checks and public demos. Avoid leading with scores.
 - **Unverified items**:
 - **Search links or keywords to use next**:
 
-## 7. Next Actions
+## 7. YC Requests for Startups Fit
+- **RFS match**: [Direct match | Adjacent match | No clear match | Not checked]
+- **Relevant YC RFS theme/year**:
+- **Why it matches or does not match**:
+- **Source**: Y Combinator, "Requests for Startups", https://www.ycombinator.com/rfs, checked [YYYY-MM-DD]
+
+## 8. Next Actions
 - ...
 
 > This is a mentoring aid, not investment advice or an investment decision.
@@ -149,6 +155,11 @@ Use this for a compact investor-style pre-review memo.
 - **Investor search**: https://www.vcs.go.kr/web/portal/investor/list
 - **Fund search**: https://www.vcs.go.kr/web/portal/rsh/list
 - **Caveat**: Candidates are outreach examples, not recommendations or confirmed investment fit.
+
+## 8. YC Requests for Startups Fit
+| Match | Relevant RFS theme/year | Evidence from startup | Gap | Source |
+|---|---|---|---|---|
+| [Direct / Adjacent / No clear match / Not checked] | ... | ... | ... | Y Combinator, Requests for Startups, https://www.ycombinator.com/rfs, checked [YYYY-MM-DD] |
 
 > This is a pre-review aid, not investment advice or an investment decision.
 ```
@@ -211,6 +222,7 @@ Use this only when the user explicitly asks for a full report.
 ## 5. Global Investor Framework Cross-Check
 - **Sequoia lens**:
 - **YC lens**:
+- **YC Requests for Startups fit**: [Direct match | Adjacent match | No clear match | Not checked] - name the relevant RFS theme/year, explain the evidence and gap, and cite: Y Combinator, "Requests for Startups", https://www.ycombinator.com/rfs, checked [YYYY-MM-DD].
 - **a16z/Bessemer metrics lens**:
 - **Marketplace/platform lens**:
 

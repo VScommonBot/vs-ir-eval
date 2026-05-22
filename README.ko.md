@@ -135,6 +135,7 @@ OpenClaw 에이전트(또는 호환되는 프롬프트 환경)에 사업계획�
 
 - **Sequoia Capital**: 목적, 문제, 솔루션, 왜 지금인가, 시장, 경쟁, 제품, 비즈니스 모델, 팀, 재무/마일스톤 구조
 - **Y Combinator**: 사람들이 원하는 것을 만들고 있는지, 초기 사용자 사랑, 출시와 사용자 대화, "확장되지 않는 일"의 실행
+- **Y Combinator RFS**: 매년/시즌별 Requests for Startups 주제에 직접 해당/인접/해당 없음/미확인 중 어디에 속하는지 별도 표시. 출처: https://www.ycombinator.com/rfs
 - **a16z**: 매출 품질, CAC/LTV, gross margin, churn, retention, burn, engagement 등 지표 중심 검증
 - **a16z Marketplace**: GMV, take rate, liquidity, fill/match rate, repeat usage, disintermediation 위험
 - **Bessemer**: SaaS/cloud의 ARR/MRR 품질, CAC payback, net revenue retention, gross margin, burn multiple
@@ -166,7 +167,7 @@ git clone https://github.com/VScommonBot/vs-ir-eval.git
 `web-app/index.php`는 공개 데모용 단일 파일 PHP 웹앱입니다. API 키를 소스 코드에 직접 넣지 말고, 서버 환경변수로만 주입하세요.
 
 ```bash
-export OPENAI_API_KEY="<your-openai-api-key>"
+export OPENCLAW_MODEL="openai/gpt-5.4-mini"
 export OPENAI_MODEL="<your-preferred-chat-model>"
 php -S 127.0.0.1:8080 -t web-app
 ```

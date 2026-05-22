@@ -122,13 +122,18 @@ AI는 사업계획서를 다음 6가지 핵심 관점과 공개 가능한 벤처
    - "사람들이 원하는 것을 만들고 있는가"를 핵심으로 본다.
    - 초기에는 확장성보다 출시, 사용자 대화, 10~100명의 강한 사랑, 반복 사용, 돈을 낼 의사, founder-led sales를 우선 확인한다.
    - 성장 숫자는 PMF의 결과이지, 광고비로 만든 선행지표가 아니다.
-3. **a16z metrics discipline**
+3. **Y Combinator Requests for Startups (RFS)**
+   - YC가 매년/시즌별로 공개하는 RFS 주제에 해당하는지 별도 표시한다.
+   - 분류는 직접 해당 / 인접 해당 / 해당 없음 / 미확인으로 둔다.
+   - 이는 시장 관심도 보조 신호일 뿐 투자 적합성이나 추천으로 해석하지 않는다.
+   - 출처: Y Combinator, "Requests for Startups", https://www.ycombinator.com/rfs, 확인일 YYYY-MM-DD
+4. **a16z metrics discipline**
    - 매출, 예약매출, MRR/ARR, CAC, LTV, 매출총이익률, churn, retention, burn, runway, engagement를 사업모델에 맞게 본다.
    - 앱 다운로드, MOU 수, 누적 회원 수 같은 vanity metric은 실제 활성, 유지, 유상 전환, 코호트 지표로 재해석한다.
-4. **a16z marketplace lens**
+5. **a16z marketplace lens**
    - 양면시장/플랫폼이면 GMV, take rate, fill rate/match rate, liquidity, repeat usage, 공급·수요 집중도, disintermediation 위험을 본다.
    - "거래가 실제로 성사되는가"와 "플랫폼 밖으로 이탈하지 않는가"가 핵심이다.
-5. **Bessemer SaaS/cloud lens**
+6. **Bessemer SaaS/cloud lens**
    - SaaS/AI SaaS면 ARR/MRR 품질, gross margin, CAC payback, net revenue retention, logo retention, burn multiple, expansion revenue를 본다.
    - 엔터프라이즈 SaaS는 고객 획득 비용과 도입 기간이 긴 만큼, 반복 가능한 세일즈 모션과 유지율 증거가 필요하다.
 
@@ -252,6 +257,7 @@ IR 평가 요청 시, 사용자가 명시적으로 웹 검색을 금지하지 �
 ## 4. 🧪 글로벌 투자 프레임워크 교차검증
 - **Sequoia 관점**: (목적/문제/왜 지금/시장/경쟁/비즈니스 모델 중 강점과 빈칸)
 - **YC 관점**: (진짜 고객, 초기 사랑, 출시/사용자 대화, PMF 신호)
+- **YC Requests for Startups 해당 여부**: [직접 해당 | 인접 해당 | 해당 없음 | 미확인] - 관련 RFS 주제·연도, 해당 근거, 갭을 쓰고 출처를 명기: Y Combinator, "Requests for Startups", https://www.ycombinator.com/rfs, 확인일 [YYYY-MM-DD].
 - **a16z/Bessemer 지표 관점**: (사업모델별 핵심 숫자, vanity metric 제거, unit economics)
 - **플랫폼/마켓플레이스 관점**: (해당 시 liquidity, take rate, repeat, 이탈 위험. 해당 없으면 생략 가능)
 
@@ -327,6 +333,7 @@ IR 평가 요청 시, 사용자가 명시적으로 웹 검색을 금지하지 �
 - Sequoia Capital, "Writing a Business Plan": https://sequoiacap.com/article/writing-a-business-plan/
 - Y Combinator, "YC's Essential Startup Advice": https://www.ycombinator.com/blog/ycs-essential-startup-advice/
 - Y Combinator, "How Not to Fail": https://www.ycombinator.com/blog/how-not-to-fail/
+- Y Combinator, "Requests for Startups": https://www.ycombinator.com/rfs
 - Andreessen Horowitz, "16 Startup Metrics": https://a16z.com/16-startup-metrics/
 - Andreessen Horowitz, "The Marketplace Glossary": https://a16z.com/the-marketplace-glossary/
 - Bessemer Venture Partners, "10 Laws of Cloud": https://www.bvp.com/atlas/10-laws-of-cloud

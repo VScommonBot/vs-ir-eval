@@ -87,6 +87,7 @@ In the final opinion, explain either why a downside is tolerable or why an upsid
 
 - **Sequoia Capital**: purpose, problem, solution, why now, market, competition, product, business model, team, financials, milestones
 - **Y Combinator**: making something people want, early user love, launching quickly, user conversations, doing things that do not scale
+- **Y Combinator Requests for Startups (RFS)**: check whether the company directly or adjacently matches a current or recent YC RFS theme. Treat this as a separate thematic relevance signal, not as investment readiness or a recommendation. Cite the source as: Y Combinator, "Requests for Startups", https://www.ycombinator.com/rfs, checked [date].
 - **a16z**: revenue quality, CAC/LTV, gross margin, churn, retention, burn, engagement, and metric discipline
 - **a16z Marketplace**: GMV, take rate, liquidity, fill/match rate, repeat usage, and disintermediation risk
 - **Bessemer**: ARR/MRR quality, CAC payback, net revenue retention, gross margin, and burn multiple
@@ -271,6 +272,7 @@ Output exactly this structure:
 ## 5. Global Investor Framework Cross-Check
 - **Sequoia lens**:
 - **YC lens**:
+- **YC Requests for Startups fit**: [Direct match | Adjacent match | No clear match | Not checked] - name the relevant RFS theme/year, explain the evidence and gap, and cite: Y Combinator, "Requests for Startups", https://www.ycombinator.com/rfs, checked [YYYY-MM-DD].
 - **a16z/Bessemer metrics lens**:
 - **Marketplace/platform lens**:
 
