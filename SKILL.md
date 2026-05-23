@@ -11,6 +11,16 @@ Use this skill to evaluate startup IR decks, pitch materials, product summaries,
 
 This public version must not include confidential VentureSquare investment committee criteria, internal documents, private deal information, or official investment decision logic.
 
+## Public / Internal Boundary
+
+When a requested feature, output section, automation, or workflow could affect both public founder-facing use and VentureSquare internal review, ask the requester to classify it before implementing or enabling it:
+
+> Should this belong to the public skill, the internal VentureSquare skill, or both?
+
+Default to **public only** for founder coaching, public demos, and externally shareable materials. Default to **internal only** for DB lookup, Drive upload, Gmail replies, Google Chat feedback capture, investment committee workflow, internal scoring gates, private relationship history, or any side effect outside the local report draft.
+
+The public skill may describe recommended next steps, but it must not perform or trigger side effects such as database writes, Drive uploads, email replies, Google Chat/Telegram posts, n8n workflow mutations, or internal report delivery. Route those actions through the internal skill or an explicitly approved internal automation.
+
 ## Language Support
 
 The repository keeps English and Korean public versions side by side. Use the user's requested language when specified. If no language is specified, respond in the language of the user's input.

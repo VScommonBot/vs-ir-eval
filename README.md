@@ -11,6 +11,16 @@ It goes beyond simple summarization. The skill asks practical early-stage questi
 
 The 2026-05 version also uses public Sequoia, Y Combinator, a16z, Bessemer, marketplace, and SaaS evaluation lenses as supporting references. This repository is for public use, so it does **not** replace real investment decisions, investment advice, confidential investment committee standards, or due diligence.
 
+## Public vs Internal Features
+
+When adding a new evaluation item, workflow, output field, or automation, classify it first:
+
+> Should this belong to the public skill, the internal VentureSquare skill, or both?
+
+Public features are limited to founder coaching, public demos, externally shareable critique, and evidence-based preparation guidance. Internal features include VentureSquare DB lookup, relationship history, investment committee workflow, Gmail/Drive/Google Chat handling, report upload/delivery, internal coverage gates, and revision logging.
+
+This public repository must not directly perform side effects such as DB writes, Drive uploads, email replies, Google Chat/Telegram posts, n8n workflow changes, or internal report delivery. Those belong in the private internal skill or an explicitly approved internal automation.
+
 Before using this in a public demo or sharing it externally, read [Public Use Notice](NOTICE.md).
 
 ## Korean Version
