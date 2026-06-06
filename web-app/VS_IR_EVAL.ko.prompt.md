@@ -21,6 +21,19 @@ Analyze the provided business plan through these core lenses:
 5. **TIPS / LIPS Eligibility**: R&D tech (TIPS) or Lifestyle/Local innovation (LIPS)?
 6. **Fatal Flaws**: Do they know the real customer? Any uncontrollable regulations?
 
+## Do Gap / Radical Empathy Lens
+David Kim의 Do Gap / radical empathy 프레임을 증거 품질 교차검증 렌즈로 적용합니다. 출처: David Kim, *Nobody Understands by Watching: The Radical Empathy Method for Problems You Cannot See*, Field Edition, OPENSEE, 2026.
+
+이 렌즈는 투자 결정이 아니라 투자심사 준비와 멘토링을 위한 보조 기준입니다. 창업팀이 고객에게서 들은 것과, 실제 현장에서 본 것, 고객 입장에서 직접 해본 것을 구분합니다.
+
+확인 항목:
+- **Heard**: 고객 인터뷰, 설문, LOI, 창업자 주장, 말로 표현된 관심
+- **Seen**: 실제 고객 행동 관찰, 현장 PoC, 사용 로그, 반복 사용, 실제 업무 흐름 증거
+- **Done**: 창업팀이 고객 업무를 고객 조건 안에서 직접 수행하거나 살아본 증거
+- **Deployment reality**: 승인, 화면, 연동, 교육, 감시/보정, 수동 예외처리, 지원 부담, 현지 신뢰, 업무 마찰
+
+압박 질문: 팀이 고객의 일을 직접 보거나 해봤기 때문에 알게 된 것 중, 보고서·설문·IR 인터뷰만으로는 절대 알 수 없었던 사실은 무엇인가?
+
 ## Limitations and Responsible Use
 This framework is a decision-support tool for preliminary startup review, investment-screening preparation, and mentoring question generation. Do not treat AI output as an investment decision.
 
@@ -43,6 +56,8 @@ Explicitly apply these public, mentoring-oriented factors in every evaluation.
 - Short time from finished product/service to customer payment.
 - Once infrastructure is built, the company can generate operating profit through restructuring, automation, cost reduction, or unit-economics improvement.
 - The business can run through systems and repeatable processes, not only founder effort or key-person labor.
+- Strong Do Gap evidence: the team observed or lived customer workflows and can name insights no report, survey, or pitch interview could have revealed.
+- Low deployment burden: the product fits existing customer workflows without adding hidden monitoring, integration, exception-handling, or support load.
 
 ### Negative factors
 - Founder/core team lacks sufficient experience, career history, academic/professional background, industry exposure, or domain knowledge.
@@ -50,6 +65,8 @@ Explicitly apply these public, mentoring-oriented factors in every evaluation.
 - High dependency on external customers, specific partners, platforms, institutions, or government programs.
 - Business model depends on short-term service projects, government grants, or internal manual labor instead of a repeatable system.
 - Revenue may occur, but the path to operating profit is unclear.
+- The team relies on surveys, interviews, LOIs, or stated intent but lacks observed behavior, field PoC, usage logs, workflow evidence, or paid repeat usage.
+- The product demo works, but real deployment would add steps, screens, approvals, training, monitoring, or manual correction for the customer.
 
 ### Negative factors that can be offset by upside
 - The solution takes a long time and costs a lot, but the economic and social impact could be very large if it works.
@@ -113,15 +130,15 @@ Before scoring, classify the company into exactly one stage and apply different 
 
 | Stage | Team | Market | Moat | Scale/Exit | Strategy/TIPS | Core evidence |
 |---|---:|---:|---:|---:|---:|---|
-| Pre-incorporation | 35% | 25% | 15% | 10% | 15% | Founder-problem fit, customer interviews, MVP feasibility, early financing ability |
-| Under 3 years | 25% | 25% | 20% | 15% | 15% | MVP/PoC, first paid customer, repeat usage, TIPS/R&D fit |
+| Pre-incorporation | 35% | 25% | 15% | 10% | 15% | Founder-problem fit, customer interviews, customer-observation notes, founder's direct experience doing the customer's job, MVP feasibility, early financing ability |
+| Under 3 years | 25% | 25% | 20% | 15% | 15% | MVP/PoC, first paid customer, field workflow validation, repeat usage, TIPS/R&D fit |
 | Under 5 years | 20% | 20% | 20% | 25% | 15% | Revenue growth, retention, CAC, unit economics, organizational execution |
 | Under 7 years | 15% | 20% | 20% | 30% | 15% | Repeatable sales, path to operating profit, follow-on funding and exit options |
 | 7+ years | 10% | 15% | 20% | 40% | 15% | Track record, profitability, market position, IPO/M&A comparables, governance |
 
 ### Evidence requirements by age
-- **Pre-incorporation**: Founder background, problem definition, customer interviews, MVP plan, initial financing plan, why now.
-- **Under 3 years**: MVP/PoC results, paid customers or LOIs, usage logs, technical validation, regulatory/IP review.
+- **Pre-incorporation**: Founder background, problem definition, customer interviews, customer-observation notes, founder's direct experience doing the customer's job, MVP plan, initial financing plan, why now.
+- **Under 3 years**: MVP/PoC results, paid customers or LOIs, usage logs, field workflow validation, technical validation, regulatory/IP review.
 - **Under 5 years**: Revenue, repeat purchase/retention, CAC/LTV, gross margin, core team, customer references.
 - **Under 7 years**: Recurring revenue, sales pipeline, breakeven path, follow-on investment terms, M&A/IPO buyer universe.
 - **7+ years**: Audited/credible financials, operating profit or clear break-even plan, market share, listed/acquirer comparables, governance risk.

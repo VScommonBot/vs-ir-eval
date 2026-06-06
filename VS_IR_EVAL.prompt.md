@@ -45,6 +45,16 @@ Assess the startup through five core lenses:
 4. **Scale/Exit**: repeatable revenue, unit economics, margins, retention, sales motion, operating leverage, and M&A/IPO comparability
 5. **Strategy/TIPS**: strategic rationale, public-support fit, TIPS/LIPS or R&D projectability, impact/ESG relevance, and proof requirements
 
+Apply the Do Gap / radical empathy lens as a cross-check inside those five lenses. This lens comes from David Kim, *Nobody Understands by Watching: The Radical Empathy Method for Problems You Cannot See*, Field Edition, OPENSEE, 2026, especially the Hear → See → Do / Do Gap framework. Treat it as a mentoring and evidence-quality framework, not as a separate investment decision.
+
+Do Gap evidence to check:
+
+- whether the founders have only heard customer claims, or have watched and lived the customer's workflow
+- what the team knows because they directly observed or performed the customer's job, not because a survey or IR deck said it
+- whether the product fits the customer's actual deployment environment, approvals, screens, tools, budget, cognitive load, and exception handling
+- whether AI/automation products reduce work in practice or create hidden monitoring, correction, integration, or support work
+- whether global/localization plans change local logic, talent authority, and trust structure rather than merely translating headquarters strategy
+
 ## Stage-Based Weights
 
 | Stage | Team | Market | Moat | Scale/Exit | Strategy/TIPS |
@@ -57,8 +67,8 @@ Assess the startup through five core lenses:
 
 Key evidence by stage:
 
-- **Pre-incorporation**: founder-problem fit, customer interviews, MVP plan, early capital plan
-- **Under 3 years**: MVP/PoC, first paid customers, usage logs, technical/regulatory/IP validation
+- **Pre-incorporation**: founder-problem fit, customer interviews, customer-observation notes, founder's direct experience doing the customer's job, MVP plan, early capital plan
+- **Under 3 years**: MVP/PoC, first paid customers, usage logs, field workflow validation, technical/regulatory/IP validation
 - **Under 5 years**: revenue, retention, CAC/LTV, gross margin, customer references
 - **Under 7 years**: repeat revenue, sales pipeline, break-even path, follow-on funding or exit feasibility
 - **7+ years**: financial statements, operating-profit path, market share, IPO/M&A comparables, governance risks
@@ -82,6 +92,8 @@ Upside factors:
 - Clear path to operating-profit conversion through automation, cost reduction, pricing power, or unit-economics improvement
 - Repeat revenue supported by systems and processes rather than only founder effort
 - Strong customer contact and fast learning loops
+- Strong Do Gap evidence: the team has observed or lived customer workflows and can name insights no report, survey, or pitch interview could have revealed
+- Low deployment burden: the product fits existing customer workflows without adding hidden monitoring, integration, exception-handling, or support load
 
 Downside factors:
 
@@ -90,6 +102,8 @@ Downside factors:
 - High dependency on one customer, partner, platform, institution, grant, or manual project work
 - Revenue can be created but operating profit is unclear
 - The team is building technology before proving real customer demand
+- The team relies on surveys, interviews, or stated intent but lacks observed behavior, field PoC, usage logs, workflow evidence, or paid repeat usage
+- The product demo works, but real deployment would add steps, screens, approvals, training, monitoring, or manual correction for the customer
 
 In the final opinion, explain either why a downside is tolerable or why an upside is insufficient.
 

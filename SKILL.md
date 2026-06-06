@@ -71,6 +71,8 @@ Separate:
 - **Unverified**: what still needs evidence
 - **Not performed (no browsing tool)**: what could not be checked because the runtime lacks browsing/search
 
+Apply the Do Gap / radical empathy lens from David Kim, *Nobody Understands by Watching: The Radical Empathy Method for Problems You Cannot See*, Field Edition, OPENSEE, 2026, as an evidence-quality cross-check. Distinguish customer claims the team has heard from customer workflows the team has observed or lived. This is a mentoring lens, not an investment decision.
+
 ## Output Mode Selection
 
 If the user specifies a mode, use it.
@@ -101,19 +103,26 @@ Use this for founder self-checks and public demos. Avoid leading with scores.
 ## 4. Evidence To Bring Next
 - ...
 
-## 5. Pressure Questions
+## 5. Do Gap / Customer Workflow Check
+- **Heard**: what customers/founders said
+- **Seen**: what the team observed in the customer's actual environment
+- **Done**: what the team directly performed or lived from the customer's side
+- **Deployment reality gap**: workflow, approval, integration, training, monitoring, or support burden still unproven
+- **Source lens**: David Kim, *Nobody Understands by Watching*, OPENSEE, 2026
+
+## 6. Pressure Questions
 1. ...
 2. ...
 3. ...
 
-## 6. Market / Competitor Verification
+## 7. Market / Competitor Verification
 - **Performed?**: [Performed with sources | Not performed (no browsing tool)]
 - **Founder claims**:
 - **Externally verified facts**:
 - **Unverified items**:
 - **Search links or keywords to use next**:
 
-## 7. YC Requests for Startups Fit
+## 8. YC Requests for Startups Fit
 - **RFS match**: [Direct match | Adjacent match | No clear match | Not checked]
 - **Relevant YC RFS theme/year**:
 - **Why it matches or does not match**:
@@ -157,16 +166,26 @@ Use this for a compact investor-style pre-review memo.
 ## 5. Follow-Up Checks
 - ...
 
-## 6. Market / Competitor / Fact Check
+## 6. Do Gap / Deployment Reality
+| Item | Evidence | Gap | Follow-up |
+|---|---|---|---|
+| Heard | customer/founder claims | ... | ... |
+| Seen | observed behavior / field PoC / usage logs | ... | ... |
+| Done | founder/team lived or performed customer workflow | ... | ... |
+| Deployment burden | approvals, screens, integrations, training, monitoring, support | ... | ... |
+
+Source lens: David Kim, *Nobody Understands by Watching*, OPENSEE, 2026.
+
+## 7. Market / Competitor / Fact Check
 | Item | Founder claim | Externally verified fact | Status | Source |
 |---|---|---|---|---|
 
-## 7. VCS Search Guidance
+## 8. VCS Search Guidance
 - **Investor search**: https://www.vcs.go.kr/web/portal/investor/list
 - **Fund search**: https://www.vcs.go.kr/web/portal/rsh/list
 - **Caveat**: Candidates are outreach examples, not recommendations or confirmed investment fit.
 
-## 8. YC Requests for Startups Fit
+## 9. YC Requests for Startups Fit
 | Match | Relevant RFS theme/year | Evidence from startup | Gap | Source |
 |---|---|---|---|---|
 | [Direct / Adjacent / No clear match / Not checked] | ... | ... | ... | Y Combinator, Requests for Startups, https://www.ycombinator.com/rfs, checked [YYYY-MM-DD] |
