@@ -11,6 +11,8 @@ It goes beyond simple summarization. The skill asks practical early-stage questi
 
 The 2026-05 version also uses public Sequoia, Y Combinator, a16z, Bessemer, marketplace, and SaaS evaluation lenses as supporting references. This repository is for public use, so it does **not** replace real investment decisions, investment advice, confidential investment committee standards, or due diligence.
 
+The 2026-06 update adds David Kim's Do Gap / radical empathy lens from *Nobody Understands by Watching: The Radical Empathy Method for Problems You Cannot See* (Field Edition, OPENSEE, 2026). This is used as a public mentoring and evidence-quality cross-check: did the team only hear customer claims, or has it seen and lived the customer's workflow?
+
 ## Public vs Internal Features
 
 When adding a new evaluation item, workflow, output field, or automation, classify it first:
@@ -57,6 +59,21 @@ This skill is a mentoring and preparation aid. Do not outsource investment judgm
 - Numeric scores are secondary ordering aids. Public-facing judgment should use grade bands and traceable evidence.
 - Founder claims and externally verified facts must be separated.
 - If live browsing is unavailable, the output must mark external verification as `Not performed (no browsing tool)` or `Unverified`.
+
+## Do Gap / Radical Empathy Lens
+
+Use this lens in investment screening and mentoring to separate customer talk from customer understanding.
+
+- **Heard**: customer interviews, surveys, LOIs, founder claims, and verbal interest.
+- **Seen**: observed customer behavior, field PoC, usage logs, repeated usage, and workflow evidence.
+- **Done**: founder or team directly performed or lived the customer's job under the customer's constraints.
+- **Deployment reality**: approvals, screens, integrations, training, monitoring, exception handling, support load, local trust, and workflow friction.
+
+Pressure question:
+
+> What does the team know only because it observed or did the customer's work, that no report, survey, or pitch interview could have revealed?
+
+This lens is not a separate investment decision. It is a way to test evidence quality, especially for AI, automation, healthcare, logistics, finance, education, public-sector DX, global expansion, and localization cases.
 
 ## Output Format
 
@@ -115,8 +132,8 @@ The public web app defaults to Coaching mode because founders can misread score-
 
 Key evidence by stage:
 
-- **Pre-incorporation**: founder-problem fit, customer interviews, MVP plan, initial funding plan
-- **Under 3 years**: MVP/PoC, first paid customers, usage logs, technical/regulatory/IP validation
+- **Pre-incorporation**: founder-problem fit, customer interviews, customer-observation notes, founder's direct experience doing the customer's job, MVP plan, initial funding plan
+- **Under 3 years**: MVP/PoC, first paid customers, usage logs, field workflow validation, technical/regulatory/IP validation
 - **Under 5 years**: revenue, retention, CAC/LTV, gross margin, customer references
 - **Under 7 years**: repeat revenue, sales pipeline, break-even path, follow-on funding or exit feasibility
 - **7+ years**: financial statements, operating-profit path, market share, IPO/M&A comparables, governance risks
@@ -129,6 +146,8 @@ Upside factors:
 - Short path from product completion to paid customer usage
 - Potential for operating-profit conversion through automation, cost reduction, or unit-economics improvement
 - Repeatable revenue supported by systems and process, not only founder heroics
+- Strong Do Gap evidence: the team has observed or lived customer workflows and can name insights no report, survey, or pitch interview could have revealed
+- Low deployment burden: the product fits existing customer workflows without adding hidden monitoring, integration, exception-handling, or support load
 
 Downside factors:
 
@@ -136,6 +155,8 @@ Downside factors:
 - Heavy cost structure that may remain unprofitable even after multiple funding rounds
 - High dependency on one customer, partner, platform, institution, grant, or manual project work
 - Revenue may exist, but the path to operating profit is unclear
+- The team relies on surveys, interviews, LOIs, or stated intent but lacks observed behavior, field PoC, usage logs, workflow evidence, or paid repeat usage
+- The product demo works, but real deployment would add steps, screens, approvals, training, monitoring, or manual correction for the customer
 
 The final opinion should explain either why a downside is tolerable or why an upside is still insufficient.
 
