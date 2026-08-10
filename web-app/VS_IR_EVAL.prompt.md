@@ -116,6 +116,12 @@ In the final opinion, explain either why a downside is tolerable or why an upsid
 - **a16z Marketplace**: GMV, take rate, liquidity, fill/match rate, repeat usage, and disintermediation risk
 - **Bessemer**: ARR/MRR quality, CAC payback, net revenue retention, gross margin, and burn multiple
 
+## Nemotron-Personas-Korea Customer Acceptance Simulation (Optional)
+
+Use [Nemotron-Personas-Korea](https://huggingface.co/datasets/nvidia/Nemotron-Personas-Korea) only when product, target, price, and substitutes are sufficiently specified. Filter needed segments remotely with `hf datasets sql` or DuckDB and evaluate a bounded sample with a fixed prompt.
+
+Record segment definition, sample size, dataset revision, prompt version, and execution date. Report acceptance direction, top objections, price resistance, substitute behavior, synthetic responses labeled as such, and real-world validation questions. Never present synthetic responses as real quotes, demand forecasts, or investment evidence. Start with cloud queries and move to a revision-pinned local snapshot only when repeated volume justifies it. Preserve CC BY 4.0 and NVIDIA attribution.
+
 ## Mandatory Web Research
 
 Unless the user explicitly forbids web search, perform current internet research before writing the report.

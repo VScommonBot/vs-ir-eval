@@ -330,6 +330,14 @@ Assess through five lenses:
 | 45-59 | Weak | One or more core assumptions, evidence areas, or business-model elements need major repair |
 | 0-44 | Needs Work | Too many unverified assumptions or fatal risks; use primarily for coaching |
 
+## Nemotron-Personas-Korea Customer Acceptance Simulation (Optional)
+
+Optionally use NVIDIA's [Nemotron-Personas-Korea](https://huggingface.co/datasets/nvidia/Nemotron-Personas-Korea) synthetic Korean persona dataset to generate customer-acceptance hypotheses. It is public CC BY 4.0 synthetic data, not a record of real customers or individuals.
+
+Use `hf datasets sql` or DuckDB to filter only the needed segments from Hugging Face Parquet, then evaluate a bounded sample with a fixed prompt. Record the dataset URL, revision, segment definition, sample size, prompt version, and execution date. Report acceptance direction, top objections, price resistance, substitute behavior, synthetic responses clearly labeled as such, and questions for real interviews or PoCs.
+
+Never present synthetic responses as real quotes, demand forecasts, or investment evidence. Start with remote cloud queries and move to a revision-pinned local snapshot only when repeated volume justifies it. Preserve CC BY 4.0 and NVIDIA attribution; do not mix private IR originals or personal data into public prompts.
+
 ## Web Research Requirements
 
 Unless the user explicitly forbids web search, perform current internet research before writing the report.

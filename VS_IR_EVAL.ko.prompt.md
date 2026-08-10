@@ -167,6 +167,19 @@ If the runtime does not provide live web search or browsing tools, do **not** pr
 8. **Candidate-list caveat**: Investor/fund matches are examples for outreach planning, not recommendations. Actual fit requires checking fund deployment status, investment period, individual partner interest, portfolio conflicts, and current mandate.
 9. **Source hierarchy**: Prefer official company materials, filings, DART/SEC/exchange data, investor/acquirer announcements, government/public data, patents/clinical/regulatory DBs, credible media, and reputable investment DBs. Treat blogs/promotional sources as supporting evidence only.
 
+## Nemotron-Personas-Korea 고객 수용성 시뮬레이션 (선택)
+
+제품·타깃·가격·대체재 정보가 충분하고 고객 수용성 가설이 중요한 경우에만 [Nemotron-Personas-Korea](https://huggingface.co/datasets/nvidia/Nemotron-Personas-Korea)를 사용합니다. `hf datasets sql` 또는 DuckDB로 필요한 세그먼트만 원격 필터링하고, 제한된 표본을 고정 프롬프트로 평가합니다.
+
+출력에는 세그먼트 정의, 표본 수, 데이터셋 revision, 실행일을 기록하고 다음을 별도 섹션으로 제시합니다.
+- 고객 수용성 방향: 상/중/하 + 근거
+- 주요 반론 Top 3~5
+- 가격 저항 및 대체 행동
+- `합성 페르소나의 가상 응답` 3~5개
+- 실제 인터뷰·PoC에서 확인할 검증질문
+
+합성 응답을 실제 고객 인용·시장 예측·투자 근거로 표현하지 않습니다. 초기에는 클라우드 원격 조회를 사용하고, 반복량이 높아질 때만 revision 고정 로컬 snapshot으로 전환합니다. CC BY 4.0 및 NVIDIA 출처를 표시합니다.
+
 ## Analysis Directives (Crucial!)
 - **Expand the Analysis**: Provide multiple, varied, and in-depth points for "Strengths" and "Weaknesses/Red Flags". Use diverse phrasing.
 - **Similar BM & Pivot Advice**: Identify similar existing business models and suggest specific ways to pivot or modify the BM for higher profitability and sustainability.

@@ -89,6 +89,12 @@ This lens is not a separate investment decision. It is a way to test evidence qu
 10. **Investment Review Checklist**: numbers, documents, and pass conditions to verify next
 11. **Public Mentoring Advice**: pressure questions, missing proof, and next actions for the founder
 
+## Nemotron-Personas-Korea Customer Acceptance Simulation (Optional)
+
+The public skill can optionally use NVIDIA's [Nemotron-Personas-Korea](https://huggingface.co/datasets/nvidia/Nemotron-Personas-Korea) synthetic Korean persona dataset to generate customer-acceptance hypotheses. It is public CC BY 4.0 synthetic data, not real customer research.
+
+Start with remote segment filtering through `hf datasets sql` or DuckDB. When repeated usage justifies it, switch to a revision-pinned local Parquet snapshot. Record dataset revision, segment definition, sample size, prompt version, and execution date. Report directional acceptance signals, objections, price resistance, substitute behavior, synthetic responses labeled as such, and questions for real interviews or PoCs. Do not treat the output as real customer quotes, demand forecasts, or the sole basis for investment decisions. Preserve NVIDIA attribution and do not put private IR or personal data into public prompts.
+
 ## Web Research Standard
 
 Unless the user explicitly forbids web search, the skill should perform current internet research before producing a report.
