@@ -187,6 +187,26 @@ OpenClaw 에이전트(또는 호환되는 프롬프트 환경)에 사업계획�
 - https://www.vcs.go.kr/web/portal/investor/list
 - https://www.vcs.go.kr/web/portal/rsh/list
 
+## 숫자 검증 (v1.1.0, 2026-11)
+
+판단은 기존 벤처스퀘어 프레임이 하고, 숫자는 계산 도구로 다시 확인할 수 있게 했습니다. 평가축, 업력별 가중치, 5단계 등급은 바뀌지 않았습니다.
+
+- 업력별 가중 종합점수 계산
+- LTV/CAC, CAC 회수기간, 런웨이, 번 멀티플 재계산과 IR 주장 비교
+- TAM/SAM/SOM 하향식·상향식 교차확인
+- 라운드 지분 희석과 매각대금 분배(청산우선권) 계산
+- IR 구성 누락·위험 신호, 지분·거래조건, 최근 변화 신호 점검 항목
+
+```bash
+python3 scripts/ir_calc.py metrics examples/metrics.json
+```
+
+자세한 사용법은 [계산 도구 안내](scripts/README.ko.md)를 보세요.
+
+### 출처
+
+위 점검 항목과 "숫자는 코드, 판단은 사람·AI" 구성은 Santhosh Gandhi의 [venture-capital-intelligence](https://github.com/isanthoshgandhi/venture-capital-intelligence)(MIT)를 참고해 벤처스퀘어 기준에 맞게 새로 작성했습니다. 저작권 고지와 라이선스 전문은 [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md)에 있습니다.
+
 ## 설치 (Installation)
 
 이 스킬은 OpenClaw의 `skills` 디렉토리에 복사하여 즉시 사용할 수 있습니다.

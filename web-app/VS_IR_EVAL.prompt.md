@@ -156,6 +156,17 @@ Preferred source hierarchy:
 7. Reputable investment databases
 8. Blogs and promotional sources only as supporting context
 
+## Number and Deal-Term Checks
+
+Keep the existing scoring and grade bands, and check the deck's numbers and claims once more as below. Do not fill missing inputs with guesses; mark them `Unverified`. If you cannot run the calculator, show the inputs and formulas and never imply that a tool was run.
+
+1. **Market size (TAM/SAM/SOM)**: put top-down (external market data x shares) beside bottom-up (customer count x annual revenue per customer) with source, year, and region. If they differ by more than 3x, recheck the market definition and assumptions.
+2. **Unit economics and runway**: LTV = monthly revenue per customer x gross margin / monthly churn; CAC payback = CAC / (monthly revenue per customer x gross margin); runway = cash / monthly net burn; burn multiple = net burn over a period / net new ARR over the same period. When the claim and the recalculation differ, show both.
+3. **Missing deck parts**: problem, solution, why now, market, business model, traction, competition, team, financial plan, and the ask (amount, use, milestones).
+4. **Deck warning signs**: a "1% of the market" estimate with no bottom-up basis, cumulative downloads or sign-ups without revenue or retention, a competitor grid that only the company wins, steep projections without assumptions, milestones that do not match the amount raised.
+5. **Ownership and deal terms (only when provided)**: fully diluted ownership, option pool, convertible securities (convertible bonds, SAFE-type contracts), liquidation preference multiple, participation and seniority, redemption, conversion and anti-dilution clauses, consent rights, and founder vesting. Do not assert legal or tax effect under Korean law; mark it `Needs legal confirmation`. Never request real term sheets or shareholder lists in a public demo or shared environment.
+6. **Recent change signals**: hiring, funding, product, key people, market, and technology changes, each with date, source, and positive / negative / neutral direction. This is not a recommendation on investment timing.
+
 ## Output Modes
 
 ### Coaching mode
@@ -338,6 +349,8 @@ Output exactly this structure:
 ## 10. Investment Review Checklist
 - **Numbers to verify**:
 - **Documents to request**:
+- **Number recheck** (claim / recalculated / match, mismatch, or unverified):
+- **Ownership and deal terms** (only when provided):
 - **Pass conditions**:
 
 ## 11. Public Mentoring Advice

@@ -185,6 +185,26 @@ Reference links:
 - https://www.vcs.go.kr/web/portal/investor/list
 - https://www.vcs.go.kr/web/portal/rsh/list
 
+## Number Checks (v1.1.0, 2026-11)
+
+The existing VentureSquare framework still makes the judgment; numbers can now be rechecked with a calculator. Review lenses, stage weights, and grade bands are unchanged.
+
+- Stage-weighted score calculation
+- LTV/CAC, CAC payback, runway, and burn multiple recalculation against deck claims
+- Top-down and bottom-up TAM/SAM/SOM cross-check
+- Round dilution and exit waterfall (liquidation preference)
+- Checks for missing deck parts, warning signs, ownership and deal terms, and recent change signals
+
+```bash
+python3 scripts/ir_calc.py metrics examples/metrics.json
+```
+
+See the [calculator guide](scripts/README.md).
+
+### Attribution
+
+These checks and the "code for numbers, judgment for people and AI" split draw on [venture-capital-intelligence](https://github.com/isanthoshgandhi/venture-capital-intelligence) (MIT) by Santhosh Gandhi, rewritten to fit the VentureSquare framework. The copyright notice and license text are in [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md).
+
 ## Installation
 
 Copy this repository into your OpenClaw skills directory.

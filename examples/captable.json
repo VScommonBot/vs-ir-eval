@@ -1,0 +1,17 @@
+{
+  "holders": [
+    {"name": "가상 창업자 A", "class": "common", "shares": 700000},
+    {"name": "가상 창업자 B", "class": "common", "shares": 200000},
+    {"name": "기존 옵션풀", "class": "option_pool", "shares": 100000}
+  ],
+  "convertibles": [
+    {"name": "가상 시드 투자자", "principal": 200000000, "valuation_cap": 2000000000, "discount": 0.2}
+  ],
+  "round": {
+    "name": "가상 프리A 투자자",
+    "pre_money": 5000000000,
+    "investment": 1000000000,
+    "option_pool_topup_pct": 0.05
+  },
+  "exits": [800000000, 3000000000, 30000000000]
+}

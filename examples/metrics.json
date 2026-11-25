@@ -1,0 +1,11 @@
+{
+  "arpu_monthly": 100000,
+  "gross_margin": 0.7,
+  "monthly_churn": 0.03,
+  "cac": 900000,
+  "cash": 600000000,
+  "monthly_net_burn": 50000000,
+  "net_new_arr": 240000000,
+  "period_months": 12,
+  "claims": {"ltv_cac": 5.0, "runway_months": 12}
+}
