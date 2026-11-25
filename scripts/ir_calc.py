@@ -286,7 +286,14 @@ def waterfall(proceeds, holders):
 
 
 def captable(data):
-    holders, names = [], set()
+    holders, names, assumed = [], set(), []
+
+    def terms(source):
+        # 기본값으로 채운 우선권 조건은 결과에 드러냅니다.
+        missing = [k for k in ("multiple", "participating", "rank") if source.get(k) is None]
+        if missing:
+            assumed.append({"name": source.get("name"), "fields": missing})
+        return preference_terms(source)
 
     def add(entry):
         if not entry["name"] or entry["name"] in names:
@@ -302,7 +309,7 @@ def captable(data):
                  "shares": number(source, "shares", required=True)}
         if kind == "preferred":
             entry["invested"] = number(source, "invested", required=True)
-            entry.update(preference_terms(source))
+            entry.update(terms(source))
         add(entry)
     pre_shares = sum(h["shares"] for h in holders)
     if pre_shares <= 0:
@@ -327,7 +334,11 @@ def captable(data):
             conversion_price = number(source, "conversion_price")
             if conversion_price is None:
                 cap = number(source, "valuation_cap")
-                conversion_price = price * (1 - (number(source, "discount", 0, 0.99) or 0))
+                discount = number(source, "discount", 0, 0.99)
+                if not cap and discount is None:
+                    raise ValueError("전환조건이 없습니다(conversion_price, valuation_cap, discount 중 하나 필요): %s"
+                                     % source.get("name"))
+                conversion_price = price * (1 - (discount or 0))
                 if cap:
                     conversion_price = min(conversion_price, cap / pre_shares)
             if conversion_price <= 0:
@@ -335,13 +346,13 @@ def captable(data):
             shares = math.floor(principal / conversion_price)
             entry = {"name": source.get("name"), "class": "preferred", "shares": shares,
                      "invested": principal}
-            entry.update(preference_terms(source))
+            entry.update(terms(source))
             add(entry)
             conversions.append({"name": entry["name"], "conversion_price": round(conversion_price, 2),
                                 "shares": shares})
         entry = {"name": deal.get("name"), "class": "preferred",
                  "shares": math.floor(investment / price), "invested": investment}
-        entry.update(preference_terms(deal))
+        entry.update(terms(deal))
         add(entry)
         if pool_pct:
             base = sum(h["shares"] for h in holders)
@@ -379,7 +390,9 @@ def captable(data):
         "round": round_info,
         "ownership": ownership,
         "exits": exits,
+        "assumed_terms": assumed,
         "assumptions": [
+            "assumed_terms 에 표시한 우선권 조건은 입력이 없어 1배·비참가·순위 1로 가정",
             "라운드 단가 = 프리머니 / 라운드 직전 완전희석 주식수(전환 전 증권 제외)",
             "전환가 = conversion_price 입력값, 없으면 min(캡/직전 주식수, 단가×(1-할인율))",
             "추가 옵션풀은 라운드 후 지분 기준이며 모든 주주를 희석",

@@ -122,6 +122,25 @@ class WaterfallTest(unittest.TestCase):
         with self.assertRaises(ValueError):
             ir_calc.waterfall(2000, no_shares)
 
+    def convertible_case(self, **terms):
+        return {"holders": [{"name": "C", "class": "common", "shares": 100}],
+                "convertibles": [dict({"name": "S", "principal": 1000}, **terms)],
+                "round": {"name": "R", "pre_money": 1000, "investment": 100}}
+
+    def test_convertible_without_terms_is_rejected(self):
+        # 전환조건이 없는데 라운드 단가로 전환했다고 가정하지 않습니다.
+        for terms in ({}, {"valuation_cap": 0}):
+            with self.assertRaises(ValueError):
+                ir_calc.captable(self.convertible_case(**terms))
+        result = ir_calc.captable(self.convertible_case(discount=0))
+        self.assertEqual(result["round"]["conversions"][0]["shares"], 100)
+
+    def test_defaulted_preference_terms_are_reported(self):
+        result = ir_calc.captable(self.convertible_case(discount=0, multiple=1))
+        self.assertEqual(result["assumed_terms"], [
+            {"name": "S", "fields": ["participating", "rank"]},
+            {"name": "R", "fields": ["multiple", "participating", "rank"]}])
+
     def test_all_proceeds_are_distributed(self):
         with open(os.path.join(ROOT, "examples", "captable.json"), encoding="utf-8") as handle:
             result = ir_calc.captable(json.load(handle))

@@ -38,7 +38,8 @@ python3 scripts/ir_calc.py captable examples/captable.json
 ## captable: 지분 희석과 매각대금 분배
 
 - `holders`: `name`, `class`(`common`, `preferred`, `option_pool`), `shares`. 우선주는 `invested`, `multiple`(청산우선 배수), `participating`(참가 여부), `rank`(1이 최선순위)
-- `convertibles`: `name`, `principal`, 그리고 `conversion_price` 또는 `valuation_cap`·`discount`
+- `convertibles`: `name`, `principal`, 그리고 `conversion_price` 또는 `valuation_cap`·`discount`. 전환조건이 하나도 없으면 계산하지 않고 입력 오류를 냅니다(라운드 단가 전환은 `discount: 0`을 직접 입력).
+- 우선권 조건(`multiple`, `participating`, `rank`)이 없으면 1배·비참가·순위 1로 가정하고 결과의 `assumed_terms`에 표시합니다. 계약서로 확인하세요.
 - `round`: `name`, `pre_money`, `investment`, `option_pool_topup_pct`(0~0.5), 우선권 조건
 - `exits`: 분배 대상 금액 목록
 

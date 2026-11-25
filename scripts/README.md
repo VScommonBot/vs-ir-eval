@@ -38,7 +38,8 @@ Exit code 0 means success and 2 means an input error. All values in `examples/` 
 ## captable
 
 - `holders`: `name`, `class` (`common`, `preferred`, `option_pool`), `shares`; preferred also takes `invested`, `multiple`, `participating`, `rank` (1 is most senior)
-- `convertibles`: `name`, `principal`, and `conversion_price` or `valuation_cap` / `discount`
+- `convertibles`: `name`, `principal`, and `conversion_price` or `valuation_cap` / `discount`. With no conversion term at all, the tool returns an input error (pass `discount: 0` to convert at the round price).
+- Missing preference terms (`multiple`, `participating`, `rank`) are assumed to be 1x, non-participating, rank 1 and listed under `assumed_terms`. Check them against the contracts.
 - `round`: `name`, `pre_money`, `investment`, `option_pool_topup_pct` (0-0.5), preference terms
 - `exits`: list of distributable amounts
 
