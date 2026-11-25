@@ -226,8 +226,11 @@ git clone https://github.com/VScommonBot/vs-ir-eval.git
 ```bash
 export OPENCLAW_MODEL="openai/gpt-5.4-mini"
 export OPENAI_MODEL="<your-preferred-chat-model>"
+export OPENCLAW_BRIDGE="/path/to/openclaw_gateway_generate.py"
 php -S 127.0.0.1:8080 -t web-app
 ```
+
+`OPENCLAW_BRIDGE`(필수)는 모델 게이트웨이를 호출하는 브리지 스크립트의 파일 경로입니다. 이 스크립트는 저장소에 포함되어 있지 않으며, `--model`과 `--prompt-b64`를 받아 `ok`, `raw`(실패 시 `error`) 항목이 있는 JSON을 출력해야 합니다. 변수가 없거나 파일이 없으면 웹앱은 설정 오류(HTTP 500)를 반환합니다. PHP-FPM이나 Apache에서는 셸의 `export` 값이 전달되지 않을 수 있으므로 서버 설정에 지정하세요.
 
 공개 배포 시 주의 사항:
 - 입력 자료는 OpenAI API로 전송되므로 사용자에게 전송 고지와 동의를 받아야 합니다.
@@ -246,3 +249,7 @@ php -S 127.0.0.1:8080 -t web-app
 - **흥할 조건**: 현재 필요한 시장, 적정 기술, 진짜 고객을 발로 뛰며 만나는 실행력, "우리 말고는 하기 어려운" 해자, 끝까지 버티는 팀.
 - **망할 조건**: 진짜 고객이 누군지 모름, 미완성 기술에 집착, 통제 불가능한 규제 도전, 역량 없는 리더.
 - **투자자 관점**: 회수 가능성, M&A/글로벌 가능성, 정부 지원(TIPS/소부장) 및 ESG 연계 명분.
+
+## 라이선스
+
+이 저장소는 [MIT License](LICENSE)를 따릅니다. 참고한 외부 자료의 고지는 [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md)에 있습니다.
