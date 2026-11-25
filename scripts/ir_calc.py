@@ -257,8 +257,7 @@ def distribute(proceeds, holders, converted):
     sharers = [h for h in holders
                if h["class"] == "common" or h["name"] in converted or h.get("participating")]
     shares = sum(h["shares"] for h in sharers)
-    if remaining > 1e-6 and not shares:
-        raise ValueError("잔여 금액을 받을 주식이 없습니다. 보통주 입력을 확인하세요")
+    # 받을 주식이 없으면 잔여는 미분배로 둡니다. 전환 비교의 가정 상태일 수 있어 최종 결과에서 확인합니다.
     if shares:
         for h in sharers:
             payout[h["name"]] += remaining * h["shares"] / shares
@@ -279,7 +278,10 @@ def waterfall(proceeds, holders):
                 converted ^= {name}
                 changed = True
         if not changed:
-            return distribute(proceeds, holders, converted), sorted(converted)
+            payout = distribute(proceeds, holders, converted)
+            if not math.isclose(sum(payout.values()), proceeds, rel_tol=1e-9, abs_tol=1e-6):
+                raise ValueError("잔여 금액을 받을 주식이 없습니다. 주식수 입력을 확인하세요")
+            return payout, sorted(converted)
     raise ValueError("전환 선택이 수렴하지 않습니다. 계약 조건을 직접 검토하세요")
 
 

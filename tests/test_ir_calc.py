@@ -107,6 +107,21 @@ class WaterfallTest(unittest.TestCase):
                         "multiple": 1, "rank": 1, "participating": False})
         self.assertEqual(self.payout(1200, entries), {"C": 0, "P": 300, "S": 900})
 
+    def test_preferred_only_holders_can_convert(self):
+        # 보통주가 없어도 전환 여부 비교 중에 멈추면 안 됩니다.
+        only = [{"name": "P", "class": "preferred", "shares": 100, "invested": 1000,
+                 "multiple": 1, "rank": 1, "participating": False}]
+        self.assertEqual(self.payout(500, only), {"P": 500})
+        self.assertEqual(self.payout(2000, only), {"P": 2000})
+        two = only + [dict(only[0], name="Q")]
+        self.assertEqual(self.payout(3000, two), {"P": 1500, "Q": 1500})
+
+    def test_undistributable_remainder_is_rejected(self):
+        no_shares = [{"name": "P", "class": "preferred", "shares": 0, "invested": 1000,
+                      "multiple": 1, "rank": 1, "participating": False}]
+        with self.assertRaises(ValueError):
+            ir_calc.waterfall(2000, no_shares)
+
     def test_all_proceeds_are_distributed(self):
         with open(os.path.join(ROOT, "examples", "captable.json"), encoding="utf-8") as handle:
             result = ir_calc.captable(json.load(handle))
