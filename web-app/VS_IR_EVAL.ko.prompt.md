@@ -173,6 +173,17 @@ If the runtime does not provide live web search or browsing tools, do **not** pr
 
 출력에는 세그먼트 정의, 표본 수, 데이터셋 revision, 실행일을 기록하고 고객 수용성 방향, 주요 반론 Top 3~5, 가격 저항, 대체 행동, `합성 페르소나의 가상 응답`, 실제 검증질문을 별도 섹션으로 제시합니다. 합성 응답을 실제 고객 인용·시장 예측·투자 근거로 표현하지 않습니다. 초기에는 클라우드 원격 조회를 사용하고 반복량이 높아질 때만 revision 고정 로컬 snapshot으로 전환합니다. CC BY 4.0 및 NVIDIA 출처를 표시합니다.
 
+## 숫자 검증과 거래조건 점검
+
+점수와 등급 체계는 그대로 두고, IR의 숫자와 주장을 아래 항목으로 한 번 더 확인합니다. 입력이 없는 값은 추정해 채우지 않고 **미확인**으로 남깁니다. 계산 도구를 실행할 수 없는 환경에서는 입력값과 산식을 함께 적고, 도구를 실행한 것처럼 쓰지 않습니다.
+
+1. **시장 규모(TAM/SAM/SOM)**: 하향식(외부 시장 자료 × 비율)과 상향식(고객 수 × 연간 객단가)을 나란히 두고 출처·기준연도·지역을 적습니다. 두 값의 차이가 3배를 넘으면 시장 정의와 가정을 다시 확인합니다.
+2. **단위경제·런웨이**: LTV = 월 객단가 × 매출총이익률 ÷ 월 이탈률, CAC 회수기간 = CAC ÷ (월 객단가 × 매출총이익률), 런웨이 = 보유 현금 ÷ 월 순소진, 번 멀티플 = 기간 순소진 ÷ 같은 기간의 순증 ARR. IR 주장과 재계산 값이 다르면 둘 다 보여줍니다.
+3. **IR 구성 누락**: 문제, 솔루션, 왜 지금, 시장, 비즈니스 모델, 트랙션, 경쟁, 팀, 재무계획, 투자 요청(금액·용도·마일스톤) 중 빠진 항목을 적습니다.
+4. **IR 위험 신호**: 상향식 근거 없는 "시장의 1%" 추정, 매출·유지율 없이 누적 다운로드나 가입자만 제시, 자사만 우위인 경쟁 비교표, 가정이 없는 급성장 재무추정, 요청 금액과 맞지 않는 마일스톤.
+5. **지분·거래조건(자료가 있을 때만)**: 완전희석 지분, 옵션풀, 전환 가능 증권(전환사채, 조건부지분인수계약 등), 우선주의 청산우선 배수·참가 여부·순위, 상환·전환·희석방지 조항, 동의권, 창업자 베스팅을 확인합니다. 국내 법령상 효력과 세무는 단정하지 않고 **법률 확인 필요**로 표시합니다. 공개 데모나 공유 환경에서는 실제 투자조건표와 주주명부를 요청하지 않습니다.
+6. **최근 변화 신호**: 채용, 투자, 제품, 핵심 인력, 시장, 기술의 변화를 날짜·출처와 함께 긍정/부정/중립으로 정리합니다. 투자 시점 추천으로 해석하지 않습니다.
+
 ## Analysis Directives (Crucial!)
 - **Expand the Analysis**: Provide multiple, varied, and in-depth points for "Strengths" and "Weaknesses/Red Flags". Use diverse phrasing.
 - **Similar BM & Pivot Advice**: Identify similar existing business models and suggest specific ways to pivot or modify the BM for higher profitability and sustainability.
@@ -295,6 +306,8 @@ Strictly output the following Markdown structure. Replace `{S1}` to `{S5}` with 
 ## 11. 📊 투자심사 체크리스트
 - **바로 확인할 숫자**: (Revenue, MRR/ARR, CAC, retention, burn, runway, gross margin, or stage-appropriate metrics)
 - **바로 확인할 문서**: (Contracts, tax invoices, patent assignments, clinical/regulatory review, LOI/MOU distinction, etc.)
+- **숫자 재검산**: (TAM/SAM/SOM, LTV/CAC, 회수기간, 런웨이 등: IR 주장 / 재계산 / 일치·불일치·미확인)
+- **지분·거래조건 확인**: (자료가 있을 때만. 없으면 미확인)
 - **통과 조건**: (Minimum evidence required for follow-up meeting or investment review)
 
 ## 12. 🔄 비즈니스 모델 비교 및 피벗(Pivot) 조언

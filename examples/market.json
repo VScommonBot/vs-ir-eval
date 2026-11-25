@@ -1,0 +1,17 @@
+{
+  "currency": "KRW",
+  "top_down": {
+    "total_market": 500000000000,
+    "serviceable_share": 0.2,
+    "obtainable_share": 0.05,
+    "source": "가상의 예시 자료",
+    "source_year": 2025
+  },
+  "bottom_up": {
+    "total_customers": 100000,
+    "serviceable_customers": 20000,
+    "obtainable_customers": 1000,
+    "annual_revenue_per_customer": 1200000
+  },
+  "claims": {"tam": 500000000000, "som": 5000000000}
+}
