@@ -221,8 +221,11 @@ git clone https://github.com/VScommonBot/vs-ir-eval.git
 ```bash
 export OPENCLAW_MODEL="openai/gpt-5.4-mini"
 export OPENAI_MODEL="<your-preferred-chat-model>"
+export OPENCLAW_BRIDGE="/path/to/openclaw_gateway_generate.py"
 php -S 127.0.0.1:8080 -t web-app
 ```
+
+`OPENCLAW_BRIDGE` (required) is the file path of the bridge script that calls the model gateway. The script is not included in this repository. It must accept `--model` and `--prompt-b64` and print JSON with `ok` and `raw` (`error` on failure). If the variable is unset or the file does not exist, the web app returns a configuration error (HTTP 500). PHP-FPM and Apache may not pass shell `export` values through, so set it in the server configuration there.
 
 Public deployment checklist:
 
@@ -242,3 +245,7 @@ This framework reflects a public VentureSquare-style mentoring view:
 - **Conditions for growth**: a timely market, appropriate technology, founders who meet real customers, a defensible reason why this team can win, and a team that can persist.
 - **Conditions for failure**: unclear customer definition, obsession with unfinished technology, uncontrollable regulatory risk, weak leadership, and no path to paid usage or operating leverage.
 - **Investor lens**: exit feasibility, M&A/global potential, public-support fit such as TIPS/LIPS, and evidence quality.
+
+## License
+
+This repository is released under the [MIT License](LICENSE). Notices for referenced third-party work are in [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md).

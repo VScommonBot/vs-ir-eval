@@ -92,10 +92,16 @@ PROMPT;
         . "\n\nOutput mode: " . $mode
         . "\nOutput language: " . $language
         . "\n\nEvaluate this pitch or idea:\n\n" . $idea;
-    $bridge = '/Users/mupeng/.openclaw/workspace/scripts/openclaw_gateway_generate.py';
+    // The bridge location comes only from server configuration; there is no default path.
+    $bridge = (string)getenv('OPENCLAW_BRIDGE');
+    if ($bridge === '') {
+        http_response_code(500);
+        echo json_encode(['error' => 'Server configuration error: OPENCLAW_BRIDGE is not set.']);
+        exit;
+    }
     if (!is_file($bridge)) {
         http_response_code(500);
-        echo json_encode(['error' => 'Server configuration error: model gateway bridge is missing.']);
+        echo json_encode(['error' => 'Server configuration error: OPENCLAW_BRIDGE does not point to an existing file.']);
         exit;
     }
     $cmd = '/usr/bin/python3 ' . escapeshellarg($bridge)
