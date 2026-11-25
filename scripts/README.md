@@ -47,6 +47,7 @@ Assumptions and limits:
 
 - Round price = pre-money / fully diluted shares just before the round (excluding unconverted securities). If the contract uses another basis, pass `conversion_price`.
 - Unexercised option pool receives no exit proceeds.
+- Share counts are rounded down. The leftover amount is excluded from invested capital and liquidation preference and listed under `unissued_remainder`; check the contract for the actual treatment. An amount too small for one share, or non-integer `shares`, is an input error.
 - Non-participating preferred converts holder by holder when that pays more.
 - Cumulative dividends, redemption, interest, tax, fees, anti-dilution, participation caps, and class-wide conversion are not modeled.
 - The tool does not judge the legal or tax effect of RCPS, convertible bonds, SAFE-type contracts, or other instruments under Korean law. Check the articles, contracts, and legal advice.

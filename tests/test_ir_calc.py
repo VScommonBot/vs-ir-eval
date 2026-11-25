@@ -141,6 +141,31 @@ class WaterfallTest(unittest.TestCase):
             {"name": "S", "fields": ["participating", "rank"]},
             {"name": "R", "fields": ["multiple", "participating", "rank"]}])
 
+    def round_case(self, shares, investment):
+        return {"holders": [{"name": "C", "class": "common", "shares": shares}],
+                "round": {"name": "R", "pre_money": 1000000, "investment": investment},
+                "exits": [2000000]}
+
+    def test_fraction_of_a_share_is_not_counted_as_invested(self):
+        # 1주 가격 10,000: 2주만 발행되고 남는 5,000은 우선분배 청구액이 아닙니다.
+        result = ir_calc.captable(self.round_case(100, 25000))
+        self.assertEqual(result["ownership"][1]["shares"], 2)
+        self.assertEqual(result["unissued_remainder"], [{"name": "R", "amount": 5000}])
+        self.assertEqual(result["exits"][0]["investor_multiple"]["R"],
+                         round(result["exits"][0]["payout"]["R"] / 20000, 2))
+        with self.assertRaises(ValueError):
+            ir_calc.captable(self.round_case(100, 5000))
+
+    def test_exact_share_count_has_no_float_error(self):
+        for shares in (7, 14, 15, 28, 30):
+            result = ir_calc.captable(self.round_case(shares, 1000000))
+            self.assertEqual(result["ownership"][1]["shares"], shares)
+            self.assertEqual(result["unissued_remainder"], [])
+
+    def test_fractional_holder_shares_are_rejected(self):
+        with self.assertRaises(ValueError):
+            ir_calc.captable(self.round_case(100.5, 25000))
+
     def test_all_proceeds_are_distributed(self):
         with open(os.path.join(ROOT, "examples", "captable.json"), encoding="utf-8") as handle:
             result = ir_calc.captable(json.load(handle))

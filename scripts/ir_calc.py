@@ -14,6 +14,7 @@ import argparse
 import json
 import math
 import sys
+from fractions import Fraction
 
 AXES = ("team", "market", "moat", "scale", "strategy")
 
@@ -43,6 +44,11 @@ def number(data, key, minimum=0.0, maximum=None, required=False):
     if maximum is not None and value > maximum:
         raise ValueError("%s 값은 %s 이하여야 합니다" % (key, maximum))
     return value
+
+
+def exact(value):
+    """주식수 계산에서 부동소수 오차가 나지 않도록 십진 입력을 분수로 바꿉니다."""
+    return Fraction(str(value))
 
 
 def compare(claimed, computed, tolerance):
@@ -286,7 +292,7 @@ def waterfall(proceeds, holders):
 
 
 def captable(data):
-    holders, names, assumed = [], set(), []
+    holders, names, assumed, remainders = [], set(), [], []
 
     def terms(source):
         # 기본값으로 채운 우선권 조건은 결과에 드러냅니다.
@@ -294,6 +300,17 @@ def captable(data):
         if missing:
             assumed.append({"name": source.get("name"), "fields": missing})
         return preference_terms(source)
+
+    def issue(name, amount, unit_price):
+        # 1주 미만 금액은 발행·우선분배 대상에서 빼고 따로 표시합니다.
+        shares = math.floor(exact(amount) / unit_price)
+        if shares < 1:
+            raise ValueError("금액이 1주 가격보다 작아 발행할 주식이 없습니다: %s" % name)
+        rest = exact(amount) - shares * unit_price
+        if not rest:
+            return shares, amount
+        remainders.append({"name": name, "amount": round(float(rest), 2)})
+        return shares, float(shares * unit_price)
 
     def add(entry):
         if not entry["name"] or entry["name"] in names:
@@ -307,6 +324,9 @@ def captable(data):
             raise ValueError("class 는 common, preferred, option_pool 중 하나여야 합니다")
         entry = {"name": source.get("name"), "class": kind,
                  "shares": number(source, "shares", required=True)}
+        if entry["shares"] != int(entry["shares"]):
+            raise ValueError("shares 는 정수여야 합니다: %s" % entry["name"])
+        entry["shares"] = int(entry["shares"])
         if kind == "preferred":
             entry["invested"] = number(source, "invested", required=True)
             entry.update(terms(source))
@@ -327,7 +347,7 @@ def captable(data):
         pool_pct = number(deal, "option_pool_topup_pct", 0, 0.5) or 0
         if pre_money <= 0:
             raise ValueError("pre_money 는 0보다 커야 합니다")
-        price = pre_money / pre_shares
+        price = exact(pre_money) / pre_shares
         conversions = []
         for source in convertibles:
             principal = number(source, "principal", required=True)
@@ -338,29 +358,31 @@ def captable(data):
                 if not cap and discount is None:
                     raise ValueError("전환조건이 없습니다(conversion_price, valuation_cap, discount 중 하나 필요): %s"
                                      % source.get("name"))
-                conversion_price = price * (1 - (discount or 0))
+                conversion_price = price * (1 - exact(discount or 0))
                 if cap:
-                    conversion_price = min(conversion_price, cap / pre_shares)
+                    conversion_price = min(conversion_price, exact(cap) / pre_shares)
             if conversion_price <= 0:
                 raise ValueError("전환가격은 0보다 커야 합니다")
-            shares = math.floor(principal / conversion_price)
+            conversion_price = exact(conversion_price)
+            shares, invested = issue(source.get("name"), principal, conversion_price)
             entry = {"name": source.get("name"), "class": "preferred", "shares": shares,
-                     "invested": principal}
+                     "invested": invested}
             entry.update(terms(source))
             add(entry)
-            conversions.append({"name": entry["name"], "conversion_price": round(conversion_price, 2),
+            conversions.append({"name": entry["name"], "conversion_price": round(float(conversion_price), 2),
                                 "shares": shares})
+        shares, invested = issue(deal.get("name"), investment, price)
         entry = {"name": deal.get("name"), "class": "preferred",
-                 "shares": math.floor(investment / price), "invested": investment}
+                 "shares": shares, "invested": invested}
         entry.update(terms(deal))
         add(entry)
         if pool_pct:
             base = sum(h["shares"] for h in holders)
             add({"name": "추가 옵션풀", "class": "option_pool",
-                 "shares": math.floor(base * pool_pct / (1 - pool_pct))})
+                 "shares": math.floor(base * exact(pool_pct) / (1 - exact(pool_pct)))})
         post_shares = sum(h["shares"] for h in holders)
         round_info = {
-            "price_per_share": round(price, 2),
+            "price_per_share": round(float(price), 2),
             "conversions": conversions,
             "post_shares": post_shares,
             "headline_post_money": pre_money + investment,
@@ -391,11 +413,13 @@ def captable(data):
         "ownership": ownership,
         "exits": exits,
         "assumed_terms": assumed,
+        "unissued_remainder": remainders,
         "assumptions": [
             "assumed_terms 에 표시한 우선권 조건은 입력이 없어 1배·비참가·순위 1로 가정",
             "라운드 단가 = 프리머니 / 라운드 직전 완전희석 주식수(전환 전 증권 제외)",
             "전환가 = conversion_price 입력값, 없으면 min(캡/직전 주식수, 단가×(1-할인율))",
             "추가 옵션풀은 라운드 후 지분 기준이며 모든 주주를 희석",
+            "1주 미만 금액은 투자금·우선분배에서 제외하고 unissued_remainder 에 표시(실제 단주 처리는 계약 확인)",
             "누적배당·상환·이자·세금·거래비용·희석방지·참가 상한·종류주 일괄전환은 반영하지 않음",
             "실제 분배는 정관과 투자계약서 원문, 법률 검토를 따름",
         ],
